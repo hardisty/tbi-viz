@@ -1,0 +1,3620 @@
+
+```
+
+<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>Drug-related killings in Mexico</title>
+        <style type="text/css" media="screen">
+			body{
+				background-color: #888888;
+				font-size: 100%;
+			}			
+            h1 {
+                text-align: center;
+            }
+			h2{
+				text-align: left;
+			}
+            #canvas, #canvas2 {
+				height: 60%;
+                width: 75%;
+				position: absolute;
+				left: 0;
+				top: 0;
+				z-index: 1000;
+				margin-top: 1%
+            }
+			#canvas2{
+				display: none;
+				overflow: auto;
+			}
+			#chart_txt{
+				z-index: 2000;
+				float: left; 
+				clear: both;
+				/*
+				position: absolute;
+				top: 61%;
+				height: 4%;
+				*/
+			}
+			#outerChartDIV {
+				height: 35%;
+				width: 73%;
+				position: absolute;
+				top: 65%;
+				z-index: 400;
+				overflow: auto;
+			}
+			#container {
+				float: left;
+				clear: both
+			}
+            #paper {
+                height: 100%;
+                left: 0;
+                position: absolute;
+                top: 0;
+                width: 100%;
+				z-index: 1000;
+			}
+			 #PUE,#COL,#JAL,#GTO,#QUE,#YUC,#SLP,#AGS,#TAM,#DUR,#NLE,#COA,#SIN,#CHH,#CHP,#OAX,#GRO,#TAB,#MIC,#MOR,#MEX,#CAM,#DF,#TLA,#HGO,#ZAC,#VER,#ROO,#NAY,#BCS,#BCN,#SON {
+                display: none;
+                height: auto;
+                position: absolute;
+                left: 2%;
+                top: 65%;
+                width: 45%;
+				z-index: 500;
+				opacity:0.8;
+				filter:alpha(opacity=60); /* For IE8 and earlier */
+            }
+			#PUE p,#COL p,#JAL p,#GTO p,#QUE p,#YUC p,#SLP p,#AGS p,#TAM p,#DUR p,#NLE p,#COA p,#SIN p,#CHH p,#CHP p,#OAX p,#GRO p,#TAB p,#MIC p,#MOR p,#MEX p,#CAM p,#DF p,#TLA p,#HGO p,#ZAC p,#VER p,#ROO p,#NAY p,#BCS p,#BCN p,#SON p{
+                text-align: left;
+				font-weight: bold;
+            }	
+			#dataSource_div{
+				display: none;
+			}
+			#legendContainer{
+				float: left;
+				clear: both;
+				margin: 10px;
+				background-color: #888888;
+				border: 1px solid black
+				/*
+				position: absolute;
+				width: 20%;
+				height: 100%;
+				left: 45%;
+				top: 0;
+				z-index: 2000;
+				overflow: auto;
+				*/
+			}
+			#legend{
+				clear: both;
+				float: left;
+			    /*height: 49%;*/
+                /*position: absolute;*/
+                /*left: 60%;*/
+                /*margin-top: 3%;*/
+                /*width: 25%;*/
+				z-index: 2000;
+				visibility: hidden;
+			}	
+			#legend_0, #legend_1, #legend_2, #legend_3{
+				display: none;				
+			}
+			#legend_0 table, #legend_2 table{
+				border-collapse: collapse;
+			}
+			#legend_0 table td.clickable, #legend_0_tr1, #legend_0_tr2, #legend_0_tr3, #legend_0_tr4, #legend_0_tr5, #legend_0_tr6, #legend_0_var0{
+				border-left: solid 2px black;
+			}
+			#legend_0_td3, #legend_0_td6, #legend_0_td9, #legend_0_td12, #legend_0_td15, #legend_0_td18, #legend_0_var0{
+				border-right: solid 2px black
+			}
+			#legend_0_tr1, #legend_0_td1, #legend_0_td2, #legend_0_td3, #legend_0_td7, #legend_0_td8, #legend_0_td9, #legend_0_td13, #legend_0_td14, #legend_0_td15, #legend_0_var0{
+				border-top: solid 2px black 
+			}
+			#legend_0_tr2, #legend_0_tr4, #legend_0_tr6, #legend_0_td4, #legend_0_td5, #legend_0_td6, #legend_0_td10, #legend_0_td11, #legend_0_td12, #legend_0_td16, #legend_0_td17, #legend_0_td18, #legend_0_var0{
+				border-bottom: solid 2px black 
+			}	
+			#compareForm, #changeForm{
+			   /*height: auto;*/
+				float: left;
+				clear: both;
+			   /*margin-top: 4%;*/
+               /*position: absolute;*/
+               /*left: 60%;*/
+               /*width: 25%;*/
+			   /*z-index: 2000;*/
+				display: none;
+			}
+			#optionsContainer{
+				background-color: #FFFFFF;
+				width: 25%;
+				height: 100%;
+				top: 0;
+				left: 75%;
+				right: 0;
+				position: absolute;
+				z-index: 1500;
+				overflow: auto;
+			}	
+			/*
+			#div_notes{
+				float: left;
+				clear: both;
+				height: 40%;
+				width: 25%;
+				position: absolute;
+				top: 60%;
+				left: 75%;
+			}
+			*/
+			#mapControls{
+				float: left;
+				clear: both;
+				top: 35%;
+			}
+			#dataFlip_div, #dataTypeDD_div{
+				visibility: visible;
+			},
+			#cb_resetAxisDIV{
+				visibility: hidden;
+			}
+			#legend table td.clickable{
+				cursor: pointer;
+			}
+        </style>
+		
+		<script src="Libraries/raphael/raphael.js" type="text/javascript" charset="utf-8"></script>		
+		<script type="text/javascript" src="../../../../../ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		<script type="text/javascript" src="../../../../../ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+		<script src="../../../../../code.highcharts.com/highcharts.js"></script>
+		<script src="../../../../../code.highcharts.com/modules/exporting.js"></script>
+				
+		<script type="text/javascript">		
+		
+			var myWidth;
+			var myHeight;
+			var chartWidth;
+			var chartHeight;
+			var svgWidth;
+			var svgHeight;
+			var scale = 1;
+			
+			var arr_dataYears = new Array;				
+			var lastYr = 2011;
+			var param_id_field = "ST_ID";
+			var param_stAbb_field = "AbbState";
+			var param_stName_field = "State";
+			var obj_param_pop_field = {2008:'POP_2008', 2009:'POP_2009', 2010:'POP_2010'};			
+			
+			var DAY = 86400000;
+			
+			var chart ;
+			var chart_currentState1 = 9999;
+			var chart_currentState2 = 9999;
+			var arr_chartSelPts = new Array;
+			var cur_yMax = 0;
+			var obj_chartReformaWk = new Array;
+			var obj_chartReformaMo = new Array;
+			var obj_chartReformaYr = new Array;			
+			var obj_chartGOMYr = new Object;
+			var obj_chart_yMaxWk = new Object;		//to hold max for each state
+			var obj_chart_yMaxMo = new Object;
+			var obj_chart_yMaxYr = new Object;
+			var arr_chart_yMaxWk = new Array;		//to hold global max across all states
+			var arr_chart_yMaxMo = new Array;
+			var arr_chart_yMaxYr = new Array;
+			var arr_xAxisYr = new Array;
+			
+			var obj_states = new Object;
+			var obj_mun = new Object;
+			var obj_reformaWk = new Object;
+			var obj_reformaMo = new Object;
+			var obj_reformaYr = new Object;
+			var obj_GOMYr = new Object;
+			var obj_GOMYr_mun = new Object;
+			var obj_GOMYr_mun_stdDev = new Object;
+			var obj_countOfObs = new Object;
+			var stdDev_national = new Object;
+			
+			var obj_mapValues = new Object;
+			
+			var dateSelDD1_default = 0;
+			var dateSelDD2_default = 0;
+			
+			var max_i = 0;
+			var obj_max_state = new Object;		
+			var obj_max_state_r = new Object;
+						
+			var obj_symbol0 = new Object;
+			var obj_symbol1 = new Object;
+			var obj_symbol2 = new Object;
+			var obj_legendMessage = new Object;	
+
+			var bln_displayChangeM1 = false;	
+			var bln_selChangeDisabled = false;
+									
+			var obj_circles = new Object;
+			var obj_xcentroid = new Object;
+			var obj_ycentroid = new Object;
+			var obj_svg = new Object;
+			var obj_svg_mun = new Object;
+			var obj_paths_rescaled  = new Object;
+			var R;
+			
+			var current = null;     
+			var current_mun = null;
+			var current_state = null;
+			var obj_myStrokeColor = new Object;
+			var obj_stroke = new Object;
+			var obj_strokeWidth = new Object;			
+			
+			var obj_clrScheme_divg = {
+				5: ["#7B3294","#C2A5CF","#F7F7F7","#A6DBA0","#008837"],
+				9: ["#F0E5E3","#D2ABA4","#A18B94","#EFBAAE","#DE8284","#98B1C8","#D3D6D9","#C1747A","#90536A"] /*low red, low blue; low red, medium blue; low red, high blue; high red, low blue; high red, high blue*/
+			};			
+			
+		window.onload = function () {
+			set_formDefaults();
+			find_windowSize();
+			
+			//load_data();
+			getGlobalLookupTable();
+			
+			// Make map
+			rescale_SVGPath();
+			makeBlankMap();
+		};
+		
+		function find_windowSize(){
+			if(typeof(window.innerWidth) == 'number'){ 
+				//Non-IE 
+				myWidth = window.innerWidth;
+				myHeight = window.innerHeight;
+			}else if(document.documentElement && (document.documentElement.clientWidth || document.documentElement.clientHeight)){ 
+				//IE 6+ in 'standards compliant mode' 
+				myWidth = document.documentElement.clientWidth; 
+				myHeight = document.documentElement.clientHeight; 
+			}else if(document.body && (document.body.clientWidth || document.body.clientHeight)){ 
+				//IE 4 compatible 
+				myWidth = document.body.clientWidth; 
+				myHeight = document.body.clientHeight; 
+			}
+			
+			if(myHeight > myWidth){
+				scale = myWidth/500 * 0.65;
+			}else{
+				scale = myHeight/340 * 0.55;
+			}
+			
+			//set chart width and height - container has width of 75% and height 35%
+			chartWidth = myWidth * 0.72;
+			chartHeight = myHeight * 0.30;
+			
+			//set SVG image size
+			svgWidth =  680*(myWidth/680 * 0.65);
+			svgHeight = 460*(myHeight/460 * 0.55);
+		}
+		
+					
+		function windowResized(){
+			find_windowSize();
+			rescale_SVGPath();
+			rescale_chart();
+			makeBlankMap();
+			displayMap(0);		
+		}
+		
+		function getGlobalLookupTable() {
+			// Retrieve the JSON feed(s).
+			var jqxhr = $.getJSON('https://www.google.com/fusiontables/api/query?sql=SELECT * FROM 3123498&amp;jsonCallback=?', function(data) {
+				//populate identifier object (obj_states) and data object (obj_reformaWkValues)
+				//indentifier object to contain data in json_mapDic
+				//re-organized in form {id_1:{Abb: , Name, Pop: {yr_1:,...,yr_n:}}, id_2:{Abb: , Name, Pop: {yr_1:,...,yr_n:}}, ... , id_n:{Abb: , Name, Pop: {yr_1:,...,yr_n:}}}
+				var arr_col = data['table']['cols'];
+				var arr_rows = data['table']['rows'];
+				
+				if(!Array.indexOf){
+					Array.prototype.indexOf = function(obj){
+						for(var i=0; i<this.length; i++){
+							if(this[i]==obj){
+								return i;
+							}
+						}
+					return -1;
+					}
+				}
+			
+					var colNum_id_field = arr_col.indexOf(param_id_field);
+					var colNum_stAbb_field = arr_col.indexOf(param_stAbb_field);
+					var colNum_stName_field = arr_col.indexOf(param_stName_field);
+					var obj_colNum_pop_field = new Object;
+					for(key in obj_param_pop_field){
+						obj_colNum_pop_field[key] = arr_col.indexOf(obj_param_pop_field[key]);
+					}
+				
+					for(var i=0; i<arr_rows.length; i++){
+						var row_i_values = arr_rows[i];
+					
+						//if identifier not already in object, add it
+						if(!obj_states[row_i_values[colNum_id_field]]){
+							obj_states[row_i_values[colNum_id_field]] = new Object;
+							obj_states[row_i_values[colNum_id_field]]['Pop'] = new Object;						
+						}
+				
+						for(j=0; j< row_i_values.length; j++){	
+							if(j==colNum_stAbb_field){							
+								obj_states[row_i_values[colNum_id_field]]['Abb'] = row_i_values[j];
+							}else if(j==colNum_stName_field){
+								obj_states[row_i_values[colNum_id_field]]['Name'] = row_i_values[j];
+							}else{
+								for(key in obj_colNum_pop_field){
+									if(j == obj_colNum_pop_field[key]){							
+										obj_states[row_i_values[colNum_id_field]]['Pop'][key] = row_i_values[j];
+									}
+								}
+							}
+						}
+					}
+			
+			})
+			//.success(function() { alert("second success"); })
+			.error(function() { alert("Error in retrieving data."); })
+			.complete(function() { load_data();});
+		}
+		
+		function load_data(){
+			$.getJSON('https://www.google.com/fusiontables/api/query?sql=SELECT * FROM 3415327&amp;jsonCallback=?', function(data) {
+			
+				process_reformaData(data);
+		
+			})
+			//.success(function() { alert("second success"); })
+			.error(function() { alert("Error in retrieving data."); })
+			.complete(function() { 
+				//get GOM data
+				$.getJSON('https://www.google.com/fusiontables/api/query?sql=SELECT * FROM 4275801&amp;jsonCallback=?', function(data) {
+			
+					process_GOMData(data);
+		
+				})
+				.error(function() { alert("Error in retrieving data."); })
+				.complete(function() {
+					//populate the selection drop down with data dates
+					getDataTime('dataTimeDD');
+		
+					//pull data for user selection and create the map
+					pullData();
+				
+					//create the chart
+					createChartData();
+					createChart(9999);
+					selectChartPoints();
+			
+					//create the legend
+					setLegendColor();
+						
+					//get municipal data
+					$.getJSON('https://www.google.com/fusiontables/api/query?sql=SELECT * FROM  4299205&amp;jsonCallback=?', function(data) {
+						process_munData(data);
+					})
+					.error(function(jqXHR, textStatus, errorThrown) { alert("Error in retrieving data."); });
+					//.complete(function(){});								
+					
+				});
+			});
+		}
+		
+		function pull_munData(mapDateDD1_Yr, mapDateDD2_Yr, st_num, str_dataType){
+			var obj_mapData_mun = new Object;
+			obj_mapData_mun[st_num] = new Object;
+			
+			//pull data
+				//str_dataType is 't' for total and 'r' for rate
+			var obj_cnt = new Object;
+				
+			for(mun_id in obj_GOMYr_mun[st_num]){
+				var dataVal = 0;
+				var dateFound_cnt = 0
+				obj_mapData_mun[st_num][mun_id] = new Object;
+				
+				for(var i =0; i<obj_GOMYr_mun[st_num][mun_id][str_dataType].length; i++){
+					var dataYr = new Date(obj_GOMYr_mun[st_num][mun_id][str_dataType][i][0]).getFullYear();
+					if(typeof(obj_cnt[dataYr])=='undefined'){
+						obj_cnt[dataYr] = 0;
+					}
+				
+					if(parseInt(dataYr)>=parseInt(mapDateDD1_Yr) && parseInt(dataYr)<=parseInt(mapDateDD2_Yr)){
+						if(!isNaN(obj_GOMYr_mun[st_num][mun_id][str_dataType][i][1])){
+							dataVal += obj_GOMYr_mun[st_num][mun_id][str_dataType][i][1];
+							obj_cnt[dataYr] += 1;
+							dateFound_cnt += 1;
+						}
+					}
+				}
+				if(str_dataType == 'r'){
+					obj_mapData_mun[st_num][mun_id][str_dataType] = dataVal / dateFound_cnt;
+				}else{obj_mapData_mun[st_num][mun_id][str_dataType] = dataVal;}
+			}
+		
+			//calculate standard deviation for state
+				//get state value for same time period
+			var num_yrs = 0;
+			var stateVal = 0;
+			for(var i=0; i<obj_GOMYr[st_num].length; i++){						
+				var stateYr = new Date(obj_GOMYr[st_num][i][0]).getFullYear();
+			
+				if(parseInt(stateYr)>=parseInt(mapDateDD1_Yr) && parseInt(stateYr)<=parseInt(mapDateDD2_Yr)){
+					if(!isNaN(obj_GOMYr[st_num][i][1])){
+						var yrVal = obj_GOMYr[st_num][i][1];
+					}
+					if(str_dataType=='r'){yrVal = yrVal/getStatePop(st_num,stateYr)*100000;}
+					else if(str_dataType=='t'){yrVal = yrVal / obj_cnt[stateYr];}
+					stateVal += yrVal;
+					num_yrs += 1;
+				}
+			}	
+		
+			if(str_dataType == 'r'){
+				stateAvg = stateVal / num_yrs;
+			}else{stateAvg = stateVal;}
+
+				//sum of squared difference from mean
+			var sum_sqDiff = 0;
+			var cntOf_sum_sqDiff = 0;
+			
+			for(mun_id in obj_mapData_mun[st_num]){
+				var val = obj_mapData_mun[st_num][mun_id][str_dataType];
+				
+				var sqDiff = (val - stateAvg) * (val - stateAvg);
+				sum_sqDiff += sqDiff;
+				cntOf_sum_sqDiff += 1;
+			}
+			
+				//standard deviation
+			var stdDev = Math.sqrt(sum_sqDiff / cntOf_sum_sqDiff);
+			
+			return [obj_mapData_mun, stateAvg, stdDev];
+		}
+		
+		function process_munData(data){
+			var arr_col = data['table']['cols'];
+			var arr_rows = data['table']['rows'];
+			var len_col = arr_col.length;
+			var len_row = arr_rows.length;
+			obj_GOMYr_mun = new Object;
+			obj_mun = new Object;
+			obj_countOfObs = new Object;		//global variable
+			var obj_sum_sqDiff = new Object;
+			var obj_dataTotal = new Object;
+		
+			
+			for(var j=0; j < len_row; j++){					
+				var st_num;
+				var st_num_last = st_num;
+				var mun_id;
+				var mun_name;
+				var dataType = "";
+				var dataType_last = "na";
+				var arr_row = arr_rows[j];				
+	
+				for(var i=0; i < len_col; i++){
+					if(arr_col[i] == param_id_field){
+						st_num = arr_row[i];
+						
+						if(st_num != st_num_last){
+							obj_GOMYr_mun[st_num] = new Object;
+							obj_mun[st_num] = new Object;
+						
+							obj_sum_sqDiff[st_num] = new Object;
+							obj_countOfObs[st_num] = new Object;
+						}
+						
+					}else if(arr_col[i] == "MUNICIPALITY"){
+						mun_id = arr_row[i];						
+						obj_GOMYr_mun[st_num][mun_id] = new Object;						
+						obj_mun[st_num][mun_id] = new Object;
+					}else if(arr_col[i] == "NAME"){
+						mun_name = arr_row[i];
+					}else{
+						//get type - 't' for count of killings and 'r' for rate of killings in the municipality
+						var dataType = arr_col[i].substring(0,1);				
+						if(dataType != dataType_last){obj_GOMYr_mun[st_num][mun_id][dataType] = new Array;}
+						dataType_last = dataType;
+						
+						//get year and check if year already exists in object holding sum of square difference from mean value
+						var yr = arr_col[i].substring(3);
+												
+						//get data value and municipality name
+						var dt_val = new Date(yr,"11","31");
+						obj_GOMYr_mun[st_num][mun_id][dataType].push([Date.parse(dt_val), arr_row[i]]);
+						obj_mun[st_num][mun_id]['Name'] = mun_name;
+												
+					}
+				}
+			}
+			
+			// sort the data. must be in order by date for chart to render properly
+			//for(state in obj_GOMYr_mun){
+			//	obj_GOMYr_mun[state].sort(compare);
+			//}
+
+		}
+		
+		function process_GOMData(data){
+			var arr_col = data['table']['cols'];
+			var arr_rows = data['table']['rows'];
+			var len_col = arr_col.length;
+			var len_row = arr_rows.length;
+			obj_GOMYr = new Object;
+			
+			for(var j=0; j < len_row; j++){					
+				var st_num;
+				var arr_row = arr_rows[j];
+	
+				for(var i=0; i < len_col; i++){
+					if(arr_col[i] == param_id_field){
+						st_num = arr_row[i];
+						obj_GOMYr[st_num] = new Array;
+					} else if(arr_col[i] != param_id_field){
+						var yr = arr_col[i].substring(1,5);
+						
+						var dt_val = new Date(yr,"11","31");
+						obj_GOMYr[st_num].push([Date.parse(dt_val), arr_row[i]]);
+					}
+				}
+			}
+			
+			// sort the data. must be in order by date for chart to render properly
+			for(state in obj_GOMYr){
+				obj_GOMYr[state].sort(compare);
+			}
+
+		}
+		
+		function process_reformaData(data){
+			var arr_col = data['table']['cols'];
+			var arr_rows = data['table']['rows'];
+			var len_col = arr_col.length;
+			var len_row = arr_rows.length;
+			obj_reformaWk = new Object;				
+			obj_reformaMo = new Object;
+			obj_reformaYr = new Object;
+			var bln_firstState = true;
+	
+			for(var j=0; j < len_row; j++){					
+				var mo_val = 0;
+				var yr_val = 0;
+				var last_mo = 0;
+				var last_yr = 0;
+				var daysInLastMonth = 31;
+				var daysInThisMonth = 31;
+				var bln_valAdded = false;
+				var data_index = 0;
+				var st_num;
+				var arr_row = arr_rows[j];
+	
+				for(var i=0; i < len_col; i++){
+					if(arr_col[i] == param_id_field){
+						st_num = arr_row[i];
+						obj_reformaWk[st_num] = new Array;
+						obj_reformaMo[st_num] = new Array;
+						obj_reformaYr[st_num] = new Array;
+						mo_val = 0;
+						yr_val = 0;
+						last_mo = 0;
+						last_yr = 0;
+						bln_week0 = false;
+						daysInLastMonth = 31;
+						daysInThisMonth = 31;
+						bln_valAdded = false;
+					}
+					else if(arr_col[i] != param_id_field){
+						var yr = arr_col[i].substring(1,5);
+						var wk = arr_col[i].substring(7);
+						var dayOfWeek = new Date(yr,0,1).getDay();						
+						var nthSat = 0;							
+						
+						if(yr!=last_yr){
+							var bln_week0 = false;
+						}
+						if(parseInt(wk)==1 && dayOfWeek!=6){
+							nthSat = Date.parse(new Date(yr.toString(),"0","1"));
+							bln_week0 = true;
+						}
+						else{
+							if(bln_week0){
+								nthSat = getSaturday(wk-1,yr);
+							}else{
+								nthSat = getSaturday(wk,yr);
+							}							
+						}	
+							
+						//weekly data
+						obj_reformaWk[st_num][data_index] = [nthSat,arr_row[i]];
+							
+						//monthly data - summarize from weekly
+						var dt = new Date(nthSat);
+						daysInThisMonth = getDaysInMonth(dt.getMonth(), dt.getFullYear());
+						
+						if(last_yr == 0 || (last_yr == dt.getFullYear() && last_mo == dt.getMonth() && dt.getDate()< daysInLastMonth- 3)){mo_val += arr_row[i];		
+							bln_valAdded = false;
+							
+						}
+						else if(last_yr == dt.getFullYear() && last_mo == dt.getMonth() && dt.getDate()==daysInLastMonth- 3){
+							mo_val += arr_row[i];
+							var dt_val = new Date((dt.getFullYear()).toString(),(dt.getMonth()).toString(),daysInLastMonth.toString());	
+							obj_reformaMo[st_num].push([Date.parse(dt_val), mo_val]);		//put previous month in array
+							mo_val = 0;													//first value in new month
+							bln_valAdded = true;
+						}
+						else if((last_yr == dt.getFullYear() && ((last_mo == dt.getMonth() && dt.getDate()> daysInLastMonth- 3) || (last_mo + 1 == dt.getMonth() && dt.getDate()< daysInThisMonth- 3))) ||
+								(last_mo == 11 && dt.getMonth() == 0)){
+							if(bln_valAdded){
+								mo_val += arr_row[i];									
+							}
+								
+							else{
+								var str_yr = (dt.getFullYear()).toString();
+								var str_mo = (dt.getMonth()).toString();
+								var str_days = daysInThisMonth.toString();
+								
+								if(last_mo==11 && last_mo != dt.getMonth()){
+									str_yr = (dt.getFullYear()-1).toString();										
+									str_mo = 11;
+									dy = getDaysInMonth(11,dt.getFullYear()-1);
+									str_days = dy.toString();
+								}
+																		
+								else if(last_mo != dt.getMonth()){
+									str_mo = dt.getMonth()-1;
+									dy = getDaysInMonth(dt.getMonth()-1,dt.getFullYear());
+									str_days = dy.toString();
+								}
+									
+								var dt_val = new Date(str_yr,str_mo,str_days);
+
+								obj_reformaMo[st_num].push([Date.parse(dt_val), mo_val]);
+								mo_val = arr_row[i];
+								bln_valAdded = true;
+							}
+						}
+							
+						//annual data - summarize from weekly
+						if(last_yr == 0 || last_yr == dt.getFullYear()){
+						
+							yr_val += arr_row[i];
+						
+							if(i+1 == len_col){
+								//yr_val += arr_row[i];
+								var str_yr = (dt.getFullYear()).toString();
+								if(last_mo==11 && last_mo != dt.getMonth()){str_yr = (dt.getFullYear()-1).toString();}
+								obj_reformaYr[st_num].push([Date.UTC(str_yr,11,31), yr_val]);
+								//var dt_val = new Date(str_yr,"11","31");
+								//obj_reformaYr[st_num].push([Date.parse(dt_val), yr_val]);
+							}
+						}else{		
+							var str_yr = (dt.getFullYear()).toString();
+							if(last_mo==11 && last_mo != dt.getMonth()){str_yr = (dt.getFullYear()-1).toString();}
+							obj_reformaYr[st_num].push([Date.UTC(str_yr,11,31), yr_val]);
+							//var dt_val = new Date(str_yr,"11","31");
+							//obj_reformaYr[st_num].push([Date.parse(dt_val), yr_val]);	//put previous month in array
+							yr_val = arr_row[i];									//first value in new month
+						}							
+							
+						data_index += 1;
+						if(dt.getMonth()==0){
+							daysInLastMonth = daysInThisMonth;
+						}
+						else{								
+							daysInLastMonth = getDaysInMonth(last_mo, dt.getFullYear());
+						}
+						
+						if(last_yr != 0 & last_yr != dt.getFullYear() && bln_firstState==true){arr_dataYears.push(last_yr);}
+						
+						last_mo = dt.getMonth();
+						last_yr = dt.getFullYear();
+					}
+				}
+				bln_firstState = false;
+			}
+			
+			// sort the data. must be in order by date for chart to render properly
+			for(state in obj_reformaWk){
+				obj_reformaWk[state].sort(compare);
+			}
+			for(state in obj_reformaMo){
+				obj_reformaMo[state].sort(compare);
+			}
+			for(state in obj_reformaYr){
+				obj_reformaYr[state].sort(compare);
+			}
+		}
+		
+		
+		function rescale_chart(){
+			chart.setSize(chartWidth,chartHeight);
+		}
+		
+		function createChartData(){
+			var dataType_Idx = document.getElementById("dataTypeDD").selectedIndex;
+			
+			//weekly
+			var gMax_wk = -9998;
+			var gMax_wk_r = -9998;
+			for(key in obj_reformaWk){
+				var max_wk = -9998;
+				var max_wk_r = -9998;
+				obj_chartReformaWk[key] = new Array;
+				obj_chartReformaWk[key][0] = new Array;
+				obj_chartReformaWk[key][1] = new Array;
+			
+				for(var i=0; i<obj_reformaWk[key].length; i++){	
+					var dt = new Date(obj_reformaWk[key][i][0]);
+					var yr = dt.getFullYear();
+					
+					//set data value	
+					var dataVal = obj_reformaWk[key][i][1];	
+					var dataVal_r = dataVal/getStatePop(key,yr)*100000;
+					
+					obj_chartReformaWk[key][1].push([obj_reformaWk[key][i][0],roundNumber(dataVal_r,2)]);
+					obj_chartReformaWk[key][0].push([obj_reformaWk[key][i][0],dataVal]); 
+									
+					//update max
+					if(dataVal>max_wk){
+						max_wk = dataVal;
+					}
+					if(dataVal_r>max_wk_r){
+						max_wk_r = dataVal_r;
+					}	
+					
+				}
+				obj_chart_yMaxWk[key] = [max_wk, max_wk_r];
+				if(key != 9999){						
+					if(max_wk>gMax_wk){
+						gMax_wk = max_wk;
+					}
+					if(max_wk_r>gMax_wk_r){
+						gMax_wk_r = max_wk_r;
+					}
+				}
+			}
+			arr_chart_yMaxWk = [gMax_wk, gMax_wk_r];
+				
+			//monthly
+			var gMax_mo = -9998;
+			var gMax_mo_r = -9998;
+			for(key in obj_reformaMo){
+				var max_mo = -9998;
+				var max_mo_r = -9998;
+				obj_chartReformaMo[key] = new Array;
+				obj_chartReformaMo[key][0] = new Array;
+				obj_chartReformaMo[key][1] = new Array;
+			
+				for(var i=0; i<obj_reformaMo[key].length; i++){
+					var dt = new Date(obj_reformaMo[key][i][0]);
+					var yr = dt.getFullYear();
+					var mo = dt.getMonth();
+					
+					//set data value	
+					var dataVal = obj_reformaMo[key][i][1];	
+					var dataVal_r = dataVal/getStatePop(key,yr)*100000;
+					
+					obj_chartReformaMo[key][1].push([Date.UTC(yr,mo,02),roundNumber(dataVal_r,2)]);
+					obj_chartReformaMo[key][0].push([Date.UTC(yr,mo,02),dataVal]); 
+									
+					//update max
+					if(dataVal>max_mo){
+						max_mo = dataVal;
+					}
+					if(dataVal_r>max_mo_r){
+						max_mo_r = dataVal_r;
+					}	
+				}
+				obj_chart_yMaxMo[key] = [max_mo, max_mo_r];
+				if(key != 9999){
+					if(max_mo>gMax_mo){
+						gMax_mo = max_mo;
+					}
+					if(max_mo_r>gMax_mo_r){
+						gMax_mo_r = max_mo_r;
+					}
+				}
+			}	
+			arr_chart_yMaxMo = [gMax_mo, gMax_mo_r];
+				
+			//annual
+			var gMax_yr = -9998;
+			var gMax_yr_r = -9998;
+			for(key in obj_reformaYr){
+				var max_yr = -9998;
+				var max_yr_r = -9998;
+				obj_chartReformaYr[key] = new Array;
+				obj_chartReformaYr[key][0] = new Array;
+				obj_chartReformaYr[key][1] = new Array;
+			
+				for(var i=0; i<obj_reformaYr[key].length; i++){
+					var dt = new Date(obj_reformaYr[key][i][0]);
+					var yr = dt.getFullYear();
+					
+					//set data value	
+					var dataVal = obj_reformaYr[key][i][1];	
+					var dataVal_r = dataVal/getStatePop(key,yr)*100000;
+					
+					//obj_chartReformaYr[key][1].push([Date.UTC(yr,01,02),roundNumber(dataVal_r,2)]);
+					//obj_chartReformaYr[key][0].push([Date.UTC(yr,01,02),dataVal]); 
+					
+					obj_chartReformaYr[key][1].push(roundNumber(dataVal_r,2));
+					obj_chartReformaYr[key][0].push(dataVal); 
+					arr_xAxisYr.push(yr);
+										
+					//update max
+					if(dataVal>max_yr){
+						max_yr = dataVal;
+					}
+					if(dataVal_r>max_yr_r){
+						max_yr_r = dataVal_r;
+					}								
+				}
+				obj_chart_yMaxYr[key] = [max_yr, max_yr_r];
+				if(key != 9999){
+					if(max_yr>gMax_yr){
+						gMax_yr = max_yr;
+					}
+					if(max_yr_r>gMax_yr_r){
+						gMax_yr_r = max_yr_r;
+					}
+				}
+			}	
+			//arr_chart_yMaxYr = [gMax_yr, gMax_yr_r];
+		
+			//GOM data
+			for(key in obj_GOMYr){
+				var max_yr = -9998;
+				var max_yr_r = -9998;
+				obj_chartGOMYr[key] = new Array;
+				obj_chartGOMYr[key][0] = new Array;
+				obj_chartGOMYr[key][1] = new Array;
+			
+				for(var i=0; i<obj_GOMYr[key].length; i++){
+					var dt = new Date(obj_GOMYr[key][i][0]);
+					var yr = dt.getFullYear();
+					
+					//set data value	
+					var dataVal = obj_GOMYr[key][i][1];	
+					var dataVal_r = dataVal/getStatePop(key,yr)*100000;
+					
+					//obj_chartGOMYr[key][1].push([Date.UTC(yr,01,01),roundNumber(dataVal_r,2)]);
+					//obj_chartGOMYr[key][0].push([Date.UTC(yr,01,01),dataVal]); 					
+					obj_chartGOMYr[key][1].push(roundNumber(dataVal_r,2));
+					obj_chartGOMYr[key][0].push(dataVal); 
+					
+										
+					//update max
+					if(dataVal>max_yr){
+						max_yr = dataVal;
+					}
+					if(dataVal_r>max_yr_r){
+						max_yr_r = dataVal_r;
+					}								
+				}
+				if(max_yr>obj_chart_yMaxYr[key][0]){obj_chart_yMaxYr[key][0]=max_yr;}
+				if(max_yr_r>obj_chart_yMaxYr[key][1]){obj_chart_yMaxYr[key][1]=max_yr_r;}
+				//obj_chart_yMaxYr[key] = [max_yr, max_yr_r];
+				
+				if(key != 9999){
+					if(max_yr>gMax_yr){
+						gMax_yr = max_yr;
+					}
+					if(max_yr_r>gMax_yr_r){
+						gMax_yr_r = max_yr_r;
+					}
+				}
+			}	
+			arr_chart_yMaxYr = [gMax_yr, gMax_yr_r];
+			
+		}
+
+		function createChart(st_num){
+			arr_chartSelPts = new Array;
+			
+			chart_currentState1 = st_num;
+			var dataTimeDD_Idx = getDDSelect(document.getElementById("dataTimeDD"));			
+			var mapDateDD1_Idx = document.getElementById("mapDateDD1").selectedIndex; 						
+			var mapDateDD2_Idx = document.getElementById("mapDateDD2").selectedIndex; 
+					
+			var bln_secondSeries = document.getElementById("cb_addSeries").checked;
+			if(bln_secondSeries){
+				chart_currentState2 = st_num;
+				createSecondSeries(st_num,false);
+				return;
+			}
+						
+			var dataType_Idx = getDDSelect(document.getElementById("dataTypeDD"));			
+			var bln_constantYMax = false;
+			if(st_num != 9999){
+				bln_constantYMax = document.getElementById("cb_resetAxis").checked;
+			}
+			
+			//set defaults
+			var inputData0 = obj_chartReformaWk[st_num][0];
+			var inputData2 = obj_chartReformaWk[1][0];
+			var myType = 'line';
+			var myTickLength = 5;
+			var seriesName = 'Reforma State 1';
+			var bln_enableLegend = true;
+			var tooltipTxt = 'drug-related killings';			
+			var yAxisLabel = 'Value';			
+			var yMax = getMaxY(st_num, bln_constantYMax);			
+			var obj_dateTimeLbl = {week: '%e. %b', month: '%b \'%y', year: '%Y'};	
+			var mydateTimeLbl = new Object;
+			var myTickInterval = 86400000 * 90  // three months;
+			var obj_chartSeries2 = new Object;
+			var bln_selectable = true;
+						
+			//replace default based on whether data is weekly(0), monthly(1), or annual(2)
+			if(dataType_Idx==1){
+				inputData0 = obj_chartReformaWk[st_num][1];
+				inputData2 = obj_chartReformaWk[1][1];
+			}
+			if(dataTimeDD_Idx==0){
+				bln_enableLegend = true;
+				mydateTimeLbl['week'] = obj_dateTimeLbl['week'];
+			}else if(dataTimeDD_Idx==1){
+				bln_enableLegend = true;
+				mydateTimeLbl['month'] = obj_dateTimeLbl['month'];
+				if(dataType_Idx==1){
+					inputData0 = obj_chartReformaMo[st_num][1];	
+					inputData2 = obj_chartReformaMo[1][1];	
+				}else{
+					inputData0 = obj_chartReformaMo[st_num][0];	
+					inputData2 = obj_chartReformaMo[1][0];	
+				}
+			}else if(dataTimeDD_Idx==2){
+				myType = 'column';
+				myTickLength = 0;
+				myTickInterval = 86400000 * 365  // one year				
+				mydateTimeLbl['year'] = obj_dateTimeLbl['year'];
+				if(dataType_Idx==1){
+					inputData0 = obj_chartReformaYr[st_num][1];				
+					inputData2 = obj_chartReformaYr[1][1];		
+				}else{
+					inputData0 = obj_chartReformaYr[st_num][0];				
+					inputData2 = obj_chartReformaYr[1][0];
+				}
+				bln_selectable = false;
+			}
+		
+			//set subtitle
+			var str_subtitle = 'in Mexico (all states)';
+			if(st_num != 9999){
+				var st_name = obj_states[st_num]['Name'];
+				str_subtitle = 'in ' + st_name;
+			}
+			
+			//show and hide checkbox to keep y-axis range the same across plots. option available only when state plot visible
+			if(st_num==9999){
+				hide_DIV("cb_resetAxisDIV");
+			}else{
+				show_DIV("cb_resetAxisDIV");
+			}
+
+			var arr_dataSeries0 = inputData0;
+			var arr_dataSeries2 = inputData2;
+			
+			obj_chartSeries2 = {
+				allowPointSelect: bln_selectable,						
+				type: myType,
+				data: arr_dataSeries2,
+				name: 'Reforma State 2',
+				visible: false,
+				showInLegend: true
+			};
+			
+			//x-axis
+			var obj_myXAxis = {
+						id: 'x-axis',
+						type: 'datetime',
+						dateTimeLabelFormats: mydateTimeLbl,
+						tickInterval: myTickInterval,
+						tickLength: myTickLength
+					};
+			if(dataTimeDD_Idx==2){
+				obj_myXAxis = {
+						id: 'x-axis',
+						categories: arr_xAxisYr
+					};
+			}
+			
+			// create the chart
+				chart = new Highcharts.Chart({
+					chart: {
+						renderTo: 'container',
+							width: chartWidth,
+							height: chartHeight,
+							events: {
+								selection: function(event) {
+									arr_chartSelPts = new Array;
+									for(var i = 0; i < this.series.length; i++){
+										if(this.series[i].visible){
+											for(var j = 0; j < this.series[i].data.length; j++) {                    
+                        
+												var point = this.series[i].data[j];
+
+												if (point.x > event.xAxis[i].min &&
+													point.x < event.xAxis[i].max) {
+														point.select(true, true);
+														if(i==i){arr_chartSelPts.push(point.x);}
+													}else{point.select(false,true);}
+											}
+										}
+									}
+									updateDateFromChart();
+									return false;
+								}
+							},
+							zoomType: 'xy'
+					},
+
+					title: {
+						text: 'Drug-related Killings'
+					},
+					
+					subtitle: {
+						text: str_subtitle
+					},
+					
+					tooltip: {
+						formatter: function() {
+							if(dataTimeDD_Idx==0){
+								var monthVal = parseInt(new Date(this.x).getMonth())+1;
+								return  this.y + " " + tooltipTxt + "<br/>during the week starting on " + monthVal + "/" + 
+										new Date(this.x).getDate() + "/" +new Date(this.x).getFullYear();
+							}else if(dataTimeDD_Idx==1){
+								var monthVal = parseInt(new Date(this.x).getMonth())+1;
+								return this.y + " " + tooltipTxt + "<br/>during " + monthVal + "/" + new Date(this.x).getFullYear();
+							}else{
+								return this.y + " " + tooltipTxt + "<br/>during " + this.x;
+							}
+						}
+					},
+					
+					legend: {
+						enabled: bln_enableLegend,
+						floating: true,
+						verticalAlign: 'top',
+						align: 'left',
+						x: 50
+					},
+			
+					xAxis : obj_myXAxis,
+			
+					yAxis: {
+						offset: 5,
+						max: yMax,
+						min: 0,
+						title: {
+							text: yAxisLabel
+						}
+					},
+
+					series: [{
+						allowPointSelect: bln_selectable,
+						type: myType,
+						name: seriesName,
+						data: arr_dataSeries0
+						},
+						obj_chartSeries2
+					]
+				}, function(chart){ // on complete   
+
+					if(st_num == 9999){
+						cur_yMax = chart.yAxis[0].getExtremes().max;
+					}
+				
+					chart.renderer.text('Click here to go back to all states', chart.chartWidth-275,25)
+					.css({
+						color: '#4572A7',
+						fontSize: '10px'
+					})
+					.add()
+					.on('click',function(){				
+						// processing after text is clicked
+						var DD1_Idx = getDDSelect(document.getElementById("mapDateDD1"));
+						var DD2_Idx = getDDSelect(document.getElementById("mapDateDD2"));
+						var dataType_Idx = getDDSelect(document.getElementById("dataTypeDD"));
+						var dataTime_Idx = getDDSelect(document.getElementById("dataTimeDD"));
+						
+						document.getElementById("cb_addSeries").checked = false;
+						document.getElementById("cb_resetAxis").checked=false;
+						
+						chart.series[1].hide();
+						chart.setTitle(null,{text: 'in Mexico (all states)'});
+						
+						var inputData0 = obj_chartReformaWk[9999][0];
+						var inputData2 = obj_chartReformaWk[1][0];
+						if(dataType_Idx==1){
+							inputData0 = obj_chartReformaWk[9999][1];
+							inputData2 = obj_chartReformaWk[1][1];
+						}
+						if(dataTime_Idx==1){
+							if(dataType_Idx==1){
+								inputData0 = obj_chartReformaMo[9999][1];
+								inputData2 = obj_chartReformaMo[1][1];
+							}else{
+								inputData0 = obj_chartReformaMo[9999][0];
+								inputData2 = obj_chartReformaMo[1][0];
+							}
+						}else if(dataTime_Idx==2){
+							if(dataType_Idx==1){
+								inputData0 = obj_chartReformaYr[9999][1];
+								inputData2 = obj_chartReformaYr[1][1];
+								inputData3 = obj_chartGOMYr[9999][1];
+								inputData4 = obj_chartGOMYr[1][1];
+							}else{
+								inputData0 = obj_chartReformaYr[9999][0];
+								inputData2 = obj_chartReformaYr[1][0];
+								inputData3 = obj_chartGOMYr[9999][0];
+								inputData4 = obj_chartGOMYr[1][0];
+							}
+							chart.series[3].setData(inputData4);
+							chart.series[2].setData(inputData3);
+							chart.series[3].hide();
+						}					
+
+						var arr_dataSeries0 = inputData0;
+						var arr_dataSeries2 = inputData2;
+											
+						chart.series[1].setData(arr_dataSeries2);
+						chart.series[0].setData(arr_dataSeries0);
+										
+						chart_currentState1=9999;
+						chart_currentState2=1;
+						
+						resetAxisRange(false);						
+						if(chart_currentState1==9999){
+							hide_DIV("cb_resetAxisDIV");
+						}else{
+							show_DIV("cb_resetAxisDIV");
+						}
+						
+						//select chart points
+						selectChartPoints();
+					});        
+				});	
+		}
+	function addChartSeries(){
+		var dataTimeDD_Idx = getDDSelect(document.getElementById("dataTimeDD"));			
+		if(dataTimeDD_Idx!=2){
+			if(chart.series.length==3){
+				chart.series[2].remove();
+				chart.series[3].remove();
+			}
+			return;
+		}
+		var st_num = chart_currentState1;
+		var dataType_Idx = getDDSelect(document.getElementById("dataTypeDD"));				
+		var arr_dataSeries3 = obj_chartGOMYr[st_num][0];
+		var arr_dataSeries4 = obj_chartGOMYr[chart_currentState2][0];
+		
+		var bln_secondState = false;
+		if(document.getElementById("cb_resetAxisDIV").style.visibility=="visible" && 
+		   document.getElementById("cb_addSeries").checked){
+			bln_secondState = true;
+		}
+		
+		
+		if(dataType_Idx==1){
+			arr_dataSeries3 = obj_chartGOMYr[st_num][1];
+			arr_dataSeries4 = obj_chartGOMYr[chart_currentState2][1];
+		}
+		
+		//add GOM data as a series
+		var obj_chartSeries2 = {
+			allowPointSelect: false,						
+			type: 'column',
+			data: arr_dataSeries3,
+			name: 'GOM State 1',
+			visible: true,
+			showInLegend: true
+		};
+		
+		var obj_chartSeries3 = {
+			allowPointSelect: false,						
+			type: 'column',
+			data: arr_dataSeries4,
+			name: 'GOM State 2',
+			visible: bln_secondState,
+			showInLegend: true
+		};
+		
+		chart.addSeries(obj_chartSeries2);
+		chart.addSeries(obj_chartSeries3);
+	}
+	
+	function setChartData(st_num, bln_GOM){
+		var dataTimeDD_Idx = getDDSelect(document.getElementById("dataTimeDD"));
+		var dataType_Idx = getDDSelect(document.getElementById("dataTypeDD"));
+		
+		var inputData = obj_chartReformaWk[st_num][0];
+		if(dataType_Idx==1){
+			inputData = obj_chartReformaWk[st_num][1];
+		}
+		if(dataTimeDD_Idx==1){
+			//monthly data
+			if(dataType_Idx==1){
+				inputData = obj_chartReformaMo[st_num][1];
+			}else{
+				inputData = obj_chartReformaMo[st_num][0];
+			}
+		}else if(dataTimeDD_Idx==2){
+			//annual data
+			if(dataType_Idx==1){
+				if(bln_GOM){inputData = obj_chartGOMYr[st_num][1];}
+				else{inputData = obj_chartReformaYr[st_num][1];}
+			}else{
+				if(bln_GOM){inputData = obj_chartGOMYr[st_num][0];}
+				else{inputData = obj_chartReformaYr[st_num][0];}
+			}
+		}
+		return inputData;
+	}
+	
+	function addSecondSeries(bln_checked){
+		if(bln_checked){
+			document.getElementById("cb_resetAxis").checked=true;
+			alert("Click on a state to add it to the chart.");
+		}else{
+			chart.series[1].hide();
+			chart.setTitle(null,{text: 'in Mexico (' + current_st_name});
+			if(document.getElementById("dataTimeDD")==2){
+				chart.series[3].hide();
+			}
+		}
+	}
+	
+	function createSecondSeries(st_num, bln_GOM){
+		var current_st_name = obj_states[chart_currentState1]['Name'];
+		var st_name = obj_states[st_num]['Name'];		
+		var arr_dataSeries2 = setChartData(st_num, bln_GOM);
+				
+		chart.setTitle(null,{text: 'in Mexico (' + current_st_name + ' (State 1) and ' + st_name + ' (State 2)'  + ')'});
+		if(bln_GOM){			
+			chart.series[3].setData(arr_dataSeries2);
+			chart.series[3].show();		
+		}else{
+			chart.series[1].setData(arr_dataSeries2);
+			chart.series[1].show();
+		}
+		resetAxisRange(true);
+	}
+	
+	function updateChartSeries(seriesNum,arr_inputVal,bln_convertToRate,st_num){
+		var dataType_Idx = getDDSelect(document.getElementById("dataTypeDD")); 
+		var dataTime_Idx = getDDSelect(document.getElementById("dataTimeDD"));
+		
+		if(seriesNum==0){
+			chart_currentState1=st_num;
+		}else{chart_currentState2=st_num;}
+		
+		var str_subtitle = 'in Mexico (all states)';
+		
+		if(st_num >0 && st_num != 9999){
+			var st_name = obj_states[st_num]['Name'];
+			str_subtitle = 'in ' + st_name;
+		}
+		
+		chart.setTitle(null,{text: str_subtitle});
+		chart.series[seriesNum].setData(arr_inputVal);
+										
+		if(st_num==9999){
+			document.getElementById("cb_resetAxis").checked = false;
+			document.getElementById("cb_addSeries").checked = false;
+			resetAxisRange(false);	
+			hide_DIV("cb_resetAxisDIV");
+		}else{
+			show_DIV("cb_resetAxisDIV");
+			var bln_reset = document.getElementById("cb_resetAxis").checked;
+			resetAxisRange(bln_reset);
+		}
+	}
+	
+	function resetAxisRange(bln_checked){
+		//reset chart yaxis if bln_checked=true to maximum for all states over selected time period
+		//used to hold yaxis constant across state maps
+		var st_num = chart_currentState1;
+		
+		if(bln_checked==false && document.getElementById("cb_addSeries").checked){
+			document.getElementById("cb_resetAxis").checked = true;
+			alert('Cannot be unchecked when "Add second state to chart checkbox is checked."');
+			return;
+		}
+		var yMax = getMaxY(st_num, bln_checked);
+		var numberNew = yMax;
+
+		if(typeof(numberNew.toString().split(".")[1]) != 'undefined'){
+			numberNew = nearestQtr(yMax);
+		}
+		chart.yAxis[0].setExtremes(0,numberNew);
+	}
+	
+	function nearestQtr(number){
+		var str_num = number.toString();
+		var str_dec = str_num.split(".")[1];
+		var factor = Math.pow(10,str_dec.length);
+		
+		var decimal = parseInt(str_dec)/factor;
+
+		if(decimal<=0.25){
+			decimal = 0.25;
+		}else if(decimal<=0.5){
+			decimal = 0.5;
+		}else if(decimal<=0.75){
+			decimal = 0.75;
+		}else if(decimal<1){
+			decimal = 1;
+		}
+		
+		var numberNew = parseInt(str_num.split(".")[0]) + decimal;
+		return numberNew;
+	}
+	
+	function getMaxY(st_num, bln_checked){
+		var dataTimeDD_Idx = getDDSelect(document.getElementById("dataTimeDD"));
+		var dataType_Idx = getDDSelect(document.getElementById("dataTypeDD"));
+		
+		var yMax;
+		
+		if(bln_checked){			
+			if(dataTimeDD_Idx==0){
+				if(dataType_Idx==1){yMax=arr_chart_yMaxWk[1];}
+				else{yMax=arr_chart_yMaxWk[0];}
+			}else if(dataTimeDD_Idx==1){
+				if(dataType_Idx==1){yMax=arr_chart_yMaxMo[1];}
+				else{yMax=arr_chart_yMaxMo[0];}
+			}else{
+				if(dataType_Idx==1){yMax=arr_chart_yMaxYr[1];}
+				else{yMax=arr_chart_yMaxYr[0];}
+			} 		
+		}else{
+			if(dataTimeDD_Idx==0){
+				if(dataType_Idx==1){yMax=obj_chart_yMaxWk[st_num][1];}
+				else{yMax=obj_chart_yMaxWk[st_num][0];}
+			}else if(dataTimeDD_Idx==1){
+				if(dataType_Idx==1){yMax=obj_chart_yMaxMo[st_num][1];}
+				else{yMax=obj_chart_yMaxMo[st_num][0];}
+			}else{
+				if(dataType_Idx==1){yMax=obj_chart_yMaxYr[st_num][1];}
+				else{yMax=obj_chart_yMaxYr[st_num][0];}
+			} 
+		}
+		return yMax;
+	}
+		
+	function getSaturday(weekNum, year) {
+		var year = new Date(year,1-1,1); // toString first so it parses correctly year numbers
+		var daysTosat = (6 - year.getDay()); // Note that this can be also negative
+		var satOfFirstWeek = new Date(year.getTime() + daysTosat * DAY);
+		var nthsat = new Date(satOfFirstWeek.getTime() + (7 * (weekNum - 1) * DAY));
+		return Date.parse(nthsat);
+	}
+	
+	function getDaysInMonth(month,year){
+		return 32 - new Date(year, month, 32).getDate();
+	}
+
+	function compare(a,b){
+		return a[0]-b[0];
+	}
+			
+		//CREATE THE SVG MAP		
+		var param_pathObj = {
+PUE:																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																
+"m	304.15385	281.259475	c	-0.52271,	-0.36354,	-1.68163,	-0.82011,	-2.57538,	-1.0146,	-0.89375,	-0.19449,	-1.625,	-0.536535,	-1.625,	-0.760105,	0.0,	-0.22357,	-1.118995,	-1.25985,	-2.48666,	-2.30284,	l	-2.486655,	-1.89635,	2.05119,	-1.1651	c	1.42982,	-0.81215,	2.23491,	-1.01262,	2.65766,	-0.66177,	0.80683,	0.66961,	1.264465,	0.137105,	1.264465,	-1.47133,	0.0,	-0.724165,	0.275615,	-1.59228,	0.61248,	-1.929145,	0.47895,	-0.47895,	0.48118,	-0.82272,	0.01025,	-1.57682,	-0.379925,	-0.608355,	-0.421445,	-1.076075,	-0.11248,	-1.26703,	0.273505,	-0.169035,	0.48976,	-2.828595,	0.48976,	-6.02318,	0.0,	-5.24803,	0.076975,	-5.72049,	0.932,	-5.72049,	0.525655,	0.0,	1.546795,	0.887155,	2.34211,	2.034795,	0.775565,	1.119135,	2.05491,	2.368225,	2.84299,	2.77576,	1.457275,	0.753585,	3.3829,	0.53502,	3.3829,	-0.383975,	0.0,	-0.29947,	0.59811,	-0.37467,	1.465235,	-0.184215,	1.179725,	0.25911,	1.577775,	0.11153,	2.04281,	-0.757395,	0.378355,	-0.706965,	0.90139,	-0.99453,	1.51638,	-0.83371,	0.516345,	0.13503,	1.201935,	-0.071545,	1.52354,	-0.459055,	0.46439,	-0.559555,	0.30852,	-0.96054,	-0.75738,	-1.94838,	-0.73816,	-0.684105,	-1.668015,	-1.243825,	-2.066345,	-1.243825,	-0.39833,	0.0,	-0.72424,	-0.32633,	-0.72424,	-0.725175,	0.0,	-0.39885,	-1.113015,	-1.235785,	-2.47337,	-1.85986,	-2.795295,	-1.282365,	-3.45427,	-2.62821,	-2.34746,	-4.79428,	0.385215,	-0.753875,	0.865745,	-2.13779,	1.06784,	-3.075365,	0.31118,	-1.443655,	0.18642,	-1.843905,	-0.81478,	-2.613885,	-0.65748,	-0.50564,	-0.88746,	-0.914135,	-0.518135,	-0.920315,	0.916755,	-0.01535,	4.566995,	-4.013285,	4.66924,	-5.114,	0.04585,	-0.493415,	0.10208,	-1.29087,	0.125,	-1.77212,	0.057205,	-1.201375,	1.71255,	-2.76235,	2.57741,	-2.43047,	0.38963,	0.149515,	0.653485,	0.77271,	0.58634,	1.384875,	-0.08561,	0.7805,	0.357165,	1.420385,	1.48205,	2.14181,	1.900255,	1.218695,	1.85461,	1.935,	-0.145385,	2.28155,	-1.372855,	0.23788,	-1.467735,	0.4097,	-1.611375,	2.918085,	-0.13707,	2.393745,	-0.0097,	2.788245,	1.25,	3.87163,	1.777015,	1.528285,	2.344895,	1.515465,	3.506495,	-0.079155,	l	0.93728,	-1.28668,	1.729425,	0.91168	c	0.951185,	0.50142,	1.81022,	0.95497,	1.90897,	1.007885,	0.09875,	0.05292,	-0.256105,	0.72792,	-0.788565,	1.5,	-1.22915,	1.782305,	-3.129285,	7.51233,	-3.03549,	9.15379,	0.106305,	1.860365,	0.74904,	2.429775,	3.71635,	3.292395,	3.0122,	0.87567,	3.07279,	1.55273,	0.180335,	2.015255,	-1.866985,	0.29854,	-2.822595,	1.269395,	-2.215825,	2.251165,	0.15928,	0.25772,	-0.195005,	1.469635,	-0.7873,	2.693145,	-1.348115,	2.78483,	-1.15839,	3.843215,	0.789045,	4.401735,	1.1157,	0.319975,	1.65751,	0.86753,	1.99657,	2.017725,	0.486075,	1.64894,	1.137275,	1.85344,	3.761355,	1.181195,	1.05927,	-0.27137,	1.42233,	-0.096015,	1.987445,	0.959915,	0.648655,	1.21202,	0.591195,	1.38149,	-0.92891,	2.739705,	-1.682245,	1.503085,	-2.471815,	1.653795,	-7.673605,	1.464685,	-1.64846,	-0.05993,	-2.962645,	0.12986,	-3.164865,	0.45705,	-0.486445,	0.78709,	-2.34756,	-1.67986,	-1.98335,	-2.62898,	0.83855,	-2.185225,	-2.8599,	-1.113005,	-4.04133,	1.17163,	-0.73125,	1.414085,	-0.734005,	1.6702,	-0.0295,	2.745405,	0.942295,	1.43812,	0.26779,	2.03276,	-1.326565,	1.16949,	-1.602795,	-0.86784,	-4.97985,	-0.82882,	-5.927,	0.068485,	-1.067505,	1.01132,	-1.633795,	1.07061,	-2.757955,	0.28876	z",																																																																																																																																																																																																																																																																																																																																																																																																												
+COL:																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																
+"m	213.362805	267.181285	c	-0.737365,	-0.38859,	-1.483775,	-1.157435,	-1.658695,	-1.70855,	-0.174915,	-0.55111,	-0.629185,	-1.00202,	-1.00949,	-1.00202,	-0.3803,	0.0,	-0.9208,	-0.39375,	-1.2011,	-0.875,	-0.485375,	-0.833335,	-0.510365,	-0.833335,	-0.524845,	0.0,	-0.01845,	1.060525,	0.04425,	1.057735,	-2.248025,	0.099955,	-1.254055,	-0.52398,	-1.76483,	-1.00989,	-1.576755,	-1.5,	0.153005,	-0.398725,	0.004,	-0.759225,	-0.331115,	-0.80111,	-1.171115,	-0.14638,	-1.619515,	-0.272105,	-3.01686,	-0.84588,	-0.77415,	-0.31788,	-1.67415,	-0.59632,	-2.0,	-0.61875,	-1.185935,	-0.081645,	2.493025,	-1.345465,	5.77766,	-1.98478,	2.528905,	-0.49222,	3.445835,	-0.894525,	3.67347,	-1.611745,	0.249235,	-0.785275,	0.605975,	-0.899025,	1.99958,	-0.63758,	0.932925,	0.175015,	2.605835,	0.0457,	3.71758,	-0.2874,	2.87201,	-0.860475,	3.27303,	-0.284515,	3.09553,	4.44594,	-0.07905,	2.106765,	-0.329975,	3.951055,	-0.55761,	4.098415,	-0.227635,	0.147365,	-0.56245,	0.74451,	-0.744035,	1.326995,	-0.181585,	0.58248,	-0.71816,	1.407575,	-1.19239,	1.833545,	-0.75349,	0.676815,	-1.031315,	0.685385,	-2.2029,	0.067965	z",																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																
+JAL:																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																
+"m	218.45347	263.498655	c	0.0,	-0.490295,	0.21603,	-2.030575,	0.480065,	-3.422835,	0.375365,	-1.97929,	0.31885,	-2.85455,	-0.259125,	-4.013135,	l	-0.7392,	-1.481755,	-4.339055,	0.123155	c	-3.76681,	0.10691,	-4.396985,	0.25298,	-4.77831,	1.10756,	-0.34741,	0.778575,	-1.47091,	1.172935,	-5.37322,	1.886045,	-4.558925,	0.8331,	-4.99587,	0.83974,	-5.748275,	0.08733,	-0.44787,	-0.447865,	-1.166185,	-0.814305,	-1.59626,	-0.814305,	-0.95747,	0.0,	-3.131955,	-2.22023,	-4.14662,	-4.23386,	-0.4125,	-0.818615,	-1.29626,	-1.76033,	-1.96391,	-2.0927,	-1.230855,	-0.612745,	-2.486045,	-2.39142,	-2.51837,	-3.568685,	-0.0191,	-0.694635,	-2.024845,	-3.74681,	-2.64272,	-4.02142,	-0.20625,	-0.09167,	-0.375,	-0.697555,	-0.375,	-1.34642,	0.0,	-0.648865,	-0.48187,	-1.99646,	-1.07082,	-2.99466,	-1.001555,	-1.69751,	-1.016655,	-1.86915,	-0.233435,	-2.65358,	0.46056,	-0.46127,	1.87512,	-1.063675,	3.143475,	-1.338675,	1.26889,	-0.27512,	2.554515,	-0.907975,	2.858435,	-1.40709,	1.238955,	-2.034685,	4.652855,	-5.34291,	5.51357,	-5.34291,	0.50641,	0.0,	1.67514,	-0.466245,	2.597185,	-1.0361,	2.097835,	-1.296535,	3.228895,	-0.985975,	6.15018,	1.688675,	l	2.20859,	2.022125,	0.67437,	-2.31276	c	0.370905,	-1.27202,	0.89579,	-2.449605,	1.16641,	-2.61686,	0.73197,	-0.45238,	0.595075,	-2.213475,	-0.236715,	-3.045265,	-0.95971,	-0.95971,	-0.46173,	-2.356105,	0.623625,	-1.74871,	1.165985,	0.652515,	2.974135,	-0.361115,	3.355635,	-1.881135,	0.25905,	-1.032135,	0.0439,	-1.54842,	-1.03018,	-2.472325,	-1.27187,	-1.094015,	-1.321695,	-1.28762,	-0.788965,	-3.065715,	0.749945,	-2.503085,	0.815325,	-2.256,	-1.181915,	-4.466705,	l	-1.750555,	-1.93765,	0.8008,	-3.54604	c	0.842745,	-3.7318,	1.376275,	-4.279985,	4.20031,	-4.31572,	1.002475,	-0.0127,	1.28268,	-0.302105,	1.41504,	-1.46156,	0.09077,	-0.79516,	-0.11077,	-1.616205,	-0.44786,	-1.82454,	-1.09411,	-0.676195,	-0.09213,	-2.0608,	1.36642,	-1.8882,	1.36206,	0.16118,	2.311165,	1.408485,	1.071745,	1.408485,	-0.618945,	0.0,	-1.446695,	2.28296,	-2.24389,	6.1887,	-0.22183,	1.086815,	-0.12462,	1.38274,	0.397445,	1.20991,	0.73608,	-0.243675,	1.640505,	-1.744585,	2.45732,	-4.077955,	0.41846,	-1.19541,	0.622755,	-1.32776,	1.24823,	-0.80866,	0.47547,	0.394605,	0.581065,	0.82417,	0.289905,	1.179345,	-0.25189,	0.307265,	-0.615225,	1.82947,	-0.80741,	3.38268,	l	-0.34943,	2.824015,	1.571725,	0.34521	c	2.004975,	0.440365,	3.03076,	-0.383505,	3.03076,	-2.434195,	0.0,	-2.008725,	1.18949,	-2.787605,	3.375,	-2.20996,	1.920725,	0.507665,	1.942145,	0.678435,	0.5605,	4.46773,	-0.99788,	2.736785,	-1.15875,	2.912095,	-2.570595,	2.801335,	-0.84882,	-0.06659,	-1.60257,	0.1546,	-1.727165,	0.506845,	-0.12159,	0.34375,	0.135175,	0.625,	0.570595,	0.625,	0.435415,	0.0,	0.791665,	0.220715,	0.791665,	0.490475,	0.0,	0.56688,	-1.79179,	1.050995,	-3.25,	0.878095,	-0.70773,	-0.083915,	-0.95706,	0.137165,	-0.85308,	0.75643,	0.080805,	0.48125,	-0.10311,	0.875,	-0.408695,	0.875,	-0.311115,	0.0,	-0.427665,	0.403135,	-0.26485,	0.91611,	0.18,	0.567125,	-0.092275,	1.26275,	-0.714735,	1.82607,	-0.553025,	0.50048,	-1.384795,	2.113235,	-1.84838,	3.583895,	-0.463585,	1.47066,	-1.13929,	2.673925,	-1.50157,	2.673925,	-1.100835,	0.0,	-0.73528,	1.408305,	0.46439,	1.789065,	0.617695,	0.19605,	1.369175,	0.69301,	1.66996,	1.104355,	0.42369,	0.57943,	0.987275,	0.653925,	2.50192,	0.33071,	1.07527,	-0.229455,	2.96754,	-0.43671,	4.20504,	-0.46057,	7.529635,	-0.14516,	7.738865,	-0.18797,	10.167945,	-2.080445,	2.62342,	-2.04389,	3.06898,	-3.86122,	1.332055,	-5.433115,	-1.30741,	-1.18319,	-1.26134,	-1.652365,	0.228905,	-2.331365,	1.00226,	-0.45666,	1.702165,	-0.35634,	3.79496,	0.54396,	2.973125,	1.279,	4.33118,	1.025655,	6.84576,	-1.277085,	0.86217,	-0.78953,	2.28404,	-2.071905,	3.159715,	-2.84972,	l	1.59214,	-1.414215,	1.588065,	1.539215	c	0.873435,	0.846565,	1.955395,	1.53921,	2.404355,	1.53921,	0.676385,	0.0,	0.739545,	0.267605,	0.368505,	1.561345,	-0.246285,	0.858745,	-0.846035,	2.152495,	-1.33278,	2.875,	-0.582,	0.8639,	-0.831505,	2.014955,	-0.72876,	3.362025,	0.14227,	1.86525,	0.0226,	2.103735,	-1.338815,	2.667645,	-0.84764,	0.351105,	-1.62069,	1.11987,	-1.785195,	1.775305,	-0.15958,	0.63582,	-1.10909,	2.13538,	-2.110025,	3.332355,	-2.644825,	3.16284,	-2.95541,	4.0516,	-1.951375,	5.58395,	0.801275,	1.22291,	0.788585,	1.350355,	-0.278215,	2.793275,	-0.86618,	1.171575,	-1.63434,	1.58148,	-3.41252,	1.82098,	-3.13134,	0.42176,	-5.353155,	1.144835,	-6.032315,	1.963175,	-0.312175,	0.376145,	-2.079785,	0.938965,	-3.928025,	1.250715,	-3.897765,	0.65744,	-4.146795,	0.7914,	-4.97591,	2.6767,	-0.73818,	1.67852,	-0.442565,	2.338415,	1.04604,	2.335055,	0.60252,	-0.0015,	2.144475,	0.37348,	3.426565,	0.83298,	2.19334,	0.786085,	2.302605,	0.91034,	1.84921,	2.102855,	-0.322095,	0.84718,	-0.291225,	2.062085,	0.09312,	3.6642,	0.514605,	2.14512,	0.695345,	2.36659,	1.72124,	2.109105,	0.630445,	-0.15823,	1.293605,	-0.0493,	1.473695,	0.24211,	0.53115,	0.85942,	-1.710005,	3.42456,	-3.26348,	3.735255,	-0.788095,	0.157615,	-2.68606,	1.30729,	-4.217695,	2.554825,	-2.12523,	1.73102,	-3.061415,	2.198815,	-3.95273,	1.97511,	-0.64237,	-0.161225,	-1.98165,	-0.06846,	-2.97619,	0.206145,	-1.58821,	0.43853,	-1.808245,	0.390805,	-1.808245,	-0.39217	z",																																																																																																																																																																																																						
+GTO:																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																
+"m	263.57977	244.39969	c	-0.192565,	-0.73638,	-0.72428,	-0.900915,	-2.806935,	-0.868595,	-1.41315,	0.02195,	-3.050775,	0.34373,	-3.63917,	0.71511,	-0.92395,	0.58317,	-1.17328,	0.559295,	-1.828765,	-0.17513,	-0.41743,	-0.4677,	-0.83602,	-1.52536,	-0.930195,	-2.35036,	-0.09418,	-0.825,	-0.508735,	-1.652935,	-0.921235,	-1.839855,	-1.32608,	-0.60091,	-3.40706,	-0.431655,	-4.17857,	0.339855,	-1.155345,	1.15534,	-2.76569,	0.919385,	-3.412405,	-0.5,	-0.31325,	-0.6875,	-0.702175,	-1.253445,	-0.864285,	-1.257655,	-0.162105,	-0.004,	-0.60242,	-0.202575,	-0.97847,	-0.44081,	-0.55352,	-0.35066,	-0.465615,	-0.728175,	0.46159,	-1.982285,	1.076015,	-1.455385,	1.0947,	-1.605085,	0.308735,	-2.473565,	-1.23232,	-1.361695,	-1.051035,	-2.104515,	1.16935,	-4.791485,	1.103265,	-1.335105,	2.135345,	-2.943045,	2.2935,	-3.573195,	0.158155,	-0.630145,	0.923405,	-1.4091,	1.700555,	-1.731005,	1.505215,	-0.62348,	2.14373,	-2.09238,	1.68014,	-3.865145,	-0.174015,	-0.66543,	0.103545,	-1.628885,	0.717765,	-2.491475,	0.550825,	-0.773565,	1.080385,	-1.96603,	1.176795,	-2.64993,	0.215355,	-1.527565,	1.92116,	-1.903265,	3.52883,	-0.777215,	0.615435,	0.43107,	1.91266,	0.78484,	2.882725,	0.786155,	1.3286,	0.002,	2.250015,	0.448955,	3.73471,	1.812425,	1.084035,	0.99552,	2.62277,	1.99697,	3.41942,	2.225445,	1.22232,	0.35056,	1.645125,	0.20421,	2.708275,	-0.937425,	1.383585,	-1.485725,	4.187715,	-1.88083,	4.681795,	-0.659675,	0.154245,	0.38124,	1.672995,	1.12065,	3.375,	1.64314,	1.856115,	0.569795,	3.094545,	1.22857,	3.094545,	1.64612,	0.0,	0.382885,	0.3375,	1.03365,	0.75,	1.44615,	0.666665,	0.66667,	0.66281,	0.837195,	-0.0347,	1.534725,	-0.579895,	0.579895,	-1.028095,	0.65447,	-1.717125,	0.285715,	-1.450225,	-0.776135,	-2.49815,	-0.59166,	-2.49815,	0.43977,	0.0,	0.516325,	-0.3375,	1.218875,	-0.75,	1.56122,	-0.4125,	0.342345,	-0.75,	1.03927,	-0.75,	1.54872,	0.0,	0.762535,	-0.26517,	0.873245,	-1.5,	0.62628,	-1.0009,	-0.20018,	-1.5,	-0.10009,	-1.5,	0.30081,	0.0,	0.381255,	-0.635245,	0.54608,	-1.738375,	0.45104,	-2.276595,	-0.19614,	-3.349445,	1.11233,	-2.92972,	3.57315,	0.164165,	0.9625,	0.468165,	1.975,	0.675555,	2.25,	0.207385,	0.275,	0.53212,	1.225295,	0.721625,	2.11177,	0.221825,	1.037645,	1.221965,	2.400635,	2.807735,	3.82638,	2.724675,	2.449715,	3.05804,	3.31185,	1.28061,	3.31185,	-0.650415,	0.0,	-1.72529,	0.4269,	-2.38861,	0.94867,	-1.705325,	1.341405,	-7.450375,	1.326905,	-7.80252,	-0.0197	z",																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																						
+QUE:																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																
+"m	276.558045	243.87529	c	-0.332515,	-0.332515,	-0.607415,	-0.840825,	-0.610885,	-1.129575,	-0.0035,	-0.28875,	-1.222635,	-1.59166,	-2.70925,	-2.89535,	-1.8287,	-1.603685,	-2.81566,	-2.89745,	-3.05143,	-4.0,	-0.191665,	-0.89631,	-0.52566,	-1.85465,	-0.74221,	-2.12965,	-0.545235,	-0.692405,	-0.71051,	-2.837345,	-0.29241,	-3.79484,	0.217815,	-0.49882,	1.03559,	-0.820725,	2.19579,	-0.86434,	1.016795,	-0.0382,	1.922385,	-0.29051,	2.012425,	-0.56063,	0.09004,	-0.27012,	0.822885,	-0.35929,	1.62855,	-0.19816,	1.229665,	0.245935,	1.464845,	0.132215,	1.464845,	-0.70831,	0.0,	-0.5507,	0.3375,	-1.281375,	0.75,	-1.62372,	0.4125,	-0.342345,	0.75,	-1.068965,	0.75,	-1.614715,	0.0,	-0.748915,	0.214595,	-0.90393,	0.875,	-0.632055,	2.00248,	0.824385,	2.55746,	0.77745,	3.56244,	-0.301265,	1.05432,	-1.13168,	1.05442,	-1.13522,	0.059345,	-2.062275,	-1.16015,	-1.08084,	-1.13605,	-0.9583,	-0.51153,	-2.60091,	l	0.48526,	-1.276325,	2.33921,	1.243775	c	2.80145,	1.489545,	3.690275,	1.5616,	3.690275,	0.29916,	0.0,	-1.29435,	1.69932,	-3.30024,	2.419025,	-2.855435,	0.319535,	0.197485,	0.580975,	0.699465,	0.580975,	1.11552,	0.0,	0.41605,	0.572895,	1.734025,	1.2731,	2.928835,	l	1.2731,	2.17238,	-1.396895,	1.295275	c	-0.76829,	0.7124,	-1.472435,	1.068645,	-1.564765,	0.791655,	-0.40648,	-1.219435,	-1.917455,	-0.409835,	-2.559455,	1.37138,	-0.371695,	1.03125,	-1.20107,	2.70901,	-1.84306,	3.72836,	-0.641985,	1.01935,	-1.04777,	2.16471,	-0.901745,	2.54525,	0.17615,	0.459035,	-0.583575,	1.095005,	-2.25739,	1.88968,	-2.37696,	1.12851,	-2.52289,	1.307555,	-2.52289,	3.095445,	0.0,	1.225555,	-0.26563,	1.99958,	-0.75,	2.18545,	-0.4125,	0.158295,	-0.75,	0.82623,	-0.75,	1.48431,	0.0,	0.658075,	-0.172885,	1.196505,	-0.38419,	1.196505,	-0.211305,	0.0,	-0.726745,	0.56456,	-1.145425,	1.254575,	-0.59527,	0.98106,	-0.89304,	1.12277,	-1.36581,	0.65	z",																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												
+YUC:																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																
+"m	450.1093	236.728585	c	-5.274225,	-6.03477,	-5.953285,	-6.64366,	-6.677915,	-5.987885,	-0.44366,	0.40151,	-1.63269,	0.730015,	-2.642285,	0.730015,	l	-1.83563,	0.0,	0.0,	-3.22049	c	0.0,	-1.77127,	-0.225,	-3.35955,	-0.5,	-3.52951,	-1.21244,	-0.74933,	-0.4726,	-3.068245,	1.625,	-5.093295,	3.644065,	-3.51803,	10.7878,	-6.38244,	18.440465,	-7.39404,	1.339995,	-0.177135,	3.55174,	-1.059835,	5.25,	-2.09526,	1.613995,	-0.98405,	3.947035,	-2.05997,	5.184535,	-2.39093,	3.73033,	-0.99766,	12.67213,	0.15037,	15.12158,	1.941445,	0.51555,	0.37699,	1.0284,	1.7235,	1.2692,	3.332345,	0.3358,	2.24367,	0.19685,	3.333225,	-0.8224,	6.449735,	l	-1.22645,	3.75,	-9.962035,	7.5	c	-5.47912,	4.125,	-11.62496,	8.6758,	-13.65742,	10.112885,	l	-3.69538,	2.61288,	-5.871265,	-6.717895	z",																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																									
+SLP:																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																
+"m	296.732905	221.704815	c	-0.53381,	-0.403755,	-1.39001,	-0.7341,	-1.90266,	-0.7341,	-0.643485,	0.0,	-1.32058,	-0.84855,	-2.186715,	-2.74044,	-0.690035,	-1.50724,	-1.481745,	-2.880815,	-1.75935,	-3.052385,	-0.69785,	-0.431295,	-2.93071,	1.76292,	-2.93071,	2.87998,	0.0,	1.289315,	-1.484725,	1.149665,	-3.487625,	-0.328025,	-1.738965,	-1.28297,	-3.012375,	-1.03534,	-3.012375,	0.585785,	0.0,	0.79175,	-1.122215,	0.595925,	-3.70182,	-0.64597,	-0.7985,	-0.38442,	-1.75475,	-0.698945,	-2.125,	-0.698945,	-0.37025,	0.0,	-0.67318,	-0.3375,	-0.67318,	-0.75,	0.0,	-0.553735,	-0.5793,	-0.75,	-2.21371,	-0.75,	-1.765755,	0.0,	-2.412675,	0.25294,	-3.19696,	1.25,	-1.38855,	1.765255,	-2.648425,	1.56086,	-5.11122,	-0.8292,	-1.814975,	-1.76137,	-2.4833,	-2.090705,	-4.37216,	-2.154485,	-1.474055,	-0.0498,	-2.444875,	-0.36958,	-2.86466,	-0.94367,	-0.454795,	-0.62197,	-1.004755,	-0.77557,	-1.938135,	-0.54131,	-1.461775,	0.366885,	-1.636085,	-0.083505,	-0.6031,	-1.5583,	1.05013,	-1.49927,	1.567545,	-6.548135,	0.769595,	-7.509605,	-0.534755,	-0.644335,	-0.49608,	-1.033685,	0.223715,	-2.252195,	0.985185,	-1.667785,	0.738135,	-3.114,	-0.82351,	-4.820825,	-1.104655,	-1.207345,	-1.869855,	-1.08659,	-1.869855,	0.29507,	0.0,	1.06041,	-2.81198,	3.273255,	-3.252905,	2.55982,	-0.49196,	-0.79601,	-1.24519,	-0.57067,	-1.269195,	0.3797,	-0.0134,	0.53114,	-0.396825,	0.165955,	-0.97565,	-0.929255,	-0.53073,	-1.00422,	-1.60757,	-2.075155,	-2.42851,	-2.4152,	-2.515515,	-1.04196,	-3.693355,	-2.723875,	-3.949135,	-5.63923,	-0.137735,	-1.56989,	-0.55014,	-2.892745,	-1.01667,	-3.26115,	-0.431715,	-0.340905,	-0.68886,	-0.690255,	-0.571435,	-0.77633,	1.51178,	-1.10814,	3.14576,	-1.85528,	4.07091,	-1.861425,	3.39984,	-0.0226,	5.506885,	-1.28888,	9.911145,	-5.956405,	4.28246,	-4.538445,	4.36744,	-4.676525,	4.10093,	-6.66352,	-0.251705,	-1.8766,	-0.19267,	-2.008255,	0.785795,	-1.75238,	1.21777,	0.318455,	1.870815,	-0.303905,	2.358725,	-2.2479,	0.189425,	-0.754715,	0.54501,	-1.372205,	0.7902,	-1.372205,	0.245185,	0.0,	0.92996,	-0.484165,	1.521715,	-1.07592,	l	1.075915,	-1.075915,	1.410635,	1.700915	c	1.215795,	1.465995,	1.412485,	2.13914,	1.42408,	4.873735,	0.0103,	2.433335,	0.264775,	3.52577,	1.09179,	4.687205,	0.936105,	1.314635,	1.07148,	2.149215,	1.026305,	6.327185,	-0.06565,	6.071965,	0.078625,	6.562795,	1.92905,	6.562795,	0.806465,	0.0,	1.466305,	-0.24939,	1.466305,	-0.554205,	0.0,	-0.65874,	2.660895,	-0.119405,	2.916665,	0.591175,	0.09167,	0.254665,	0.516865,	0.46303,	0.94488,	0.46303,	0.8691,	0.0,	2.09813,	1.395885,	2.122555,	2.410715,	0.00875,	0.36339,	-0.3216,	0.998215,	-0.7341,	1.410715,	-0.91249,	0.91249,	-0.97353,	2.38897,	-0.125,	3.0235,	0.34375,	0.257055,	2.384235,	1.004075,	4.534415,	1.660045,	3.236915,	0.987505,	3.982455,	1.07449,	4.33402,	0.50565,	0.652135,	-1.055185,	2.514855,	0.40039,	3.19811,	2.49908,	0.491015,	1.508215,	0.83016,	1.7657,	2.808455,	2.132205,	1.2375,	0.229265,	3.90911,	0.30637,	5.93691,	0.171345,	3.34273,	-0.222585,	3.86783,	-0.125775,	5.625,	1.037065,	2.11656,	1.40067,	2.35255,	1.88365,	1.14651,	2.34645,	-0.435365,	0.167065,	-0.69077,	0.58489,	-0.567565,	0.928495,	0.32798,	0.91467,	-0.556125,	2.374735,	-1.437955,	2.374735,	-0.487855,	0.0,	-0.61917,	0.224815,	-0.365065,	0.625,	0.21827,	0.34375,	0.41136,	0.7375,	0.429085,	0.875,	0.01775,	0.1375,	0.211435,	0.77625,	0.43046,	1.419445,	0.30766,	0.903505,	0.159945,	1.33634,	-0.64958,	1.90335,	-1.237015,	0.86644,	-1.335075,	2.044555,	-0.29391,	3.531025,	0.693985,	0.990805,	0.67172,	1.102405,	-0.280225,	1.40454,	-0.84422,	0.267945,	-0.975355,	0.595695,	-0.71416,	1.784925,	0.3153,	1.43554,	0.288485,	1.456485,	-1.844775,	1.440815,	-1.190605,	-0.00875,	-2.601485,	-0.34625,	-3.135295,	-0.75	z",																																																																																																																																																																																																																																																																																																																																																																		
+AGS:																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																
+"m	230.22312	213.992425	c	-0.77819,	-0.859885,	-1.03098,	-3.758905,	-0.457985,	-5.252115,	0.17142,	-0.446705,	1.19488,	-1.262775,	2.274365,	-1.813485,	1.07948,	-0.55071,	2.0883,	-1.328625,	2.241825,	-1.7287,	0.153525,	-0.400075,	0.492405,	-0.72741,	0.75307,	-0.72741,	0.757315,	0.0,	4.82977,	-1.95099,	5.14831,	-2.4664,	0.62511,	-1.011455,	4.571295,	3.96204,	4.105915,	5.174805,	-0.16024,	0.41758,	0.23373,	1.04933,	0.945025,	1.515385,	1.52527,	0.999395,	1.56582,	2.168135,	0.094825,	2.732845,	-0.61875,	0.237535,	-1.745485,	1.131965,	-2.503855,	1.987625,	-1.62269,	1.83085,	-3.151055,	1.974205,	-6.215385,	0.582975,	-2.024825,	-0.919285,	-2.152615,	-0.92104,	-3.85535,	-0.052935,	-1.656675,	0.84462,	-1.80675,	0.847435,	-2.53076,	0.0474	z",																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																				
+TAM:																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																
+"m	311.23184	202.99527	c	-2.2356,	-1.9349,	-3.672055,	-2.462885,	-4.487835,	-1.649555,	-0.20687,	0.20625,	-1.08812,	0.387825,	-1.95833,	0.403495,	-0.870215,	0.01565,	-3.382205,	0.192685,	-5.582205,	0.39336,	-2.2,	0.200675,	-4.993425,	0.18488,	-6.207615,	-0.0351,	-1.91109,	-0.34624,	-2.28265,	-0.62283,	-2.76627,	-2.059195,	-0.617675,	-1.83452,	-2.51904,	-3.549255,	-3.95461,	-3.566445,	-0.65032,	-0.0078,	-0.83587,	0.230255,	-0.61933,	0.79455,	0.201635,	0.525445,	0.08981,	0.721725,	-0.321505,	0.564315,	-0.91746,	-0.35111,	-6.022475,	-2.000865,	-6.75567,	-2.183185,	-0.71701,	-0.178295,	-0.86517,	-2.6868,	-0.158695,	-2.6868,	0.25647,	0.0,	0.6066,	-0.442025,	0.77807,	-0.98228,	0.368505,	-1.16106,	-1.637905,	-4.165565,	-2.54843,	-3.816165,	-0.391575,	0.150265,	-0.595945,	-0.373775,	-0.595945,	-1.52809,	0.0,	-1.6047,	0.103875,	-1.730705,	1.2,	-1.455595,	0.66,	0.16565,	1.212285,	0.128145,	1.2273,	-0.083345,	0.015,	-0.21149,	0.08473,	-1.31498,	0.154935,	-2.4522,	0.0702,	-1.137225,	0.52788,	-2.678525,	1.017065,	-3.42512,	0.80244,	-1.22468,	1.093245,	-1.32688,	2.973345,	-1.04494,	1.76883,	0.26525,	2.232545,	0.140535,	3.066975,	-0.82488,	1.201265,	-1.38984,	1.05255,	-2.571055,	-0.59579,	-4.732135,	-0.970905,	-1.272925,	-1.17851,	-1.96947,	-0.90283,	-3.029145,	0.607665,	-2.335795,	0.44068,	-4.09661,	-0.48557,	-5.120105,	-0.85783,	-0.94789,	-0.842765,	-0.997545,	0.451975,	-1.489805,	0.736655,	-0.280075,	2.0601,	-1.184755,	2.940985,	-2.0104,	0.880885,	-0.82564,	1.987445,	-1.50221,	2.45902,	-1.50348,	1.01471,	-0.0025,	1.89259,	-1.45689,	1.89259,	-3.134955,	0.0,	-1.272175,	1.758425,	-2.578925,	3.072205,	-2.283065,	0.821965,	0.185105,	8.24097,	-5.30095,	8.94325,	-6.613175,	0.52657,	-0.9839,	0.170165,	-1.47112,	-1.07613,	-1.47112,	-1.021455,	0.0,	-1.374045,	-1.44983,	-1.56637,	-6.44084,	l	-0.122955,	-3.190845,	-1.75,	-0.138015	c	-0.9625,	-0.07591,	-2.001395,	0.068995,	-2.30866,	0.32201,	-0.356705,	0.29372,	-0.785525,	0.186665,	-1.186225,	-0.296145,	-0.345155,	-0.41589,	-1.250935,	-0.756165,	-2.012845,	-0.756165,	-1.406685,	0.0,	-1.99227,	-0.746845,	-1.99227,	-2.540895,	0.0,	-0.598915,	-0.346445,	-0.959105,	-0.922505,	-0.959105,	-1.565975,	0.0,	-2.577495,	-1.631955,	-2.577495,	-4.15846,	0.0,	-2.321235,	-0.0071,	-2.33086,	-1.949105,	-2.641395,	-1.911355,	-0.30564,	-1.940405,	-0.342005,	-1.5,	-1.87761,	0.62174,	-2.167885,	0.584665,	-2.322535,	-0.556805,	-2.322535,	-0.889385,	0.0,	-0.969755,	-0.22609,	-0.693805,	-1.95179,	0.40533,	-2.53479,	-1.0134,	-6.95628,	-2.66971,	-8.3202,	l	-1.241085,	-1.02199,	2.039315,	-1.349555	c	1.758125,	-1.163475,	2.213865,	-1.27002,	3.305255,	-0.77275,	1.228595,	0.559785,	1.528615,	1.41776,	1.32508,	3.78936,	-0.05301,	0.61769,	0.17158,	1.62377,	0.49909,	2.23573,	0.32751,	0.61196,	0.567555,	1.855345,	0.53343,	2.763075,	-0.0341,	0.907735,	0.38129,	2.43975,	0.923145,	3.40448,	0.54186,	0.96473,	1.00101,	2.365965,	1.02034,	3.11385,	0.03125,	1.209655,	0.082585,	1.24938,	0.464855,	0.35979,	0.444165,	-1.03363,	0.51908,	-0.886475,	0.7,	1.375,	0.0275,	0.34375,	0.425935,	0.90653,	0.88541,	1.25062,	0.459475,	0.344095,	0.9836,	1.300345,	1.164725,	2.125,	0.253065,	1.152195,	0.604115,	1.49938,	1.516065,	1.49938,	1.58246,	0.0,	3.80847,	0.982795,	4.7338,	2.089995,	0.44608,	0.533755,	1.763075,	1.022795,	3.25,	1.206815,	1.761185,	0.21797,	2.798645,	0.660065,	3.510555,	1.495975,	0.85774,	1.007145,	1.61381,	1.229115,	5.0,	1.467915,	5.619435,	0.39629,	5.448825,	0.350405,	6.781965,	1.823895,	1.64184,	1.814675,	3.28211,	2.25563,	3.683715,	0.990285,	0.290565,	-0.915495,	2.197775,	-1.81754,	2.726005,	-1.289305,	0.68366,	0.68366,	-1.13881,	7.804355,	-2.87022,	11.214425,	-1.047205,	2.0625,	-2.16487,	4.65,	-2.483705,	5.75,	-1.69318,	5.84158,	-2.099005,	7.56928,	-2.10597,	8.96575,	-0.004,	0.84384,	-0.225765,	1.87175,	-0.492345,	2.28425,	-0.430835,	0.666665,	-0.483825,	0.666665,	-0.476905,	0.0,	0.0323,	-3.11343,	1.21491,	-8.4693,	2.704115,	-12.24656,	0.975035,	-2.47311,	1.77279,	-4.725235,	1.77279,	-5.00473,	0.0,	-0.27949,	-0.473545,	-0.803895,	-1.05232,	-1.16535,	-0.59142,	-0.369345,	-0.903685,	-0.41668,	-0.712955,	-0.108075,	0.186655,	0.302015,	0.182175,	1.264815,	-0.00995,	2.139565,	l	-0.34932,	1.59045,	-0.892875,	-1.10265	c	-1.115725,	-1.37786,	-1.788045,	-1.40055,	-2.135455,	-0.072065,	-0.16494,	0.63075,	0.0064,	1.136465,	0.441685,	1.303495,	0.391155,	0.1501,	0.71119,	0.487115,	0.71119,	0.748925,	0.0,	0.261805,	-0.209455,	0.346565,	-0.46545,	0.18835,	-0.256,	-0.15822,	-0.60678,	-0.058995,	-0.77951,	0.22049,	-0.17273,	0.279485,	-0.0579,	0.508155,	0.25518,	0.508155,	0.374065,	0.0,	0.454735,	0.521315,	0.23528,	1.52048,	-0.20324,	0.925365,	-0.0989,	1.8037,	0.266585,	2.244085,	0.47504,	0.57238,	0.447865,	0.78219,	-0.13003,	1.003945,	-0.55007,	0.211085,	-0.680195,	0.92285,	-0.52668,	2.88092,	0.193575,	2.46901,	0.162525,	2.54998,	-0.613805,	1.60057,	-0.771845,	-0.943925,	-0.8041,	-0.82265,	-0.57524,	2.162725,	0.219795,	2.86716,	0.83367,	4.991445,	0.83367,	2.884895,	0.0,	-0.7855,	0.07462,	-0.79443,	0.776145,	-0.092905,	0.631535,	0.63154,	0.678635,	1.127265,	0.25279,	2.660715,	-0.28785,	1.036515,	-0.558405,	2.78457,	-0.601245,	3.88457,	l	-0.077885,	2.0,	-0.349805,	-2.25	c	-0.24617,	-1.58341,	-0.372055,	-0.377695,	-0.424905,	4.069765,	-0.04735,	3.987075,	0.217395,	7.86165,	0.717325,	10.49706,	0.66399,	3.50028,	0.69231,	4.649025,	0.174735,	7.08796,	-0.35408,	1.66849,	-0.77562,	2.65512,	-0.98776,	2.311875,	-0.354,	-0.57278,	-0.46461,	-0.347075,	-1.30276,	2.65834,	-0.134215,	0.48125,	-0.004,	0.875,	0.28967,	0.875,	0.293535,	0.0,	0.566775,	-0.39375,	0.607205,	-0.875,	0.04045,	-0.48125,	0.22656,	0.475,	0.413615,	2.125,	0.18706,	1.65,	0.29293,	3.0673,	0.23527,	3.149555,	-0.05766,	0.082255,	-1.15747,	-0.761495,	-2.444025,	-1.875	z",																																																																																																																																										
+DUR:																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																
+"m	203.384275	199.968315	c	-0.450555,	-0.266655,	-0.974645,	-1.1042,	-1.16464,	-1.861205,	-0.189995,	-0.75701,	-0.60886,	-1.543935,	-0.930805,	-1.74873,	-0.9795,	-0.623065,	-2.801665,	-0.432795,	-4.118555,	0.430065,	-1.668065,	1.092955,	-2.161395,	0.469965,	-0.78664,	-0.99339,	0.906185,	-0.964595,	1.052315,	-1.56085,	0.82665,	-3.37303,	-0.15076,	-1.21072,	-0.38508,	-2.554715,	-0.5207,	-2.98665,	-0.284285,	-0.9054,	-5.25315,	-2.618605,	-6.3614,	-2.19333,	-0.47396,	0.181875,	-0.84073,	-0.087375,	-1.012195,	-0.74305,	-0.16247,	-0.6213,	-0.679885,	-1.02828,	-1.307285,	-1.02828,	-0.741835,	0.0,	-1.39507,	-0.70388,	-2.287305,	-2.464615,	-0.686905,	-1.35554,	-1.478195,	-2.60632,	-1.75842,	-2.77951,	-0.28023,	-0.17319,	-0.50951,	-0.92655,	-0.50951,	-1.67413,	0.0,	-0.74758,	-0.321995,	-1.81895,	-0.715545,	-2.38082,	-0.39355,	-0.56187,	-0.862525,	-2.4581,	-1.04217,	-4.213835,	-0.36155,	-3.533535,	-1.478685,	-6.11521,	-3.43716,	-7.94317,	-1.202955,	-1.122795,	-1.433265,	-1.163815,	-3.33509,	-0.594015,	-2.178675,	0.652745,	-3.470035,	0.17724,	-3.470035,	-1.27775,	0.0,	-1.44987,	-2.68313,	-5.984035,	-4.557805,	-7.702145,	-1.068205,	-0.97899,	-1.942195,	-2.149655,	-1.942195,	-2.60147,	0.0,	-0.45182,	-0.25308,	-1.37694,	-0.562405,	-2.055825,	-0.37348,	-0.819705,	-0.44238,	-2.67515,	-0.205115,	-5.52353,	l	0.35729,	-4.289185,	2.68159,	0.0	c	2.640515,	0.0,	5.12583,	-0.739655,	5.845985,	-1.739825,	0.20204,	-0.280595,	0.37079,	-1.544055,	0.375,	-2.80768,	0.0055,	-1.651325,	0.287315,	-2.550595,	1.00199,	-3.19737,	0.79501,	-0.719475,	0.932545,	-1.28628,	0.686095,	-2.827495,	-0.27898,	-1.744675,	-0.20414,	-1.92763,	0.788535,	-1.92763,	0.60323,	0.0,	1.55596,	-0.24575,	2.117185,	-0.546105,	0.81244,	-0.434805,	0.957825,	-0.85902,	0.71334,	-2.081445,	-0.321565,	-1.607815,	0.72196,	-3.37245,	1.99431,	-3.37245,	0.351345,	0.0,	0.788155,	-0.47054,	0.970685,	-1.04564,	0.31951,	-1.00669,	0.386925,	-0.989335,	1.809785,	0.466005,	0.81285,	0.8314,	2.143795,	1.657895,	2.957655,	1.836645,	0.834585,	0.18331,	2.035275,	1.05335,	2.753925,	1.99555,	1.519195,	1.991765,	4.103235,	3.11827,	4.54029,	1.979325,	0.33488,	-0.872685,	1.744635,	-0.96111,	2.546045,	-0.1597,	0.429575,	0.429575,	0.930045,	0.423945,	2.00806,	-0.0226,	1.79727,	-0.744455,	3.8941,	-0.04825,	4.369915,	1.4509,	0.58319,	1.837465,	2.288695,	0.997895,	4.55909,	-2.2443,	1.706075,	-2.43633,	2.43745,	-3.064645,	3.927795,	-3.37429,	1.055285,	-0.219255,	2.22669,	-0.168915,	2.76428,	0.118795,	0.513115,	0.27461,	1.590085,	0.49929,	2.393275,	0.49929,	1.115125,	0.0,	2.05371,	0.627395,	3.97039,	2.654005,	1.380525,	1.459705,	2.89661,	3.401535,	3.369075,	4.31518,	0.81178,	1.56981,	0.81183,	1.76583,	0.001,	3.5641,	-0.626075,	1.388385,	-0.766405,	2.514375,	-0.518995,	4.16425,	0.28288,	1.886355,	0.127265,	2.640765,	-0.938445,	4.549635,	-1.35754,	2.43159,	-1.6145,	3.985565,	-0.74763,	4.52132,	0.33744,	0.20855,	0.219855,	0.554235,	-0.32373,	0.951715,	-1.10405,	0.8073,	-0.74621,	2.215875,	1.46832,	5.779795,	2.60522,	4.19267,	3.516415,	5.0,	5.643255,	5.0,	1.02553,	0.0,	2.26332,	0.370885,	2.77093,	0.83027,	1.13213,	1.02456,	1.21322,	0.943825,	2.380115,	-2.369685,	0.519405,	-1.474905,	1.132655,	-2.743485,	1.36278,	-2.81906,	0.76333,	-0.2507,	2.37641,	4.5606,	2.57973,	7.694475,	l	0.20021,	3.086,	-2.180765,	0.313345	c	-1.19942,	0.17234,	-3.418265,	0.17817,	-4.930765,	0.01295,	-8.12441,	-0.887465,	-8.981495,	-0.87975,	-9.339845,	0.084065,	-0.4367,	1.174545,	-4.901045,	5.667635,	-5.631375,	5.667635,	-0.789505,	0.0,	-1.44887,	2.011085,	-1.6261,	4.95965,	-0.099325,	1.65247,	-0.376575,	2.54019,	-0.79337,	2.540255,	-0.352385,	0.00005,	-0.79144,	0.393845,	-0.97569,	0.875095,	-0.184245,	0.48125,	-0.746275,	1.2125,	-1.248955,	1.625,	-1.230585,	1.00982,	-1.976825,	5.052625,	-2.23121,	12.08769,	-0.133095,	3.68085,	-0.43136,	6.01488,	-0.80727,	6.317265,	-0.96144,	0.773385,	-3.52793,	1.117865,	-4.41538,	0.592645	z",																																																																																																																																																																																																																																																																																																																																																
+NLE:																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																
+"m	269.90651	187.345715	c	-0.0258,	-0.34375,	-0.00705,	-2.723045,	0.04175,	-5.28732,	0.08187,	-4.303065,	-0.01515,	-4.819225,	-1.25885,	-6.698615,	-1.167985,	-1.764945,	-1.31637,	-2.4096,	-1.113535,	-4.83768,	0.215495,	-2.579635,	0.106035,	-2.9597,	-1.38282,	-4.801385,	-1.403875,	-1.73656,	-1.600255,	-2.3293,	-1.490875,	-4.5,	0.06928,	-1.375,	0.28376,	-2.875575,	0.476625,	-3.334605,	0.204195,	-0.48601,	-0.0103,	-1.38553,	-0.513595,	-2.15362,	-0.82787,	-1.263495,	-0.82172,	-1.37569,	0.146075,	-2.665395,	0.965775,	-1.28701,	1.17659,	-1.338585,	4.78094,	-1.16957,	3.422205,	0.16047,	3.82286,	0.07918,	4.33605,	-0.879725,	0.49345,	-0.922015,	0.399585,	-1.119595,	-0.73723,	-1.55181,	-0.71647,	-0.2724,	-1.60145,	-0.495275,	-1.966625,	-0.495275,	-0.365175,	0.0,	-0.793465,	-0.3375,	-0.95176,	-0.75,	-0.15829,	-0.4125,	-0.75814,	-0.75,	-1.333,	-0.75,	-0.645865,	0.0,	-0.9126,	-0.214555,	-0.69814,	-0.56156,	0.199905,	-0.323455,	-0.769555,	-1.58812,	-2.286455,	-2.982675,	-2.336,	-2.1476,	-2.599675,	-2.59035,	-2.33393,	-3.919055,	0.16477,	-0.823865,	0.081955,	-1.63244,	-0.184035,	-1.79683,	-0.265995,	-0.164395,	-0.483625,	-0.803475,	-0.483625,	-1.420185,	0.0,	-0.655095,	-0.94947,	-2.098155,	-2.28367,	-3.47086,	l	-2.283665,	-2.34957,	3.15064,	-2.704625	c	2.57702,	-2.212205,	3.3192,	-2.61441,	4.07649,	-2.20912,	0.50922,	0.272525,	0.96359,	0.42102,	1.00972,	0.32999,	0.0461,	-0.09103,	0.589355,	-0.88765,	1.207175,	-1.770265,	1.494245,	-2.134665,	1.542135,	-5.611225,	0.09534,	-6.920555,	-0.84665,	-0.76621,	-1.198225,	-0.823975,	-1.993215,	-0.327495,	-1.362005,	0.850585,	-1.978815,	0.749895,	-1.978815,	-0.32304,	0.0,	-1.5292,	2.660525,	-3.888225,	4.771525,	-4.23079,	2.466835,	-0.400315,	3.24048,	-1.22343,	3.58848,	-3.81794,	0.372095,	-2.774185,	1.977555,	-3.681535,	3.690465,	-2.08572,	1.523105,	1.41899,	2.124865,	1.340495,	3.653875,	-0.47663,	1.229815,	-1.46155,	1.335985,	-1.494175,	2.16498,	-0.66518,	0.59698,	0.596985,	0.68407,	0.934305,	0.2763,	1.07023,	-2.617735,	0.87258,	-4.112335,	3.972695,	-2.16126,	4.48291,	1.255365,	0.328285,	3.21508,	5.350115,	2.786105,	7.13949,	-0.58022,	2.42028,	-0.5146,	2.691655,	0.72449,	2.996195,	0.841975,	0.20694,	1.04428,	0.43001,	0.625,	0.68914,	-0.34098,	0.210735,	-0.61996,	1.04488,	-0.61996,	1.85365,	0.0,	1.18935,	0.215085,	1.471955,	1.125,	1.478145,	1.880795,	0.0128,	2.45345,	0.739875,	2.79648,	3.55058,	0.304975,	2.49884,	0.44499,	2.726055,	1.95352,	3.170165,	1.278375,	0.37635,	1.626635,	0.74964,	1.632655,	1.75,	0.01165,	1.935135,	0.655305,	2.625245,	2.10837,	2.260545,	0.97702,	-0.245215,	1.4567,	-0.05416,	2.072935,	0.82564,	0.627015,	0.895185,	0.93356,	1.012895,	1.406405,	0.54005,	0.33255,	-0.33255,	1.33869,	-0.604635,	2.23587,	-0.604635,	l	1.63124,	0.0,	0.14376,	4.625	c	0.13679,	4.400625,	0.19974,	4.632935,	1.29758,	4.78855,	0.6346,	0.089955,	1.06589,	0.427455,	0.95842,	0.75,	-0.332255,	0.9972,	-7.564975,	6.334195,	-8.411435,	6.206765,	-1.46172,	-0.220055,	-3.4508,	1.219275,	-3.4508,	2.497045,	0.0,	1.678775,	-0.8782,	3.13257,	-1.89259,	3.13303,	-0.471575,	0.000215,	-1.74203,	0.787715,	-2.823235,	1.75,	-1.081205,	0.962285,	-2.38202,	1.74961,	-2.890695,	1.74961,	-1.450585,	0.0,	-1.64206,	1.38842,	-0.337185,	2.44504,	1.0924,	0.884575,	1.13146,	1.102445,	0.63345,	3.533565,	-0.503735,	2.45906,	-0.45847,	2.690625,	0.88976,	4.5518,	0.781275,	1.078515,	1.420495,	2.203955,	1.420495,	2.50098,	0.0,	1.16659,	-1.50853,	1.968615,	-3.70276,	1.968615,	-2.71758,	0.0,	-3.774345,	1.207055,	-4.17592,	4.76982,	-0.2087,	1.85161,	-0.40871,	2.206355,	-1.117175,	1.981495,	-1.076655,	-0.341715,	-2.221915,	0.95999,	-1.803635,	2.050015,	0.25707,	0.66991,	0.0374,	0.773705,	-1.240375,	0.586165,	-1.00989,	-0.14822,	-1.64268,	0.0064,	-1.809945,	0.442305,	-0.32474,	0.846265,	-2.134165,	0.88349,	-2.19715,	0.0452	z",																																																																																																																																																																																																																																																																																																																																																						
+COA:																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																
+"m	263.31534	163.31124	c	-0.255535,	-0.651085,	-0.65384,	-0.815245,	-1.401945,	-0.577805,	-1.258345,	0.39938,	-3.07732,	-1.131925,	-4.005045,	-3.37165,	-0.600075,	-1.44871,	-0.722495,	-1.498665,	-3.009,	-1.227865,	-2.176055,	0.257725,	-2.397065,	0.18676,	-2.539675,	-0.81546,	-0.10091,	-0.709135,	-0.50785,	-1.098065,	-1.14953,	-1.098645,	-0.54633,	-0.00049,	-1.05826,	-0.33799,	-1.13762,	-0.75,	-0.20764,	-1.07794,	-8.78854,	-3.70876,	-11.619055,	-3.562285,	-3.906015,	0.20213,	-3.728625,	0.05023,	-5.76549,	4.936875,	-0.738035,	1.770615,	-1.0068,	2.022775,	-1.616595,	1.51669,	-0.40227,	-0.333855,	-1.75334,	-0.727015,	-3.00238,	-0.87369,	-2.22483,	-0.26127,	-2.320095,	-0.347985,	-4.68738,	-4.26669,	-1.32902,	-2.2,	-2.419045,	-4.16875,	-2.422275,	-4.375,	-0.003,	-0.20625,	0.55662,	-0.375,	1.24412,	-0.375,	1.53346,	0.0,	1.563875,	-0.351445,	0.15977,	-1.846045,	l	-1.090235,	-1.1605,	1.21296,	-2.121725	c	0.8322,	-1.4557,	1.3201,	-3.298885,	1.554265,	-5.87173,	0.18772,	-2.0625,	0.493785,	-4.469355,	0.680145,	-5.348565,	0.38035,	-1.79443,	-0.524455,	-3.42882,	-3.820675,	-6.901435,	-1.89085,	-1.99204,	-1.905715,	-2.04084,	-3.73398,	-12.25857,	l	-1.835575,	-10.258565,	1.66623,	-2.491435	c	0.916425,	-1.370285,	1.84417,	-2.56643,	2.06166,	-2.658095,	0.21749,	-0.09167,	0.395435,	-0.36571,	0.395435,	-0.608985,	0.0,	-0.243275,	1.886705,	-3.318275,	4.19268,	-6.833335,	2.305975,	-3.51506,	4.357075,	-6.953515,	4.558,	-7.641015,	0.20093,	-0.6875,	1.078995,	-1.93574,	1.95126,	-2.773865,	2.209715,	-2.123235,	3.671475,	-4.278755,	4.07337,	-6.00663,	0.392645,	-1.688105,	2.26177,	-4.711025,	2.91604,	-4.71609,	0.242745,	-0.002,	0.854655,	-0.479955,	1.359805,	-1.062395,	0.74172,	-0.85521,	1.234055,	-0.989985,	2.558645,	-0.700405,	1.58931,	0.347455,	5.312585,	0.645885,	11.75471,	0.94217,	3.329775,	0.15314,	5.13549,	1.170965,	5.13549,	2.89471,	0.0,	0.544295,	0.35873,	0.923525,	0.875,	0.92499,	0.667805,	0.002,	0.529745,	0.27874,	-0.583055,	1.16916,	-1.068345,	0.854845,	-1.287275,	1.272225,	-0.8191,	1.56157,	0.375805,	0.23226,	0.818705,	0.111115,	1.0754,	-0.294155,	0.240045,	-0.378985,	0.44034,	-0.46406,	0.4451,	-0.18906,	0.005,	0.275,	0.82342,	0.558295,	1.819235,	0.62954,	1.7017,	0.121755,	5.064995,	2.2752,	5.15132,	3.29828,	0.01985,	0.235305,	0.5986,	1.096315,	1.2861,	1.913365,	0.6875,	0.817045,	1.25084,	1.862025,	1.25187,	2.32218,	0.001,	0.46015,	0.451025,	1.573325,	1.0,	2.47372,	0.54897,	0.900395,	0.99813,	2.11666,	0.99813,	2.702805,	0.0,	0.586145,	0.594515,	1.845165,	1.32114,	2.797825,	0.72663,	0.95266,	1.357825,	2.098895,	1.40266,	2.547195,	0.158385,	1.58372,	1.35158,	3.347405,	3.053675,	4.5137,	0.94739,	0.64916,	1.7228,	1.32004,	1.723135,	1.49084,	0.000335,	0.170805,	0.519465,	0.91382,	1.153615,	1.65115,	1.43418,	1.66752,	1.264025,	4.34216,	-0.374145,	5.88114,	l	-1.11989,	1.052085,	-1.30245,	-1.302445	c	-1.196625,	-1.196625,	-1.415285,	-1.248365,	-2.691275,	-0.6368,	-1.084345,	0.519715,	-1.47035,	1.143195,	-1.760675,	2.843855,	-0.483785,	2.83391,	-1.027985,	3.42116,	-3.559575,	3.841175,	-2.481825,	0.41176,	-4.794615,	2.73868,	-4.825895,	4.85539,	-0.0167,	1.13002,	0.197135,	1.375,	1.20017,	1.375,	0.67127,	0.0,	1.36861,	-0.239655,	1.54964,	-0.53257,	0.215835,	-0.34923,	0.652035,	-0.240365,	1.267075,	0.31624,	1.96494,	1.778245,	0.2617,	6.96633,	-2.28704,	6.96633,	-1.35176,	0.0,	-7.17537,	4.56343,	-7.22207,	5.659275,	-0.01545,	0.3626,	0.966965,	1.683045,	2.183145,	2.934325,	1.850265,	1.90366,	2.263305,	2.69389,	2.53016,	4.840725,	0.447825,	3.60276,	1.076355,	4.91458,	2.91087,	6.07535,	0.877645,	0.555325,	1.596175,	1.43003,	1.596725,	1.9438,	0.0005,	0.513765,	0.451005,	1.18441,	1.001005,	1.490325,	0.55,	0.30591,	1.139665,	0.74742,	1.31037,	0.98113,	0.1707,	0.233715,	1.0256,	0.571215,	1.899775,	0.75,	0.874175,	0.17879,	1.63451,	0.55007,	1.689635,	0.82507,	0.14357,	0.71626,	-4.089575,	0.92241,	-4.91274,	0.239245,	-0.932065,	-0.773545,	-2.496065,	-0.203325,	-3.723995,	1.35774,	-1.20031,	1.525945,	-1.30898,	3.284965,	-0.25688,	4.15813,	0.57359,	0.47604,	0.619705,	0.79199,	0.19099,	1.30856,	-0.31085,	0.37455,	-0.45604,	1.098345,	-0.32265,	1.608435,	0.133395,	0.51009,	0.09668,	1.80504,	-0.08158,	2.877665,	-0.244415,	1.47071,	-0.411875,	1.726605,	-0.681055,	1.04075	z",																																																																																																																																																																																																																																																																																																						
+SIN:																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																
+"m	184.45347	197.538145	c	0.0,	-1.07234,	-1.816725,	-3.56743,	-2.59751,	-3.56743,	-0.31954,	0.0,	-0.277465,	0.298185,	0.10754,	0.762085,	0.34786,	0.419145,	0.51192,	0.882635,	0.36458,	1.029975,	-0.41418,	0.414175,	-3.36189,	-2.90458,	-3.68608,	-4.150075,	-0.275255,	-1.05747,	-3.68853,	-5.093595,	-3.68853,	-4.361605,	0.0,	0.193375,	0.491805,	1.165645,	1.092895,	2.160605,	l	1.092895,	1.809015,	-1.144085,	-0.99882	c	-0.629245,	-0.54935,	-1.491535,	-1.67435,	-1.916195,	-2.5,	-0.42466,	-0.82565,	-1.976625,	-2.876135,	-3.44881,	-4.55663,	-1.472185,	-1.6805,	-2.6767,	-3.35268,	-2.6767,	-3.715955,	0.0,	-0.99432,	-3.669965,	-6.959825,	-4.287845,	-6.96986,	-0.29581,	-0.005,	-1.07802,	-0.583725,	-1.738235,	-1.286495,	-0.986255,	-1.049825,	-1.032825,	-1.21346,	-0.261045,	-0.9173,	0.835225,	0.320505,	0.81295,	0.1895,	-0.200975,	-1.181905,	-0.627175,	-0.848305,	-1.41288,	-1.43778,	-1.746005,	-1.30995,	-0.333125,	0.127835,	-0.89428,	-0.115315,	-1.24701,	-0.54033,	-0.35273,	-0.425015,	-1.04745,	-0.772755,	-1.543815,	-0.772755,	-0.49637,	0.0,	-1.36401,	-0.61875,	-1.92809,	-1.375,	-0.56408,	-0.75625,	-1.524695,	-1.874465,	-2.134705,	-2.48492,	-1.49679,	-1.4979,	-0.806835,	-2.02302,	0.897055,	-0.68274,	0.95631,	0.75223,	1.51929,	0.91404,	1.89009,	0.54324,	0.89135,	-0.89135,	-0.38185,	-2.27319,	-1.934835,	-2.099935,	-0.742675,	0.082855,	-1.64001,	-0.089775,	-1.99408,	-0.383625,	-0.354065,	-0.29385,	-0.96772,	-0.409955,	-1.36368,	-0.258015,	-0.395955,	0.151945,	-1.141725,	-0.189825,	-1.657265,	-0.75949,	-0.83397,	-0.92153,	-0.8663,	-1.23223,	-0.293125,	-2.81731,	0.468755,	-1.296315,	0.494325,	-1.931445,	0.09389,	-2.33188,	-0.400435,	-0.400435,	-0.550325,	-0.18263,	-0.550325,	0.799675,	0.0,	0.7425,	-0.225,	1.35,	-0.5,	1.35,	-0.275,	0.0,	-0.5,	-0.35357,	-0.5,	-0.785715,	0.0,	-0.43214,	-0.33957,	-1.12528,	-0.754595,	-1.54031,	-1.06102,	-1.061015,	-0.46285,	-1.731895,	1.036065,	-1.16201,	1.141385,	0.433955,	1.20143,	0.39034,	0.71471,	-0.519105,	-0.29225,	-0.546075,	-0.707925,	-0.99286,	-0.92372,	-0.99286,	-0.21579,	0.0,	-1.14061,	-0.668045,	-2.055155,	-1.48455,	-0.91454,	-0.8165,	-1.837045,	-1.376855,	-2.050015,	-1.245235,	-0.21297,	0.13162,	-0.80753,	-0.29503,	-1.321245,	-0.94811,	-0.513715,	-0.653085,	-1.434995,	-1.346425,	-2.047295,	-1.540765,	-0.6123,	-0.194335,	-1.005285,	-0.52806,	-0.8733,	-0.741615,	0.131985,	-0.213555,	-0.20225,	-0.86295,	-0.74274,	-1.443095,	-0.54049,	-0.58015,	-0.98271,	-1.401725,	-0.98271,	-1.825725,	0.0,	-1.00911,	-0.94569,	-0.994225,	-1.335275,	0.021,	-0.244675,	0.63761,	-0.386265,	0.661965,	-0.72665,	0.125,	-0.3249,	-0.512545,	-0.424535,	-0.46686,	-0.43042,	0.197355,	-0.0065,	0.734855,	-0.190725,	0.78087,	-1.23015,	0.307275,	-1.60659,	-0.73201,	-1.9724,	-1.79231,	-0.75199,	-2.179655,	1.03598,	-0.328805,	1.27241,	-0.998755,	0.51719,	-1.465505,	-0.25151,	-0.155445,	-0.55063,	-0.0025,	-0.664705,	0.33961,	-0.16433,	0.49298,	-0.50226,	0.48789,	-1.62685,	-0.0245,	-1.268785,	-0.578095,	-1.350945,	-0.564205,	-0.77407,	0.13088,	1.17008,	1.409865,	-0.38136,	0.852525,	-2.09419,	-0.75232,	-1.558,	-1.45977,	-1.57556,	-1.515885,	-0.38289,	-1.22357,	l	1.25,	0.306365,	-1.18388,	-1.02925	c	-0.972055,	-0.845095,	-1.072925,	-1.16294,	-0.563775,	-1.77643,	0.489405,	-0.589695,	0.49112,	-0.902585,	0.00815,	-1.484525,	-0.4916,	-0.592345,	-0.40039,	-1.17437,	0.463795,	-2.95954,	0.59166,	-1.222205,	1.43444,	-2.51988,	1.87285,	-2.88373,	0.703075,	-0.5835,	0.75541,	-0.514545,	0.44364,	0.58454,	l	-0.353465,	1.24608,	0.96,	-1.193285,	0.96,	-1.193285,	0.33087,	1.318285	c	0.181975,	0.725055,	0.535875,	1.318285,	0.78644,	1.318285,	0.265595,	0.0,	0.281105,	-0.608325,	0.0372,	-1.45879,	-0.40276,	-1.40434,	-0.281355,	-1.545585,	3.252525,	-3.78396,	3.854445,	-2.441425,	7.444005,	-5.92506,	8.22684,	-7.984065,	0.450345,	-1.1845,	0.50808,	-1.196905,	2.03188,	-0.436735,	1.25986,	0.6285,	1.82022,	0.667655,	2.848715,	0.19904,	0.70419,	-0.32085,	1.43653,	-0.403845,	1.627425,	-0.184425,	0.475065,	0.54604,	2.392545,	8.364425,	2.754935,	11.23305,	0.361625,	2.86252,	0.852635,	3.29624,	4.28761,	3.78737,	2.526655,	0.36126,	2.71959,	0.48672,	2.87739,	1.871125,	0.093025,	0.81615,	0.936775,	2.333585,	1.875,	3.37209,	1.87092,	2.070885,	1.96548,	2.70302,	1.198115,	8.00942,	-0.385985,	2.6691,	-0.333195,	3.818325,	0.252625,	5.5,	0.40731,	1.169235,	0.74384,	2.449885,	0.747845,	2.84589,	0.004,	0.39601,	0.878165,	1.52101,	1.942585,	2.5,	1.154225,	1.061595,	2.670435,	3.343925,	3.75675,	5.65499,	1.92244,	4.08987,	2.191165,	4.26888,	5.13909,	3.423425,	1.368565,	-0.3925,	1.736295,	-0.27803,	2.810975,	0.875,	1.317445,	1.413505,	2.98607,	4.64085,	2.78215,	5.381055,	-0.261195,	0.948115,	0.704225,	5.45994,	1.37243,	6.413935,	0.386815,	0.55225,	0.703295,	1.61575,	0.703295,	2.36333,	0.0,	0.74758,	0.22928,	1.50094,	0.50951,	1.67413,	0.280225,	0.17319,	1.071515,	1.42397,	1.75842,	2.77951,	0.87357,	1.72391,	1.551635,	2.464615,	2.256185,	2.464615,	1.19552,	0.0,	1.845445,	1.33044,	1.042275,	2.13361,	-0.311515,	0.311515,	-0.56639,	1.033825,	-0.56639,	1.605135,	0.0,	0.571315,	-0.364415,	1.559025,	-0.80981,	2.194915,	-0.79698,	1.13785,	-0.768995,	3.62506,	0.06404,	5.69134,	0.290785,	0.721275,	0.079835,	0.875,	-1.200735,	0.875,	-1.18272,	0.0,	-1.553495,	-0.22258,	-1.553495,	-0.93257	z",																																																																																																																																																																																																		
+CHH:																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																
+"m	166.57847	139.10461	c	-1.60304,	-0.14438,	-2.125,	-0.40284,	-2.125,	-1.052225,	0.0,	-0.473455,	-0.768075,	-1.6516,	-1.706835,	-2.6181,	-0.96883,	-0.99746,	-1.77955,	-2.39546,	-1.875,	-3.233245,	-0.1564,	-1.37271,	-0.36056,	-1.50601,	-2.918165,	-1.90532,	-1.5125,	-0.236145,	-3.017025,	-0.64662,	-3.343395,	-0.91217,	-0.326365,	-0.26555,	-0.744045,	-1.76082,	-0.928175,	-3.322825,	-0.18413,	-1.562005,	-0.82908,	-4.64001,	-1.43322,	-6.84001,	l	-1.098435,	-4.0,	-2.527505,	0.153905	c	-2.35882,	0.143635,	-2.666635,	0.02025,	-4.612245,	-1.849115,	l	-2.08474,	-2.00302,	0.335745,	-4.025885	c	0.22245,	-2.667385,	0.1604,	-4.025885,	-0.18389,	-4.025885,	-0.2858,	0.0,	-0.952105,	-0.84375,	-1.480675,	-1.875,	-0.528575,	-1.03125,	-1.49125,	-2.8628,	-2.13928,	-4.070105,	-0.652665,	-1.21595,	-1.195175,	-3.111725,	-1.21621,	-4.25,	l	-0.03795,	-2.054895,	3.875,	0.158535	c	4.335725,	0.17738,	4.36944,	0.1419,	3.35072,	-3.52625,	-0.313855,	-1.13012,	-0.342335,	-2.216145,	-0.07212,	-2.75,	0.245625,	-0.485255,	0.311545,	-3.63055,	0.146495,	-6.98954,	-0.287085,	-5.842505,	-0.256745,	-6.11344,	0.699905,	-6.25,	0.847805,	-0.12102,	1.05737,	-0.67543,	1.376935,	-3.642745,	0.65743,	-6.104555,	0.641895,	-13.903245,	-0.0301,	-15.112105,	-0.340015,	-0.61166,	-1.01925,	-4.164504,	-1.5094,	-7.895209,	-1.0179,	-7.7475375,	-0.91945,	-8.0556245,	2.395275,	-7.495605,	l	2.017295,	0.3408195,	0.0,	-4.543949	c	0.0,	-3.4431355,	0.160785,	-4.543949,	0.6637,	-4.543949,	0.365035,	0.0,	5.596285,	0.331017,	11.625,	0.7355935,	6.028715,	0.4045765,	12.71514,	0.7979435,	14.85872,	0.8741485,	l	3.89742,	0.1385545,	1.18881,	2.5008515	c	1.146375,	2.411585,	4.15844,	6.250852,	4.90405,	6.250852,	0.383265,	0.0,	2.3623,	1.852023,	2.3623,	2.2106905,	0.0,	0.1158795,	1.4625,	1.717027,	3.25,	3.5581055,	1.7875,	1.8410785,	3.25,	3.5218775,	3.25,	3.7351075,	0.0,	0.21323,	0.605675,	0.5397,	1.34594,	0.725495,	1.756,	0.440729,	5.514485,	4.496889,	5.933155,	6.403059,	0.18011,	0.820055,	0.789105,	2.273405,	1.35331,	3.229665,	0.570535,	0.966985,	0.996675,	2.514385,	0.96013,	3.486435,	-0.03615,	0.961275,	0.26576,	2.541075,	0.67088,	3.51067,	0.40512,	0.96959,	0.73888,	2.129165,	0.741685,	2.57683,	0.003,	0.44767,	1.352805,	1.795815,	3.0,	2.99589,	1.647195,	1.20007,	2.9949,	2.369725,	2.9949,	2.599235,	0.0,	0.92518,	2.349445,	2.859655,	3.87916,	3.19401,	0.896035,	0.195845,	1.850415,	0.76951,	2.12084,	1.274805,	0.270425,	0.505295,	1.153005,	1.06397,	1.96129,	1.2415,	0.80829,	0.17753,	1.75716,	0.669255,	2.10861,	1.092725,	0.56377,	0.679305,	2.584665,	1.75714,	3.513435,	1.87388,	1.084565,	0.13632,	0.38915,	1.48219,	-4.829055,	9.34593,	-3.17375,	4.78278,	-5.95597,	9.033465,	-6.18271,	9.445965,	-0.244485,	0.444795,	0.258995,	4.412465,	1.237245,	9.75,	2.127555,	11.60843,	2.138715,	10.970685,	-0.183815,	10.50443,	-5.83455,	-1.17131,	-6.195275,	-1.03387,	-9.727585,	3.706315,	-2.014875,	2.70386,	-2.562265,	2.922535,	-3.294255,	1.315995,	-0.683975,	-1.501165,	-2.76089,	-2.12517,	-4.672165,	-1.403745,	-1.077725,	0.406795,	-1.5239,	0.367525,	-1.973045,	-0.173665,	-0.75988,	-0.9156,	-1.700125,	-0.885725,	-2.6707,	0.08485,	-1.06548,	1.06548,	-2.501335,	0.52395,	-4.07247,	-1.535915,	-0.7188,	-0.94239,	-1.92712,	-1.825265,	-2.743505,	-2.004575,	-0.80242,	-0.17624,	-2.07974,	-0.97817,	-2.838485,	-1.782065,	-1.53229,	-1.62346,	-2.381295,	-1.838195,	-2.813605,	-0.711625,	-0.15829,	0.4125,	-0.57611,	0.75707,	-0.928495,	0.76571,	-1.142705,	0.028,	-2.50848,	2.455045,	-2.275365,	4.04338,	0.248335,	1.691995,	0.062025,	1.881575,	-2.09605,	2.132845,	-2.019715,	0.23516,	-2.03706,	0.26227,	-1.54989,	2.42232,	0.33895,	1.502865,	0.243175,	1.99089,	-0.52763,	2.688455,	-0.659145,	0.59652,	-0.944055,	1.541735,	-0.94941,	3.149785,	-0.004,	1.263625,	-0.17296,	2.527085,	-0.375,	2.80768,	-0.417045,	0.579205,	-2.98258,	1.785015,	-3.51587,	1.65247,	-0.19331,	-0.04805,	-1.307725,	-0.17348,	-2.476475,	-0.27875	z",																																																																																																																																																																																																																																																																																																																																										
+CHP:																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																
+"m	409.79681	336.138785	c	-2.251335,	-2.107565,	-4.65584,	-4.386035,	-5.34334,	-5.063275,	-1.23567,	-1.21723,	-1.237095,	-1.228285,	-0.12431,	-0.9647,	0.65897,	0.156095,	1.001615,	0.06589,	0.82643,	-0.217565,	-0.307115,	-0.496925,	-2.295825,	-1.37841,	-3.79467,	-1.68197,	-1.59146,	-0.32232,	-2.69508,	-1.16512,	-5.49956,	-4.19984,	-1.545515,	-1.672395,	-3.084595,	-3.04072,	-3.42018,	-3.04072,	-0.43444,	0.0,	-0.459385,	-0.18167,	-0.08661,	-0.630835,	0.388385,	-0.46797,	0.201155,	-0.782975,	-0.72524,	-1.22016,	-1.070105,	-0.50501,	-1.163265,	-0.48629,	-0.6511,	0.13083,	1.205195,	1.45217,	-0.540665,	0.72006,	-3.611585,	-1.514485,	-1.68908,	-1.229055,	-3.316785,	-2.354055,	-3.61712,	-2.5,	-0.37202,	-0.18078,	-0.34686,	-0.358305,	0.078945,	-0.557015,	0.967095,	-0.451315,	0.738125,	-1.208335,	-0.365475,	-1.208335,	-0.675475,	0.0,	-1.08454,	-0.437285,	-1.28626,	-1.375,	-0.16268,	-0.75625,	-0.642155,	-2.19883,	-1.0655,	-3.20574,	-0.73761,	-1.754365,	-0.70202,	-2.03595,	0.85312,	-6.75,	0.89256,	-2.70559,	1.786725,	-5.14426,	1.987035,	-5.41926,	0.200305,	-0.275,	0.510975,	-1.11466,	0.69038,	-1.865905,	0.18701,	-0.7831,	0.921585,	-1.6738,	1.7216,	-2.087505,	1.50486,	-0.77819,	2.5901,	-2.65653,	2.5901,	-4.48296,	0.0,	-0.626625,	0.57838,	-1.682675,	1.28529,	-2.346785,	0.92691,	-0.870785,	1.21719,	-1.55731,	1.04105,	-2.462155,	-0.338025,	-1.736475,	1.045585,	-4.50469,	2.251535,	-4.50469,	1.50617,	0.0,	2.786615,	1.56066,	3.086815,	3.762325,	0.46128,	3.383015,	1.17481,	4.737675,	2.49544,	4.737675,	0.651685,	0.0,	1.592125,	0.45,	2.08987,	1.0,	0.497745,	0.55,	1.151365,	0.996115,	1.452495,	0.99136,	0.69116,	-0.0109,	2.37741,	-1.77917,	3.604185,	-3.77949,	1.71859,	-2.80225,	3.61474,	-4.71187,	4.67863,	-4.71187,	0.57743,	0.0,	1.617275,	-0.371775,	2.31077,	-0.82617,	1.215715,	-0.79657,	1.341015,	-0.769695,	3.497025,	0.75,	1.22987,	0.866895,	2.446635,	1.57617,	2.70392,	1.57617,	0.83667,	0.0,	1.50926,	1.793715,	0.900765,	2.40221,	-0.805205,	0.805205,	0.17587,	1.797025,	2.553865,	2.581835,	1.081285,	0.356855,	1.87058,	0.90018,	1.75399,	1.20739,	-0.11659,	0.30721,	0.858195,	1.22549,	2.166185,	2.04062,	1.307995,	0.81513,	3.326295,	2.47357,	4.485115,	3.68542,	1.356945,	1.41905,	2.380345,	2.098455,	2.875,	1.90864,	0.42243,	-0.1621,	0.768055,	-0.09424,	0.768055,	0.1508,	0.0,	0.245045,	0.748595,	0.69259,	1.663545,	0.99455,	1.685055,	0.55612,	3.420175,	2.429265,	4.029965,	4.35055,	0.20543,	0.647255,	1.2068,	1.38596,	2.600075,	1.918055,	2.15434,	0.82275,	2.224965,	0.91069,	1.433655,	1.78508,	-0.58531,	0.646755,	-0.77963,	1.57491,	-0.65478,	3.127445,	l	0.17754,	2.207745,	-8.25,	0.32881	c	-4.5375,	0.180845,	-9.54938,	0.46697,	-11.137515,	0.63583,	l	-2.887515,	0.30702,	-2.94946,	5.559	c	-1.6222,	3.05745,	-3.15496,	5.79156,	-3.406125,	6.0758,	-1.16325,	1.316435,	-1.10506,	3.072345,	0.14061,	4.24259,	1.26694,	1.19023,	1.616595,	2.91402,	0.76402,	3.766595,	-0.42452,	0.42452,	-0.54867,	1.751865,	-0.530645,	5.67346,	0.0058,	1.264425,	-0.794065,	2.550555,	-1.586255,	2.550555,	-0.25874,	0.0,	-2.31244,	-1.72437,	-4.563775,	-3.83193	z",																																																																																																																																																																																																																																																																																																																																																																																																																														
+OAX:																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																
+"m	337.321395	321.90674	c	-0.44197,	-0.24734,	-1.937485,	-0.66475,	-3.323365,	-0.927575,	-1.385885,	-0.262825,	-3.44255,	-1.088525,	-4.570375,	-1.83488,	-1.59647,	-1.056495,	-2.95564,	-1.444135,	-6.137385,	-1.750395,	-2.24774,	-0.21636,	-4.944185,	-0.48355,	-5.9921,	-0.59376,	-1.140095,	-0.119905,	-2.44536,	-0.707845,	-3.25,	-1.46392,	-2.45535,	-2.307155,	-4.718745,	-3.36166,	-7.2197,	-3.363625,	-1.30625,	-0.001,	-2.375,	-0.14482,	-2.375,	-0.319535,	0.0,	-0.174715,	0.50625,	-0.833385,	1.125,	-1.463715,	0.61875,	-0.630325,	1.35,	-1.38418,	1.625,	-1.67523,	0.275,	-0.291045,	1.69072,	-1.601125,	3.14605,	-2.911285,	l	2.64605,	-2.382105,	-0.467925,	-2.436175	c	-0.37485,	-1.951585,	-0.916005,	-2.846705,	-2.72053,	-4.5,	-2.6374,	-2.41637,	-3.278415,	-4.171355,	-3.406995,	-9.32775,	-0.116255,	-4.662085,	0.55018,	-5.986075,	3.013125,	-5.986075,	0.945575,	0.0,	2.466305,	0.270145,	3.3794,	0.600325,	2.243675,	0.811325,	3.15702,	0.0111,	2.14519,	-1.879535,	-0.599445,	-1.12008,	-0.59223,	-1.48327,	0.05229,	-2.631565,	0.93735,	-1.669995,	2.463345,	-2.076005,	2.463345,	-0.655395,	0.0,	0.553935,	0.23888,	1.15479,	0.53084,	1.33523,	0.291965,	0.180445,	0.736395,	0.868725,	0.987625,	1.52951,	0.551165,	1.44967,	1.266385,	1.537695,	1.96022,	0.241255,	0.44654,	-0.834365,	1.03523,	-0.95019,	4.492965,	-0.883985,	3.299385,	0.063175,	4.21205,	-0.09774,	5.342855,	-0.942005,	1.617395,	-1.207565,	4.628245,	-6.466265,	4.66186,	-8.14233,	0.01735,	-0.86469,	0.23423,	-1.09768,	0.81453,	-0.875,	0.43499,	0.166925,	0.988725,	0.303495,	1.23052,	0.303495,	0.758865,	0.0,	2.478585,	2.146905,	2.478585,	3.09428,	0.0,	0.498145,	0.236705,	0.90572,	0.52601,	0.90572,	0.289305,	0.0,	0.766915,	0.691065,	1.06136,	1.535705,	0.61082,	1.7522,	2.059995,	2.464295,	5.01506,	2.464295,	1.35394,	0.0,	2.26013,	0.293505,	2.701545,	0.875,	0.89734,	1.182095,	0.86887,	3.859105,	-0.04915,	4.62099,	-0.77927,	0.64673,	-0.644405,	2.288545,	0.3581,	4.359475,	0.780575,	1.612485,	4.525855,	2.12419,	6.039955,	0.825215,	1.557225,	-1.335975,	4.79163,	-2.902825,	5.18343,	-2.511025,	0.18169,	0.18169,	0.067845,	0.330345,	-0.252985,	0.330345,	-2.07326,	0.0,	1.63451,	4.863935,	4.541665,	5.957855,	0.876915,	0.32997,	1.375,	0.88412,	1.375,	1.52977,	0.0,	0.556805,	0.28125,	1.01358,	0.625,	1.015045,	3.024205,	0.01295,	16.567195,	0.52286,	16.67208,	0.627745,	0.074255,	0.074255,	-0.86507,	2.891145,	-2.087395,	6.25975,	l	-2.222405,	6.124745,	1.00636,	1.972625	c	1.06907,	2.095545,	1.29491,	3.512465,	0.559855,	3.512465,	-0.24558,	0.0,	-0.58149,	-0.35176,	-0.74647,	-0.78169,	-0.16498,	-0.42993,	-0.54794,	-0.62843,	-0.851025,	-0.441115,	-0.30309,	0.187315,	-1.195565,	-0.13592,	-1.98329,	-0.71831,	-1.706735,	-1.261845,	-1.97271,	-1.301375,	-1.97271,	-0.293195,	0.0,	0.421135,	0.39375,	0.897975,	0.875,	1.059655,	2.2293,	0.748935,	5.625,	2.389215,	5.625,	2.71713,	0.0,	0.200325,	-1.51875,	-0.2837,	-3.375,	-1.0756,	-1.85625,	-0.7919,	-4.1625,	-1.449355,	-5.125,	-1.461005,	-2.18445,	-0.02645,	-3.48359,	-0.71331,	-2.2468,	-1.18791,	0.46037,	-0.176665,	1.04174,	-0.194695,	1.29192,	-0.0401,	0.250185,	0.154625,	0.45488,	0.05077,	0.45488,	-0.230785,	0.0,	-0.281555,	-0.468715,	-0.762765,	-1.041595,	-1.06936,	-0.81948,	-0.438575,	-1.227705,	-0.389015,	-1.91437,	0.23241,	-1.161925,	1.051525,	-1.544035,	0.995635,	-1.544035,	-0.22584,	0.0,	-1.53546,	-1.36157,	-1.766045,	-2.45497,	-0.415755,	-1.135525,	1.40231,	-0.873135,	2.096435,	0.62205,	1.645585,	0.740715,	-0.22335,	0.92492,	-0.162935,	0.58292,	0.19119,	-0.275,	0.284745,	-1.0625,	0.62046,	-1.75,	0.746025,	-0.6875,	0.125565,	-0.125,	0.14862,	1.25,	0.05124,	1.729025,	-0.12246,	2.268705,	-0.02915,	1.75,	0.302515,	-0.4125,	0.26377,	-2.127115,	0.483025,	-3.81026,	0.487235,	-2.909375,	0.0073,	-3.155895,	0.10624,	-5.0,	2.00721,	-1.066855,	1.099755,	-2.341405,	1.999755,	-2.83233,	2.0,	-0.490925,	0.000245,	-1.442625,	0.36084,	-2.114885,	0.80132,	-0.67226,	0.44048,	-2.12442,	1.00357,	-3.227025,	1.25131,	-1.1026,	0.24774,	-3.075905,	1.10643,	-4.385115,	1.9082,	-1.30921,	0.80177,	-3.167885,	1.584645,	-4.130385,	1.73972,	-3.87953,	0.625065,	-4.863095,	0.666265,	-5.632075,	0.23592	z",																																																																																																																																																																																																																																																																																																																		
+GRO:																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																
+"m	302.642225	310.741415	c	-0.16266,	-0.423885,	-0.511195,	-0.7707,	-0.77453,	-0.7707,	-0.26333,	0.0,	-1.016645,	-0.63921,	-1.67403,	-1.42047,	-0.97418,	-1.157745,	-1.610365,	-1.42674,	-3.43968,	-1.454395,	-1.566845,	-0.0237,	-2.590335,	-0.35619,	-3.390195,	-1.10137,	-0.63017,	-0.587095,	-1.224035,	-0.832615,	-1.319705,	-0.545605,	-0.284325,	0.852965,	-1.48236,	0.59622,	-2.54618,	-0.54565,	-0.75809,	-0.813715,	-1.352445,	-0.99591,	-2.50009,	-0.76638,	-0.828065,	0.165615,	-1.62329,	0.110645,	-1.767165,	-0.122155,	-0.34978,	-0.565955,	-2.27718,	-1.051425,	-2.27718,	-0.57357,	0.0,	0.20723,	0.50625,	0.620935,	1.125,	0.91935,	1.111355,	0.535985,	1.112095,	0.542975,	0.06122,	0.576405,	-0.585075,	0.0186,	-1.35844,	-0.32121,	-1.71859,	-0.755165,	-0.36015,	-0.43395,	-1.79395,	-1.3596,	-3.186225,	-2.057,	-1.39227,	-0.697395,	-2.93889,	-1.62715,	-3.43693,	-2.066115,	-0.698805,	-0.615915,	-0.99329,	-0.65611,	-1.289975,	-0.176065,	-0.378055,	0.61171,	-2.0545,	0.312885,	-2.0545,	-0.366215,	0.0,	-0.191075,	-0.764505,	-0.369085,	-1.698905,	-0.39557,	-0.934395,	-0.0265,	-3.42945,	-0.85858,	-5.544565,	-1.849095,	-2.115115,	-0.990515,	-4.05061,	-1.800935,	-4.301095,	-1.800935,	-0.25049,	0.0,	-0.455435,	-0.328015,	-0.455435,	-0.728925,	0.0,	-0.400905,	-1.0125,	-1.322285,	-2.25,	-2.04751,	-1.2375,	-0.72522,	-2.25,	-1.60883,	-2.25,	-1.96357,	0.0,	-0.816935,	-2.084745,	-2.19895,	-3.87714,	-2.570225,	-0.85223,	-0.17653,	-2.008525,	-1.13749,	-3.049065,	-2.53398,	-1.67587,	-2.24915,	-4.57847,	-3.952855,	-5.88216,	-3.45258,	-0.506315,	0.19429,	-0.691635,	-0.195855,	-0.691635,	-1.45606,	0.0,	-1.38303,	0.277485,	-1.864965,	1.411415,	-2.45134,	2.348205,	-1.214305,	2.80901,	-2.05655,	2.083485,	-3.80812,	-0.542365,	-1.30939,	-0.50645,	-1.646185,	0.26665,	-2.50045,	1.15195,	-1.272895,	3.46149,	-1.2642,	4.743545,	0.01785,	0.82872,	0.82872,	1.37709,	0.944315,	3.125,	0.658745,	3.849855,	-0.628985,	8.437595,	-0.26574,	13.945695,	1.104185,	1.069955,	0.26611,	1.39061,	0.125515,	1.661695,	-0.72859,	0.184745,	-0.58208,	0.27143,	-1.672965,	0.19263,	-2.424185,	-0.15273,	-1.45606,	0.33159,	-2.61525,	1.092685,	-2.61525,	0.614505,	0.0,	1.9772,	3.30924,	1.9772,	4.801535,	0.0,	0.859455,	0.36019,	1.269815,	1.32772,	1.51265,	1.09271,	0.27425,	1.557345,	0.053885,	2.625,	-1.24498,	1.07582,	-1.3088,	1.649685,	-1.57745,	3.36162,	-1.57371,	1.794945,	0.004,	2.140555,	-0.179495,	2.64837,	-1.40547,	0.499465,	-1.205815,	0.80747,	-1.37718,	2.12717,	-1.183485,	1.70022,	0.249535,	3.13569,	1.44112,	3.636335,	3.018525,	0.404935,	1.275835,	2.08215,	1.856425,	3.04778,	1.05502,	0.3993,	-0.33139,	0.726005,	-0.399175,	0.726005,	-0.15063,	0.0,	0.62143,	4.862015,	5.670545,	5.460415,	5.670545,	0.265585,	0.0,	0.77963,	0.39375,	1.14232,	0.875,	0.81166,	1.076975,	2.61831,	2.125,	3.66321,	2.125,	0.42873,	0.0,	1.3579,	0.57839,	2.06482,	1.285315,	1.218445,	1.218445,	1.270565,	1.485065,	1.00177,	5.125,	-0.21588,	2.923405,	-0.110415,	4.071295,	0.44196,	4.81025,	0.39903,	0.53381,	0.725505,	1.37756,	0.725505,	1.875,	0.0,	0.49744,	0.18413,	0.904435,	0.409175,	0.904435,	0.225045,	0.0,	1.209145,	0.73125,	2.186885,	1.625,	1.393885,	1.274145,	1.84195,	2.128275,	2.07522,	3.95592,	0.284085,	2.225775,	0.209985,	2.409985,	-1.64265,	4.08373,	-1.067085,	0.96405,	-2.410065,	2.004305,	-2.984395,	2.311675,	-0.57433,	0.30737,	-1.044235,	0.84613,	-1.044235,	1.19724,	0.0,	0.351105,	-0.678485,	1.140005,	-1.50775,	1.753105,	-1.286785,	0.95136,	-1.55109,	1.00178,	-1.803495,	0.34403	z",																																																																																																																																																																																																																																																																																																																																																																																										
+TAB:																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																
+"m	425.786805	289.63738	c	-0.183335,	-0.18333,	-0.333335,	-0.699335,	-0.333335,	-1.14667,	0.0,	-0.499875,	-0.818985,	-1.11717,	-2.125,	-1.60168,	-1.701255,	-0.63114,	-2.100085,	-1.007285,	-2.000055,	-1.8863,	0.15205,	-1.336095,	-0.687415,	-3.024565,	-1.517535,	-3.052335,	-0.334075,	-0.0112,	-1.38641,	-0.686175,	-2.338525,	-1.5,	-1.868,	-1.59669,	-3.72024,	-1.863555,	-5.192485,	-0.74812,	-0.50798,	0.384865,	-1.26113,	0.570235,	-1.67367,	0.411925,	-0.7744,	-0.297165,	-2.18521,	1.1122,	-4.36098,	4.356515,	-1.631565,	2.432845,	-3.067145,	4.0,	-3.664175,	4.0,	-0.27782,	0.0,	-0.78523,	-0.3375,	-1.127575,	-0.75,	-0.342345,	-0.4125,	-1.144115,	-0.75,	-1.781715,	-0.75,	-1.47518,	0.0,	-1.69841,	-0.392925,	-2.05269,	-3.61309,	-0.34493,	-3.135215,	-1.82565,	-4.88691,	-4.130935,	-4.88691,	-1.185735,	0.0,	-1.68281,	0.336155,	-2.32047,	1.56925,	-0.47115,	0.911105,	-0.696805,	2.14268,	-0.538035,	2.936515,	0.20326,	1.0163,	-0.0267,	1.64924,	-0.895855,	2.46577,	-0.64312,	0.60418,	-1.32535,	1.814,	-1.516065,	2.688485,	l	-0.346755,	1.58998,	-0.51052,	-1.25	c	-1.05577,	-2.58505,	-1.848775,	-3.76679,	-2.8935,	-4.31192,	-1.86762,	-0.974515,	-4.39492,	-4.13112,	-4.65704,	-5.81666,	-0.138685,	-0.89178,	-0.40474,	-2.0909,	-0.591235,	-2.664705,	-0.2589,	-0.79659,	-0.01125,	-1.25809,	1.047305,	-1.951685,	0.94225,	-0.61738,	1.44797,	-0.72365,	1.578615,	-0.33171,	0.274145,	0.822425,	0.79251,	0.718375,	2.108895,	-0.42332,	0.634155,	-0.55,	1.555305,	-1.0,	2.046995,	-1.0,	0.491695,	0.0,	1.053325,	-0.257815,	1.248075,	-0.57292,	0.343965,	-0.55655,	-0.53585,	-0.45556,	-3.12362,	0.35854,	-0.83349,	0.262215,	-0.82933,	0.23137,	0.0436,	-0.323115,	1.040345,	-0.66082,	7.24057,	-1.96582,	9.284935,	-1.95426,	0.89597,	0.00505,	1.05696,	0.12937,	0.568425,	0.438885,	-0.571725,	0.36222,	-0.572445,	0.468195,	-0.0045,	0.657525,	0.37241,	0.124135,	0.970495,	-0.06768,	1.329075,	-0.426265,	0.358585,	-0.35858,	1.48559,	-0.87988,	2.504465,	-1.15845,	1.018875,	-0.278565,	2.53728,	-1.12826,	3.37423,	-1.88821,	1.42333,	-1.292385,	3.428385,	-2.63173,	3.939805,	-2.63173,	0.12381,	0.0,	0.29561,	0.73125,	0.381785,	1.625,	0.145255,	1.50651,	0.30251,	1.635975,	2.15668,	1.77551,	2.431105,	0.18295,	3.247545,	1.14034,	3.257655,	3.820055,	0.0096,	2.537865,	0.250855,	2.89595,	2.83342,	4.205125,	1.15009,	0.58301,	2.23212,	1.288235,	2.40451,	1.567165,	0.378355,	0.612195,	3.737025,	0.661325,	4.67251,	0.068345,	0.36745,	-0.232915,	0.59245,	-0.96072,	0.5,	-1.61734,	-0.137175,	-0.974265,	0.07783,	-1.222285,	1.16891,	-1.348405,	0.735355,	-0.085,	2.24514,	0.30875,	3.35508,	0.875,	1.109945,	0.56625,	2.79047,	1.029545,	3.7345,	1.029545,	1.069485,	0.0,	1.82562,	0.284555,	2.006135,	0.754965,	0.15934,	0.41523,	0.44217,	3.45273,	0.628515,	6.75,	l	0.338805,	5.995035,	-3.241685,	0.0	c	-1.78293,	0.0,	-3.39169,	-0.15,	-3.57502,	-0.333335	z",																																																																																																																																																																																																																																																																																																																																																																																																																																																						
+MIC:																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																
+"m	237.45347	282.220715	c	-0.9625,	-0.370655,	-2.4053,	-0.69104,	-3.206225,	-0.71196,	-0.800925,	-0.0209,	-2.488425,	-0.69002,	-3.75,	-1.48689,	-1.261575,	-0.796865,	-3.52617,	-1.70546,	-5.032435,	-2.019095,	-2.800815,	-0.58319,	-7.01134,	-2.70651,	-7.01134,	-3.535735,	0.0,	-0.25384,	-0.63704,	-1.200605,	-1.415645,	-2.10392,	-2.119335,	-2.45881,	-2.267155,	-3.280795,	-0.885325,	-4.92301,	0.662925,	-0.787845,	1.28762,	-1.679335,	1.388205,	-1.98109,	0.100585,	-0.301755,	0.91763,	-0.56954,	1.815655,	-0.59507,	0.898025,	-0.02555,	1.754795,	-0.24386,	1.90393,	-0.48517,	0.14914,	-0.24131,	1.00901,	-0.30032,	1.91083,	-0.13114,	1.425215,	0.26737,	2.00774,	0.0078,	4.453945,	-1.98466,	1.54785,	-1.26074,	3.28014,	-2.29226,	3.849525,	-2.29226,	1.50202,	0.0,	4.048235,	-2.95925,	3.87192,	-4.5,	-0.11712,	-1.023485,	-0.392205,	-1.23294,	-1.51804,	-1.15587,	-1.118495,	0.076575,	-1.375,	-0.11464,	-1.375,	-1.025,	0.0,	-0.61552,	-0.23336,	-1.35249,	-0.51858,	-1.63771,	-0.358105,	-0.358105,	-0.358105,	-0.940655,	0.0,	-1.88255,	0.28522,	-0.750185,	0.51858,	-1.53102,	0.51858,	-1.735195,	0.0,	-0.485675,	-3.366,	-1.961875,	-5.40185,	-2.369045,	-1.80751,	-0.3615,	-1.890895,	-0.55417,	-0.870405,	-2.01113,	0.53538,	-0.76436,	1.4749,	-1.116115,	3.55428,	-1.330725,	1.795935,	-0.18536,	3.518125,	-0.749405,	4.723325,	-1.546965,	1.412845,	-0.93498,	2.8752,	-1.343905,	5.731545,	-1.60274,	l	3.834745,	-0.347495,	1.435995,	1.572215	c	1.67511,	1.83401,	2.415195,	1.940085,	3.992365,	0.57221,	2.095755,	-1.81764,	4.5,	-0.775145,	4.5,	1.951225,	0.0,	1.86457,	1.857555,	2.927785,	3.541045,	2.026805,	1.97236,	-1.05557,	4.60648,	-1.0041,	5.48642,	0.107205,	0.598945,	0.756425,	1.49409,	1.01118,	3.89833,	1.10945,	2.603015,	0.106395,	3.382,	-0.065105,	4.69467,	-1.033565,	1.71139,	-1.26262,	3.82938,	-1.511275,	4.779535,	-0.56112,	0.723995,	0.723995,	0.80543,	3.9,	0.1,	3.9,	-0.275,	0.0,	-0.5,	0.43125,	-0.5,	0.958335,	0.0,	0.52708,	-0.20051,	1.03333,	-0.44558,	1.125,	-0.24507,	0.091665,	-0.66305,	2.47254,	-0.928845,	5.290835,	-0.539,	5.7151,	-2.66138,	11.58726,	-4.19708,	11.61239,	-1.05203,	0.0172,	-1.428495,	1.0339,	-1.428495,	3.85783,	0.0,	1.96426,	-0.115375,	2.213195,	-0.875,	1.88791,	-2.00438,	-0.858305,	-6.20495,	-1.390275,	-11.32998,	-1.43485,	-3.88246,	-0.03375,	-5.516005,	-0.22762,	-5.66667,	-0.67245,	-0.35422,	-1.045835,	-4.33252,	-0.78063,	-5.362495,	0.35748,	-0.817055,	0.90284,	-0.85365,	1.59947,	-0.2092,	3.982445,	0.10939,	0.404495,	-0.62081,	1.25502,	-1.681655,	1.95877,	-1.686745,	1.118965,	-1.875,	1.46134,	-1.875,	3.410075,	0.0,	2.03905,	-0.08073,	2.163995,	-1.375,	2.12819,	-0.75625,	-0.0209,	-2.1625,	-0.341305,	-3.125,	-0.71196	z",																																																																																																																																																																																																																																																																																																																																																																																																																																																																								
+MOR:																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																
+"m	293.45347	272.970715	c	-1.12713,	-1.58291,	-2.5,	-2.00339,	-2.5,	-0.76569,	0.0,	0.447295,	-0.293145,	0.621815,	-0.75,	0.446505,	-0.4125,	-0.158295,	-0.75,	-0.603435,	-0.75,	-0.989205,	0.0,	-0.38577,	-0.45,	-1.0867,	-1.0,	-1.557625,	-0.55,	-0.470925,	-1.0,	-1.017535,	-1.0,	-1.214695,	0.0,	-0.19716,	0.9,	-1.39834,	2.0,	-2.66929,	1.1,	-1.27095,	2.0,	-2.659675,	2.0,	-3.086055,	0.0,	-0.61987,	0.375765,	-0.710555,	1.875,	-0.45249,	4.34179,	0.747355,	4.625,	0.85931,	4.625,	1.828275,	0.0,	0.76456,	0.357525,	0.96027,	1.754235,	0.96027,	1.629075,	0.0,	1.70968,	0.07135,	1.12973,	1.0,	-0.49935,	0.79958,	-0.49935,	1.20042,	0.0,	2.0,	0.370185,	0.59276,	0.419165,	1.0,	0.12027,	1.0,	-0.27733,	0.0,	-0.504235,	0.789405,	-0.504235,	1.754235,	0.0,	1.653645,	-0.06109,	1.718155,	-1.065325,	1.125,	-0.85797,	-0.50676,	-1.110065,	-0.505535,	-1.295175,	0.0063,	-0.20006,	0.553165,	-2.659365,	2.11448,	-3.330625,	2.11448,	-0.13243,	0.0,	-0.721425,	-0.675,	-1.308875,	-1.5	z",																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																
+MEX:																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																
+"m	273.786805	273.63738	c	-0.183335,	-0.18333,	-0.333335,	-0.79456,	-0.333335,	-1.35828,	0.0,	-0.563725,	-0.35656,	-1.95859,	-0.792355,	-3.099705,	-0.770655,	-2.017935,	-0.75592,	-2.146655,	0.538055,	-4.700195,	0.979565,	-1.93308,	1.45551,	-3.895615,	1.80479,	-7.44196,	0.477855,	-4.851845,	1.199055,	-7.566525,	2.01017,	-7.566525,	0.241635,	0.0,	0.43934,	-0.99643,	0.43934,	-2.214285,	0.0,	-1.26932,	0.30991,	-2.524195,	0.72619,	-2.940475,	0.399405,	-0.399405,	0.57798,	-0.8744,	0.396835,	-1.05555,	-0.181145,	-0.181145,	0.179795,	-0.4625,	0.80209,	-0.62523,	0.69003,	-0.18045,	1.029,	-0.562845,	0.868855,	-0.98017,	-0.36152,	-0.942105,	0.191595,	-0.85283,	1.95603,	0.31571,	0.825,	0.546375,	2.223335,	0.994895,	3.10741,	0.996705,	1.7898,	0.0035,	2.354955,	0.711605,	2.903855,	3.6375,	0.319475,	1.702935,	0.492835,	1.865795,	1.986065,	1.865795,	1.212235,	0.0,	1.70337,	-0.257485,	1.89597,	-0.99398,	0.279135,	-1.067415,	2.61174,	-2.21643,	3.44903,	-1.698955,	0.27963,	0.172815,	0.38699,	0.92134,	0.23858,	1.663375,	-0.26824,	1.34122,	-0.25319,	1.348955,	2.55619,	1.31436,	2.64823,	-0.0326,	2.85703,	0.052225,	3.318895,	1.34848,	0.42197,	1.18429,	0.327385,	1.49919,	-0.657485,	2.18902,	-0.898505,	0.629335,	-1.002375,	0.897055,	-0.474435,	1.222835,	0.981115,	0.605415,	1.29272,	10.414935,	0.34982,	11.012485,	-1.21958,	0.772885,	-2.423895,	0.495835,	-2.423895,	-0.55762,	0.0,	-0.555555,	-0.333335,	-1.0,	-0.75,	-1.0,	-0.532025,	0.0,	-0.75214,	-0.544945,	-0.75737,	-1.875,	-0.004,	-1.03125,	-0.32513,	-2.4375,	-0.713505,	-3.125,	-0.38837,	-0.6875,	-1.08569,	-1.98125,	-1.5496,	-2.875,	-0.873745,	-1.68333,	-1.729525,	-2.14245,	-1.729525,	-0.92788,	0.0,	0.38342,	-0.703595,	1.450325,	-1.56354,	2.3709,	-1.53611,	1.64441,	-1.552785,	1.71573,	-0.950615,	4.065275,	0.681855,	2.660455,	0.503655,	3.116335,	-2.46019,	6.293725,	-1.35582,	1.45351,	-1.786305,	1.63537,	-3.22999,	1.364535,	-1.506395,	-0.2826,	-1.725505,	-0.16804,	-2.29133,	1.19798,	-0.559295,	1.35025,	-0.854265,	1.510465,	-2.78095,	1.510465,	-1.82408,	0.0,	-2.31943,	0.23051,	-3.223385,	1.5,	-1.031885,	1.44915,	-1.972615,	1.86072,	-2.666665,	1.166665	z",																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																				
+CAM:																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																
+"m	432.364115	277.898875	c	-0.15137,	-1.58129,	-0.290525,	-1.69472,	-2.410645,	-1.965035,	-1.2375,	-0.15778,	-3.30949,	-0.816865,	-4.60442,	-1.464635,	-2.017395,	-1.00917,	-2.543605,	-1.09156,	-3.676055,	-0.57558,	-1.073095,	0.488935,	-1.26323,	0.83489,	-1.011055,	1.839635,	0.289125,	1.15197,	0.180945,	1.237455,	-1.56602,	1.237455,	-2.340795,	0.0,	-6.986805,	-2.36091,	-7.356995,	-3.738525,	-0.14949,	-0.55631,	-0.274875,	-1.810225,	-0.27863,	-2.786475,	-0.0087,	-2.26912,	-0.743625,	-2.975,	-3.0973,	-2.975,	-1.59906,	0.0,	-1.93879,	-0.192515,	-2.20392,	-1.24888,	-0.62298,	-2.482135,	-0.101675,	-2.789785,	4.543485,	-2.68139,	2.762085,	0.06445,	4.457505,	0.32674,	4.803005,	0.74304,	1.041785,	1.255275,	-0.03295,	1.73905,	-3.094015,	1.39273,	-2.149125,	-0.243145,	-2.95808,	-0.171055,	-2.95808,	0.26361,	0.0,	0.37471,	0.381275,	0.477265,	1.02032,	0.27444,	0.56118,	-0.17811,	2.213695,	0.051525,	3.672255,	0.510295,	2.45021,	0.77069,	2.63383,	0.93538,	2.413925,	2.165145,	l	-0.23801,	1.33101,	1.001815,	-1.0	c	0.551,	-0.55,	0.90481,	-1.16875,	0.786245,	-1.375,	-0.31144,	-0.541775,	1.553135,	-0.460625,	3.12206,	0.13588,	1.20671,	0.45879,	1.31733,	0.41,	1.084975,	-0.47853,	-0.20279,	-0.775475,	0.09875,	-1.10738,	1.394625,	-1.53506,	2.45119,	-0.808965,	3.40766,	-3.47419,	1.68084,	-4.683705,	-0.5761,	-0.403515,	-0.89888,	-0.97407,	-0.717285,	-1.2679,	0.202785,	-0.328115,	0.0308,	-0.419345,	-0.445795,	-0.236465,	-0.426785,	0.163775,	-0.77597,	0.498695,	-0.77597,	0.744275,	0.0,	0.245575,	-0.225,	0.446505,	-0.5,	0.446505,	-1.161995,	0.0,	-0.31237,	-0.98971,	2.515695,	-2.930475,	1.658635,	-1.13824,	3.22292,	-2.069525,	3.47619,	-2.069525,	0.253275,	0.0,	1.551945,	-1.091445,	2.885935,	-2.42544,	2.351405,	-2.3514,	2.442205,	-2.552425,	2.974715,	-6.585815,	0.444355,	-3.365665,	0.766665,	-4.324355,	1.687295,	-5.01879,	1.06992,	-0.80704,	1.13399,	-1.183725,	1.0707,	-6.29463,	-0.03705,	-2.989925,	0.14451,	-5.77127,	0.40342,	-6.180775,	0.350975,	-0.555125,	0.472685,	-0.331125,	0.478395,	0.88045,	0.00755,	1.606575,	0.03485,	1.625,	2.407655,	1.625,	1.32,	0.0,	2.61375,	-0.208735,	2.875,	-0.463855,	0.296005,	-0.28906,	2.6672,	2.036535,	6.292435,	6.17143,	l	5.81743,	6.635285,	0.792125,	5.70357	c	0.885115,	6.373165,	2.62001,	27.335485,	2.28707,	27.634125,	-0.117735,	0.105605,	-4.93906,	0.452605,	-10.71406,	0.77111,	-5.775,	0.318505,	-11.66521,	0.7086,	-13.089355,	0.866875,	l	-2.589355,	0.287775,	-0.160645,	-1.678155	z",																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																	
+DF:																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																
+"m	292.98359	261.98891	c	-1.41471,	-0.220605,	-1.79149,	-0.54568,	-2.12345,	-1.83204,	-0.35278,	-1.367035,	-0.185455,	-1.80197,	1.329515,	-3.455935,	1.55546,	-1.698165,	1.76807,	-1.79411,	2.07445,	-0.936155,	0.18775,	0.525765,	0.640525,	1.306575,	1.006165,	1.73514,	0.36564,	0.42856,	0.768225,	1.587025,	0.894635,	2.57436,	0.26083,	2.03723,	-0.28572,	2.366165,	-3.181315,	1.91463	z",																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								
+TLA:																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																
+"m	308.445975	259.72694	c	-0.69162,	-0.365765,	-1.99608,	-1.693495,	-2.898805,	-2.950515,	-1.193795,	-1.66233,	-1.94112,	-2.25416,	-2.74089,	-2.170595,	-0.803125,	0.08391,	-1.143085,	-0.18842,	-1.26097,	-1.010115,	-0.148475,	-1.034985,	0.0338,	-1.125,	2.27782,	-1.125,	1.341565,	0.0,	2.86484,	-0.311225,	3.38505,	-0.691615,	0.57913,	-0.42347,	1.246205,	-0.532105,	1.720565,	-0.2802,	0.4261,	0.226275,	1.408575,	0.54558,	2.18328,	0.70956,	0.84823,	0.179545,	1.743285,	0.888025,	2.25,	1.780985,	0.462795,	0.815555,	1.1278,	1.375085,	1.477785,	1.24339,	0.564995,	-0.212595,	2.61366,	1.345565,	2.61366,	1.98788,	0.0,	0.1375,	-0.560595,	0.25,	-1.245765,	0.25,	-0.68917,	0.0,	-1.515,	0.431125,	-1.848375,	0.96494,	-0.473195,	0.7577,	-0.80639,	0.855885,	-1.551415,	0.45716,	-0.73303,	-0.392305,	-1.193905,	-0.27958,	-2.02662,	0.49569,	-0.951605,	0.885955,	-1.225085,	0.925585,	-2.33532,	0.338435	z",																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		
+HGO:																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																
+"m	302.6471	251.095715	c	-0.94915,	-3.020195,	-1.07267,	-3.125,	-3.68291,	-3.125,	-2.35307,	0.0,	-2.51072,	-0.079475,	-2.51072,	-1.26569,	0.0,	-0.696135,	-0.330075,	-1.392355,	-0.733505,	-1.547165,	-1.18476,	-0.454635,	-3.4756,	0.536715,	-4.016495,	1.738125,	-0.81492,	1.810055,	-2.40988,	1.18522,	-3.0,	-1.17527,	-0.70257,	-2.810285,	-1.091775,	-3.247875,	-2.90451,	-3.265605,	-1.811395,	-0.0177,	-5.72917,	-2.18825,	-4.88805,	-2.70809,	0.29841,	-0.18443,	0.544565,	-1.165795,	0.54701,	-2.180815,	0.004,	-1.72501,	0.17553,	-1.930745,	2.625,	-3.151425,	1.7861,	-0.89009,	2.573375,	-1.568465,	2.47239,	-2.1304,	-0.081485,	-0.453455,	0.537265,	-2.07339,	1.375,	-3.59986,	0.83774,	-1.52647,	1.52316,	-3.100945,	1.52316,	-3.49884,	0.0,	-0.58004,	0.18428,	-0.608355,	0.9297,	-0.14283,	0.7482,	0.467255,	1.18078,	0.394875,	2.21581,	-0.370765,	0.707365,	-0.523255,	1.524605,	-1.46405,	1.81609,	-2.090655,	0.48382,	-1.040065,	0.628325,	-1.077905,	1.65919,	-0.43453,	0.621065,	0.38762,	2.334165,	0.836255,	3.80689,	0.99697,	l	2.67768,	0.29221,	-0.200605,	-1.71836	c	-0.12648,	-1.08339,	0.0329,	-1.80796,	0.431305,	-1.960845,	0.82362,	-0.31605,	1.25032,	0.406955,	0.852305,	1.44416,	-0.439275,	1.14473,	1.717835,	3.36684,	2.903155,	2.99063,	0.499665,	-0.158585,	0.90848,	-0.07442,	0.90848,	0.18704,	0.0,	0.26146,	0.464685,	0.596895,	1.032635,	0.74542,	0.981175,	0.25658,	0.99381,	0.345115,	0.253535,	1.77664,	-0.4285,	0.828635,	-0.644115,	1.858355,	-0.479135,	2.288275,	0.34896,	0.90938,	0.00037,	0.981375,	-1.32284,	0.27322,	-0.77165,	-0.412975,	-1.104905,	-0.272135,	-1.77463,	0.75,	-0.453515,	0.69215,	-1.1362,	1.258455,	-1.51707,	1.258455,	-0.38087,	0.0,	-0.692495,	0.3375,	-0.692495,	0.75,	0.0,	0.4125,	0.320255,	0.75,	0.71168,	0.75,	0.606975,	0.0,	0.60127,	0.22131,	-0.0388,	1.504325,	-0.837505,	1.678815,	-0.50714,	4.3988,	0.58518,	4.81796,	0.982405,	0.376985,	2.64873,	-0.673005,	4.973215,	-3.133745,	2.28051,	-2.414185,	2.986395,	-2.6503,	3.73599,	-1.24967,	0.409425,	0.76502,	0.15807,	1.29492,	-1.35741,	2.861665,	-1.02293,	1.057535,	-2.178005,	1.92879,	-2.56683,	1.93613,	-1.23731,	0.02335,	-1.14969,	1.170405,	0.15469,	2.02507,	1.04749,	0.68634,	1.2097,	1.092,	0.962415,	2.406865,	-0.16358,	0.86977,	-0.60403,	1.936615,	-0.97878,	2.37077,	-0.374755,	0.434155,	-0.68137,	1.45439,	-0.68137,	2.267195,	0.0,	1.10097,	-0.37031,	1.696575,	-1.452145,	2.33563,	-1.902805,	1.124015,	-3.99818,	1.11574,	-4.354225,	-0.0172	z",																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																
+ZAC:																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																
+"m	215.82847	224.089235	c	-0.48125,	-0.105515,	-0.875,	-0.385185,	-0.875,	-0.62149,	0.0,	-0.2363,	-0.47973,	-0.5819,	-1.066065,	-0.768,	-0.586335,	-0.186095,	-0.84394,	-0.482505,	-0.572455,	-0.65869,	0.271485,	-0.17619,	0.764025,	-1.15003,	1.09453,	-2.1641,	0.330505,	-1.014065,	1.01317,	-2.367845,	1.517025,	-3.008395,	1.23301,	-1.56752,	2.52143,	-4.72985,	2.10941,	-5.1774,	-0.182845,	-0.19862,	0.25067,	-0.221625,	0.96336,	-0.051135,	2.7533,	0.658655,	6.521905,	-4.37647,	6.648865,	-8.88336,	0.05163,	-1.832675,	-0.059285,	-1.99403,	-1.65804,	-2.4122,	-2.45048,	-0.640935,	-4.03663,	0.301925,	-4.03663,	2.399515,	0.0,	1.906385,	-0.88806,	2.79314,	-2.40102,	2.397495,	-1.31627,	-0.344215,	-1.328745,	-0.53628,	-0.27804,	-4.280965,	0.78739,	-2.806235,	0.78228,	-2.95507,	-0.125,	-3.6419,	-1.40618,	-1.0645,	-1.54285,	-0.96685,	-2.443985,	1.746225,	-0.45563,	1.371765,	-1.03621,	2.622545,	-1.290185,	2.779505,	-0.579145,	0.357935,	-0.59809,	0.465235,	0.456675,	-2.58646,	0.48719,	-1.40956,	1.267345,	-2.944385,	1.733675,	-3.410715,	1.507505,	-1.5075,	0.900655,	-2.057675,	-2.65212,	-2.404445,	-1.075375,	-0.10496,	-1.27189,	0.105005,	-1.40668,	1.502995,	-0.093455,	0.96929,	0.071895,	1.625,	0.409775,	1.625,	0.31155,	0.0,	0.494555,	0.50625,	0.40668,	1.125,	-0.125475,	0.8835,	-0.42811,	1.087105,	-1.409775,	0.94847,	-0.6875,	-0.09709,	-1.42327,	-0.43459,	-1.635045,	-0.75,	-0.576305,	-0.85832,	-0.084295,	-9.653315,	0.727695,	-13.008135,	0.390665,	-1.614065,	1.092135,	-3.21387,	1.558825,	-3.55512,	0.46669,	-0.34125,	0.848525,	-0.876905,	0.848525,	-1.190335,	0.0,	-0.313435,	0.56465,	-0.56988,	1.254775,	-0.56988,	1.192695,	0.0,	1.24451,	-0.117495,	1.047365,	-2.375,	-0.301745,	-3.45531,	0.114705,	-4.91521,	1.62393,	-5.69284,	0.72816,	-0.37519,	1.753,	-1.21255,	2.277415,	-1.860805,	0.52442,	-0.64825,	1.332145,	-1.54825,	1.79495,	-2.0,	0.4628,	-0.451745,	0.9935,	-1.242675,	1.17933,	-1.75762,	0.291575,	-0.807985,	0.69647,	-0.89603,	2.955055,	-0.642585,	1.43945,	0.16153,	3.62968,	0.479975,	4.86718,	0.70766,	1.2375,	0.227685,	3.6,	0.29185,	5.25,	0.14258,	l	3.0,	-0.27139,	0.146845,	-3.33117	c	0.1154,	-2.617755,	-0.115045,	-3.9757,	-1.076015,	-6.340655,	-0.672575,	-1.65521,	-1.094905,	-3.137435,	-0.93851,	-3.293825,	0.562225,	-0.562225,	5.40881,	-0.22497,	7.36768,	0.51269,	2.552925,	0.961365,	2.682225,	1.001955,	4.625,	1.45174,	0.9249,	0.214135,	1.625,	0.692585,	1.625,	1.11053,	0.0,	0.40387,	0.40261,	0.839595,	0.894685,	0.968275,	0.49208,	0.12868,	1.11083,	0.726365,	1.375,	1.32819,	0.41429,	0.94381,	0.80679,	1.07137,	2.855315,	0.92797,	1.469445,	-0.102865,	2.375,	0.03955,	2.375,	0.37356,	0.0,	0.296895,	0.826805,	1.45499,	1.837345,	2.573535,	1.448585,	1.60341,	2.08335,	1.97198,	3.0,	1.741915,	1.629515,	-0.40898,	1.55256,	1.07103,	-0.094715,	1.82158,	-0.745895,	0.339855,	-1.42416,	1.199905,	-1.667395,	2.11428,	-0.33971,	1.27706,	-0.63206,	1.51772,	-1.70481,	1.40339,	-1.49359,	-0.159185,	-2.10484,	1.02993,	-1.58798,	3.089255,	0.276595,	1.102045,	-0.239765,	1.906725,	-3.6048,	5.617575,	-3.89762,	4.29817,	-5.951975,	5.681165,	-8.43902,	5.681165,	-1.6522,	0.0,	-5.53872,	1.75786,	-5.8857,	2.662085,	-0.14581,	0.379975,	0.160705,	1.055455,	0.681145,	1.501075,	0.690535,	0.591255,	0.86759,	1.20353,	0.65517,	2.265645,	-0.459265,	2.29632,	0.976365,	4.66582,	3.84035,	6.338475,	1.462585,	0.854195,	2.62642,	1.93023,	2.789195,	2.578775,	0.396485,	1.57972,	1.581045,	2.496775,	1.95759,	1.51551,	0.163975,	-0.427315,	0.67552,	-0.64977,	1.18675,	-0.516085,	1.09792,	0.287115,	3.536875,	-1.85424,	3.536875,	-3.10531,	0.0,	-0.856935,	0.0427,	-0.856515,	1.0,	0.00985,	1.24136,	1.123415,	1.312925,	3.52403,	0.125,	4.19322,	-0.832705,	0.469085,	-0.83226,	0.572995,	0.00925,	2.149845,	1.134365,	2.12557,	0.724675,	5.5879,	-0.902705,	7.62883,	l	-1.165355,	1.46149,	-1.649075,	-1.612275	c	-0.94823,	-0.927075,	-2.077905,	-1.561355,	-2.658105,	-1.49245,	-1.562035,	0.1855,	-3.258315,	-1.15201,	-3.26436,	-2.573935,	-0.0035,	-0.78204,	-0.829135,	-2.14793,	-2.192105,	-3.625715,	-1.858455,	-2.015015,	-2.27843,	-2.260545,	-2.79728,	-1.635375,	-0.79886,	0.962575,	-3.416135,	2.256365,	-4.564505,	2.256365,	-0.498075,	0.0,	-1.14518,	0.44767,	-1.438005,	0.994825,	-0.29283,	0.547155,	-1.17943,	1.32941,	-1.97022,	1.738345,	-2.5161,	1.301125,	-3.033725,	2.14664,	-3.01665,	4.927545,	0.01495,	2.433125,	0.781595,	4.30429,	1.78922,	4.36695,	0.89137,	0.05543,	2.763145,	2.969575,	2.48013,	3.86128,	-0.1565,	0.49308,	-1.225605,	1.619785,	-2.37579,	2.503785,	-2.128755,	1.6361,	-4.41613,	2.02987,	-9.90946,	1.705905,	-0.9625,	-0.056765,	-2.3125,	0.080155,	-3.0,	0.30426,	-0.6875,	0.224105,	-1.64375,	0.32114,	-2.125,	0.215625	z",																																																																																																																																																																																																																																																												
+VER:																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																
+"m	366.95347	292.41188	c	0.0,	-0.645465,	-0.567865,	-1.23171,	-1.625,	-1.677595,	-0.89375,	-0.376975,	-2.4099,	-1.500305,	-3.36922,	-2.496295,	-1.368675,	-1.42099,	-1.59521,	-1.902985,	-1.052145,	-2.23862,	0.832975,	-0.514805,	0.365295,	-2.028655,	-0.62672,	-2.028655,	-0.38746,	0.0,	-0.98457,	0.3375,	-1.326915,	0.75,	-0.342345,	0.4125,	-0.976335,	0.75,	-1.408865,	0.75,	-0.43253,	0.0,	-1.389635,	0.57792,	-2.1269,	1.284265,	-3.236945,	3.10119,	-7.74717,	-1.01626,	-5.159715,	-4.71037,	0.687935,	-0.982165,	0.716045,	-1.464625,	0.19398,	-3.32926,	-0.69876,	-2.49572,	-1.0849,	-2.73762,	-3.93223,	-2.463365,	-1.15184,	0.110945,	-2.06627,	-0.0179,	-2.06627,	-0.291125,	0.0,	-0.26958,	-0.45,	-0.490145,	-1.0,	-0.490145,	-0.555555,	0.0,	-1.0,	-0.333335,	-1.0,	-0.75,	0.0,	-0.4125,	-0.45,	-1.2,	-1.0,	-1.75,	-0.55,	-0.55,	-1.007155,	-1.28125,	-1.0159,	-1.625,	-0.02805,	-1.10317,	-1.21785,	-2.250335,	-3.187475,	-3.073295,	-2.60995,	-1.090505,	-2.923085,	-1.02096,	-2.58132,	0.573295,	0.199575,	0.930975,	-0.0462,	1.930615,	-0.76104,	3.095565,	l	-1.055795,	1.72056,	-0.841195,	-1.11519	c	-0.807095,	-1.069995,	-0.9158,	-1.08402,	-2.68192,	-0.34609,	-1.734085,	0.72455,	-1.870705,	0.713105,	-2.358045,	-0.1975,	-0.28452,	-0.53163,	-0.51731,	-1.30102,	-0.51731,	-1.709745,	0.0,	-0.42281,	-0.66115,	-0.888355,	-1.533785,	-1.08002,	-2.004275,	-0.440215,	-2.30037,	-1.36893,	-1.0129,	-3.17702,	0.575675,	-0.80846,	1.046685,	-2.145095,	1.046685,	-2.9703,	0.0,	-1.326325,	0.2465,	-1.57837,	2.125,	-2.172815,	2.861125,	-0.90539,	2.973685,	-2.451355,	0.220135,	-3.023455,	-2.77003,	-0.57553,	-3.69077,	-1.201305,	-3.97795,	-2.703595,	-0.33466,	-1.750665,	1.85779,	-7.65901,	3.49879,	-9.428755,	1.02598,	-1.10647,	1.137925,	-1.45726,	0.578175,	-1.81174,	-0.38178,	-0.24177,	-0.945055,	-0.443035,	-1.25172,	-0.447245,	-0.306665,	-0.004,	-1.130425,	-0.458265,	-1.830585,	-1.009005,	-1.28646,	-1.011935,	-2.861845,	-0.89917,	-2.861845,	0.204845,	0.0,	1.287675,	-1.07234,	1.724165,	-1.9875,	0.809005,	-0.488125,	-0.488125,	-1.110085,	-0.971875,	-1.38213,	-1.075,	-0.302115,	-0.114525,	-0.3508,	-1.06322,	-0.125085,	-2.4375,	0.203255,	-1.2375,	0.39771,	-2.06593,	0.43213,	-1.840955,	0.0344,	0.22498,	0.72742,	-0.064355,	1.54,	-0.64296,	1.70135,	-1.21147,	1.596995,	-1.929315,	-0.450335,	-3.097795,	-1.07278,	-0.61227,	-1.499455,	-1.271875,	-1.61717,	-2.5,	-0.136535,	-1.42441,	-0.3299,	-1.644485,	-1.32275,	-1.50545,	-1.40207,	0.19634,	-3.08716,	1.778385,	-3.08716,	2.89838,	0.0,	0.66383,	-0.136055,	0.69831,	-0.74882,	0.18976,	-0.61437,	-0.50988,	-1.0651,	-0.38023,	-2.51029,	0.72207,	-0.968805,	0.738945,	-2.09749,	1.856375,	-2.50819,	2.48318,	-0.410695,	0.626805,	-1.31238,	1.397375,	-2.003735,	1.712375,	-1.13539,	0.51732,	-1.30517,	0.446055,	-1.754815,	-0.736595,	-0.393865,	-1.03594,	-0.287795,	-1.66527,	0.507985,	-3.014015,	l	1.00579,	-1.704685,	-1.118965,	-0.449965	c	-0.76164,	-0.30627,	-0.85902,	-0.46008,	-0.304945,	-0.48165,	0.447705,	-0.01745,	1.134025,	-0.51366,	1.52515,	-1.102725,	0.590855,	-0.889875,	0.886045,	-0.97742,	1.745245,	-0.51759,	1.22539,	0.65581,	1.66559,	0.333065,	1.66559,	-1.221185,	0.0,	-0.62873,	0.25808,	-1.709565,	0.57351,	-2.40186,	0.44188,	-0.96982,	0.42888,	-1.432995,	-0.05665,	-2.018025,	-0.346595,	-0.417615,	-0.829675,	-0.636,	-1.073515,	-0.485295,	-0.24384,	0.1507,	-0.443345,	-0.09194,	-0.443345,	-0.5392,	0.0,	-0.59504,	-0.277885,	-0.725005,	-1.03583,	-0.48444,	-1.342555,	0.42611,	-2.945,	-0.97669,	-2.60423,	-2.279775,	0.1383,	-0.528875,	-0.21192,	-1.8506,	-0.778275,	-2.937175,	l	-1.029735,	-1.975585,	1.013015,	-1.287835	c	0.74339,	-0.945075,	0.926245,	-1.68287,	0.68702,	-2.772055,	-0.21732,	-0.989455,	-0.063635,	-1.85878,	0.461025,	-2.60784,	0.432855,	-0.61799,	0.78701,	-1.49948,	0.78701,	-1.95887,	0.0,	-0.45939,	0.3375,	-0.96476,	0.75,	-1.123055,	1.20178,	-0.461165,	0.88119,	-1.193985,	-1.116065,	-2.55116,	-1.91051,	-1.298225,	-1.862925,	-1.437115,	0.44148,	-1.288525,	0.72898,	0.047,	1.47351,	-0.154155,	1.65451,	-0.44702,	0.52678,	-0.852345,	1.017375,	-0.651325,	3.58147,	1.46752,	1.33115,	1.1,	2.67152,	2.0,	2.978595,	2.0,	0.57881,	0.0,	1.505265,	1.95956,	3.532545,	7.47173,	0.651695,	1.77195,	1.624225,	3.689375,	2.161185,	4.26094,	0.53696,	0.57157,	1.55716,	2.49679,	2.267115,	4.27827,	0.761605,	1.91108,	1.1421,	2.52158,	0.92806,	1.48906,	-0.19952,	-0.9625,	-0.33472,	-2.7625,	-0.300445,	-4.0,	0.054555,	-1.96964,	-0.190635,	-2.53036,	-1.967765,	-4.5,	-1.116545,	-1.2375,	-1.86913,	-1.8,	-1.672415,	-1.25,	0.196715,	0.55,	0.481695,	1.3375,	0.633285,	1.75,	0.208815,	0.568205,	0.12775,	0.613905,	-0.33443,	0.188535,	-0.335525,	-0.308805,	-0.67214,	-1.321305,	-0.748025,	-2.25,	-0.07589,	-0.928695,	-0.73448,	-2.563685,	-1.46354,	-3.63331,	-0.729055,	-1.069625,	-1.32556,	-2.183375,	-1.32556,	-2.475,	0.0,	-0.71365,	0.447925,	-0.16333,	2.72537,	3.348415,	1.04461,	1.61075,	2.634585,	3.36247,	3.533275,	3.89271,	1.87359,	1.105445,	2.412575,	2.50581,	1.62758,	4.22869,	-0.690375,	1.515205,	0.26447,	7.303375,	1.6546,	10.030035,	0.527545,	1.034755,	0.959175,	2.185965,	0.959175,	2.558255,	0.0,	0.37229,	1.28718,	1.955965,	2.8604,	3.51928,	3.401755,	3.38034,	5.56731,	6.124875,	7.344485,	9.308105,	0.718595,	1.287125,	1.79113,	2.99567,	2.383405,	3.79677,	0.689005,	0.93193,	1.16037,	2.463435,	1.3087,	4.252105,	0.20442,	2.465025,	0.43523,	2.954585,	1.952095,	4.140485,	0.94615,	0.73971,	2.039695,	1.94773,	2.43011,	2.68449,	0.39041,	0.73676,	1.12816,	1.472335,	1.639445,	1.63461,	0.51128,	0.162275,	1.185985,	0.85774,	1.499335,	1.545475,	0.313355,	0.687735,	1.135,	1.46534,	1.82588,	1.728015,	1.48576,	0.564885,	1.706285,	1.21259,	0.256145,	0.752335,	-0.573655,	-0.18207,	-1.0,	-0.08985,	-1.0,	0.216305,	0.0,	0.293535,	0.225,	0.533695,	0.5,	0.533695,	0.275,	0.0,	0.44375,	0.27879,	0.375,	0.61953,	-0.08135,	0.403185,	0.36441,	0.56408,	1.276475,	0.46075,	0.77081,	-0.08733,	1.76365,	0.14013,	2.20631,	0.50547,	0.680285,	0.561455,	0.76685,	0.548185,	0.55936,	-0.08575,	-0.13501,	-0.4125,	-0.7341,	-0.8219,	-1.33131,	-0.909775,	-0.59721,	-0.087875,	-1.085835,	-0.359145,	-1.085835,	-0.60282,	0.0,	-0.243675,	0.886235,	-0.130365,	1.969415,	0.251805,	1.27656,	0.450395,	2.95688,	0.592935,	4.776235,	0.40516,	2.664125,	-0.27496,	2.89212,	-0.207005,	4.4849,	1.33678,	0.922945,	0.894555,	2.427615,	1.77976,	3.343705,	1.96712,	1.015695,	0.20773,	1.88887,	0.78846,	2.237775,	1.488285,	0.314685,	0.631195,	0.80563,	1.381105,	1.09099,	1.666465,	0.28536,	0.28536,	0.38807,	0.88517,	0.228245,	1.33291,	-0.15983,	0.447735,	-0.106175,	0.64675,	0.119225,	0.44225,	0.225395,	-0.2045,	0.740595,	0.100435,	1.14488,	0.677635,	0.672775,	0.96052,	1.03973,	1.0209,	4.330435,	0.712535,	l	3.595365,	-0.33691,	0.589415,	1.96729	c	0.32418,	1.08201,	0.59314,	2.391185,	0.597695,	2.90928,	0.0045,	0.518095,	1.04226,	1.84199,	2.30601,	2.94199,	3.636165,	3.165015,	4.243015,	3.8978,	4.97881,	6.012045,	0.91737,	2.63599,	0.96029,	2.489675,	-1.08411,	3.6959,	-1.641655,	0.9686,	-2.49641,	1.05333,	-10.25,	1.016065,	-8.089805,	-0.0389,	-8.45899,	-0.08396,	-8.45899,	-1.032845	z",
+ROO:																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																
+"m	459.736565	275.845715	c	-0.152995,	-1.16875,	-0.632175,	-6.625,	-1.06484,	-12.125,	-0.432665,	-5.5,	-1.10877,	-12.07883,	-1.50246,	-14.619615,	-0.393685,	-2.54079,	-0.715795,	-4.728065,	-0.715795,	-4.86061,	0.0,	-0.132545,	1.666525,	-1.428715,	3.703385,	-2.88038,	5.039335,	-3.59152,	21.799245,	-16.21115,	23.085795,	-17.382785,	1.6923,	-1.541165,	3.23605,	-7.70362,	2.7762,	-11.08216,	l	-0.3846,	-2.825555,	1.88095,	-0.300765	c	1.0345,	-0.165425,	2.0196,	-0.525175,	2.1891,	-0.79945,	0.63295,	-1.02413,	-0.28725,	-1.35579,	-2.61445,	-0.942335,	-1.65925,	0.294785,	-3.14815,	0.21613,	-4.8864,	-0.25813,	l	-2.5,	-0.682095,	3.25,	0.04575	c	1.7875,	0.02515,	4.5248,	-0.26844,	6.08285,	-0.65243,	2.7815,	-0.68552,	2.86955,	-0.67382,	4.86425,	0.64621,	1.1173,	0.7394,	2.3559,	1.344365,	2.7524,	1.344365,	0.52095,	0.0,	0.8211,	0.935295,	1.08195,	3.371355,	0.5676,	5.29997,	-0.6039,	8.369805,	-4.9395,	12.943755,	-1.00875,	1.06419,	-1.9734,	2.66614,	-2.14365,	3.55989,	-0.17025,	0.89375,	-0.4921,	1.625,	-0.71515,	1.625,	-0.8441,	0.0,	-1.5314,	3.54034,	-1.28005,	6.593525,	0.1429,	1.73606,	0.1392,	2.762725,	-0.0083,	2.281475,	-0.4603,	-1.502205,	-1.1362,	-0.96715,	-1.8948,	1.5,	-0.4017,	1.30625,	-0.746,	1.98125,	-0.76515,	1.5,	-0.01915,	-0.48125,	-0.25985,	-0.875,	-0.53485,	-0.875,	-0.73165,	0.0,	-0.6102,	1.286065,	0.1837,	1.944945,	0.52085,	0.4323,	0.83755,	0.381935,	1.3301,	-0.211535,	0.35555,	-0.428405,	0.9479,	-0.66324,	1.31635,	-0.521855,	0.3825,	0.146785,	0.66985,	-0.07582,	0.66985,	-0.518915,	0.0,	-0.426785,	0.28125,	-0.68134,	0.625,	-0.56568,	1.4656,	0.49311,	-0.70205,	5.55497,	-2.2379,	5.225915,	-0.79455,	-0.17024,	-1.57185,	1.44505,	-1.18095,	2.454165,	0.34555,	0.891985,	0.40015,	0.89566,	1.0097,	0.06796,	0.35445,	-0.48125,	1.12585,	-0.875,	1.7143,	-0.875,	1.32515,	0.0,	1.33605,	0.23383,	0.06985,	1.5,	-0.6723,	0.67233,	-1.00975,	1.696305,	-1.0298,	3.125,	-0.0164,	1.16875,	-0.23405,	3.25,	-0.4837,	4.625,	-0.24965,	1.375,	-0.70965,	4.3,	-1.02225,	6.5,	-0.5136,	3.614735,	-1.46425,	6.27658,	-1.46425,	4.1,	0.0,	-0.4675,	-0.225,	-0.85,	-0.5,	-0.85,	-0.275,	0.0,	-0.46365,	-0.16875,	-0.41925,	-0.375,	0.1714,	-0.79599,	-1.08775,	-3.12538,	-1.69335,	-3.132655,	-1.62505,	-0.0195,	-1.87035,	-0.723705,	-1.12035,	-3.215795,	0.83695,	-2.78092,	0.94835,	-4.77655,	0.26665,	-4.77655,	-0.25645,	0.0,	-0.60545,	0.43849,	-0.77555,	0.974425,	-0.1701,	0.53593,	-0.7596,	1.117355,	-1.31005,	1.29205,	-0.7329,	0.232615,	-0.8619,	0.484895,	-0.48205,	0.94261,	0.8111,	0.977305,	-0.808295,	4.556315,	-2.39504,	5.293275,	-0.726545,	0.33744,	-1.6451,	0.77228,	-2.04123,	0.966305,	-0.396135,	0.19403,	-0.934465,	1.011705,	-1.196295,	1.817055,	-0.261825,	0.805355,	-0.922825,	2.10204,	-1.468885,	2.881525,	-0.54606,	0.77948,	-1.36801,	2.46588,	-1.826555,	3.74755,	-0.92005,	2.571595,	-2.066955,	3.166505,	-3.538025,	1.835205,	-1.416745,	-1.282135,	-2.72264,	-0.774865,	-2.90668,	1.129095,	-0.14275,	1.476785,	-0.306735,	1.620905,	-1.844365,	1.620905,	-1.60854,	0.0,	-1.700725,	-0.09965,	-1.96586,	-2.125	z",																																																																																																																																																																																																																																																																																																																																																																																																																								
+NAY:																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																
+"m	189.46839	231.15136	c	-0.0082,	-0.313145,	-0.80242,	-0.71709,	-1.76492,	-0.897655,	-0.9625,	-0.180565,	-1.74281,	-0.48686,	-1.734025,	-0.680645,	0.0088,	-0.19379,	1.1408,	-1.477345,	2.515585,	-2.852345,	1.87709,	-1.877385,	2.43461,	-2.76617,	2.238615,	-3.568745,	-0.143545,	-0.587815,	-0.062535,	-2.13104,	0.180025,	-3.429395,	0.369025,	-1.975285,	0.296855,	-2.504805,	-0.44209,	-3.24375,	-0.48571,	-0.48571,	-1.08957,	-0.967485,	-1.341905,	-1.07061,	-0.25234,	-0.103125,	-0.973815,	-1.03125,	-1.60328,	-2.0625,	-0.952545,	-1.560545,	-1.011865,	-1.875,	-0.353705,	-1.875,	1.00127,	0.0,	1.02539,	-1.18285,	0.0408,	-2.0,	-0.630135,	-0.522965,	-0.75493,	-0.432865,	-0.78085,	0.56378,	-0.0416,	1.598995,	-1.172755,	-2.17193,	-2.193915,	-7.31378,	-0.43692,	-2.2,	-0.928815,	-4.50625,	-1.093105,	-5.125,	-0.178775,	-0.67332,	-0.074555,	-1.125,	0.25958,	-1.125,	0.30706,	0.0,	0.55829,	0.575435,	0.55829,	1.27875,	0.0,	1.195195,	0.13885,	1.2687,	2.125,	1.125,	1.598695,	-0.11567,	2.07601,	-0.339505,	1.927195,	-0.90375,	-0.108795,	-0.4125,	-0.428035,	-1.56192,	-0.709415,	-2.554265,	-0.44236,	-1.560035,	-0.358505,	-2.019285,	0.61949,	-3.392745,	0.622105,	-0.873665,	1.015175,	-1.89058,	0.873485,	-2.25981,	-0.6448,	-1.68033,	1.785525,	-2.246395,	5.22296,	-1.216515,	1.67385,	0.501495,	1.961995,	0.811075,	2.21057,	2.375,	0.15721,	0.989085,	0.36492,	2.192285,	0.46158,	2.673775,	0.098985,	0.49308,	-0.37459,	1.308335,	-1.084285,	1.86658,	-2.347915,	1.84687,	-0.217705,	3.45259,	2.26934,	1.710595,	1.61673,	-1.1324,	3.58408,	-0.558575,	3.58408,	1.045385,	0.0,	1.70198,	2.028095,	2.95942,	4.20374,	2.606365,	l	1.684375,	-0.27334,	-0.688125,	2.58449	c	-0.98803,	3.710895,	-0.88359,	4.4722,	0.839005,	6.11594,	1.45214,	1.385665,	1.5205,	1.617965,	1.21121,	4.11607,	-0.29963,	2.42007,	-0.221075,	2.731465,	0.91431,	3.62456,	2.16497,	1.702965,	0.330235,	4.313065,	-2.11276,	3.005615,	-0.542305,	-0.290235,	-1.113305,	-0.5277,	-1.268885,	-0.5277,	-0.615175,	0.0,	-0.23753,	2.973915,	0.46713,	3.67857,	0.934045,	0.934045,	0.94784,	1.534795,	0.052305,	2.27802,	-0.383735,	0.31847,	-0.84959,	1.3887,	-1.03524,	2.37829,	l	-0.33754,	1.79925,	-1.87874,	-1.83454	c	-2.4252,	-2.368145,	-4.924025,	-2.86518,	-6.837515,	-1.36003,	-0.74147,	0.58324,	-1.824035,	1.056955,	-2.4057,	1.0527,	-0.62696,	-0.0045,	-1.814935,	0.860645,	-2.91765,	2.125,	-1.023045,	1.173005,	-1.866795,	1.87653,	-1.875,	1.563385	z",																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																						
+BCS:																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																
+"m	112.957525	186.22503	c	-0.758305,	-0.807175,	-1.29691,	-2.17126,	-1.53003,	-3.875,	-0.197875,	-1.446125,	-1.00423,	-3.95612,	-1.7919,	-5.577765,	-1.1713,	-2.411465,	-1.87829,	-3.19429,	-3.881915,	-4.2983,	-1.561905,	-0.860615,	-2.777645,	-1.9889,	-3.35438,	-3.11307,	-1.30966,	-2.552785,	-8.16935,	-9.310435,	-9.816145,	-9.67012,	-2.16683,	-0.47327,	-4.129685,	-1.30306,	-4.129685,	-1.745815,	0.0,	-0.222445,	0.73125,	-0.202355,	1.625,	0.04465,	l	1.625,	0.44908,	-1.375,	-1.21	c	-0.75625,	-0.6655,	-1.375,	-1.632405,	-1.375,	-2.148685,	0.0,	-1.01728,	-1.938425,	-1.28337,	-2.617345,	-0.35928,	-0.20204,	0.275,	-0.377945,	-0.0625,	-0.3909,	-0.75,	-0.01295,	-0.6875,	-0.353905,	-1.686755,	-0.757655,	-2.220565,	-0.403755,	-0.53381,	-0.76072,	-1.43381,	-0.793255,	-2.0,	-0.04155,	-0.72327,	-0.17268,	-0.583315,	-0.440845,	0.470565,	-0.35959,	1.41316,	-0.387145,	1.427635,	-0.475985,	0.25,	-0.08619,	-1.14246,	-0.128205,	-1.16397,	-0.48839,	-0.25,	-0.344175,	0.87334,	-0.43987,	0.793625,	-0.755545,	-0.629365,	-0.1988,	-0.89615,	-0.568145,	-1.50162,	-0.820765,	-1.34549,	-0.252625,	0.15613,	-0.459315,	-0.066905,	-0.459315,	-0.495635,	0.0,	-0.42873,	0.253125,	-0.72326,	0.5625,	-0.65451,	0.309375,	0.06875,	0.676065,	-0.18757,	0.814865,	-0.5696,	0.15456,	-0.425405,	0.03345,	-0.5593,	-0.3125,	-0.34549,	-0.78937,	0.48786,	-0.712325,	-0.12476,	0.435135,	-3.45991,	0.55,	-1.598605,	1.0,	-3.321325,	1.0,	-3.828275,	0.0,	-0.50695,	0.25255,	-0.921725,	0.56122,	-0.921725,	0.387755,	0.0,	0.36883,	-0.23182,	-0.06122,	-0.75,	-0.43005,	-0.51818,	-0.448975,	-0.75,	-0.06122,	-0.75,	0.34615,	0.0,	0.53403,	-0.910135,	0.490265,	-2.375,	l	-0.07095,	-2.375,	-0.358095,	2.0	c	-0.355005,	1.98274,	-0.3589,	1.976265,	-0.451115,	-0.75,	-0.11544,	-3.412845,	-1.128325,	-7.390185,	-1.82304,	-7.158615,	-0.28582,	0.095275,	-0.809045,	-0.627015,	-1.16272,	-1.60509,	-0.503415,	-1.39217,	-0.84596,	-1.713915,	-1.57751,	-1.48173,	-0.559205,	0.177485,	-1.302215,	-0.065065,	-1.85023,	-0.60399,	-0.50367,	-0.495315,	-1.54867,	-1.23108,	-2.32222,	-1.635025,	-0.77355,	-0.40395,	-1.16046,	-0.81645,	-0.85981,	-0.91667,	0.82251,	-0.27417,	0.65669,	-1.09888,	-0.220945,	-1.09888,	-1.227985,	0.0,	-3.19588,	-1.513415,	-2.91606,	-2.242605,	0.1408,	-0.366925,	-0.11191,	-1.37861,	-0.561585,	-2.248185,	-0.677955,	-1.311015,	-0.70615,	-1.715325,	-0.1651,	-2.36725,	0.57309,	-0.690535,	0.50086,	-0.73892,	-0.593585,	-0.39763,	-1.207875,	0.376655,	-1.21925,	0.358495,	-0.37108,	-0.59225,	0.887745,	-0.99511,	1.210205,	-3.15208,	0.471225,	-3.15208,	-0.22208,	0.0,	-0.79421,	0.88494,	-1.271405,	1.96653,	-0.834455,	1.891325,	-0.925345,	1.946405,	-2.376855,	1.44041,	-0.96438,	-0.336185,	-1.413575,	-0.77536,	-1.244285,	-1.21653,	0.15122,	-0.39407,	-0.050245,	-0.69041,	-0.46937,	-0.69041,	-0.40387,	0.0,	-0.73431,	0.405,	-0.73431,	0.9,	0.0,	0.495,	-0.252415,	1.152415,	-0.56093,	1.46093,	-0.63721,	0.63721,	-2.08112,	0.273415,	-1.654505,	-0.416855,	0.15335,	-0.248125,	-0.06839,	-0.584375,	-0.492755,	-0.74722,	-0.424365,	-0.16284,	-1.24448,	-1.061255,	-1.82247,	-1.996465,	-0.7101,	-1.148965,	-1.42982,	-1.70039,	-2.21934,	-1.70039,	-0.78952,	0.0,	-1.50924,	-0.551425,	-2.21934,	-1.70039,	-1.10803,	-1.792835,	-2.10849,	-2.430225,	-3.173215,	-2.021655,	-1.18504,	0.454745,	-2.85628,	-1.681275,	-2.873345,	-3.672435,	-0.019015,	-2.218815,	-0.769445,	-3.32422,	-2.559135,	-3.769685,	-0.872595,	-0.21719,	-1.503945,	-0.84302,	-1.84899,	-1.83282,	-0.288175,	-0.82666,	-0.830845,	-1.503015,	-1.205935,	-1.503015,	-0.89097,	0.0,	-3.001855,	-2.859515,	-2.39002,	-3.23765,	0.630055,	-0.389395,	2.38096,	-0.04275,	4.71941,	0.934295,	2.3929,	0.99982,	4.318105,	1.02371,	5.580005,	0.069255,	1.32489,	-1.002095,	1.720565,	-0.944555,	1.720565,	0.25021,	0.0,	0.594435,	0.466865,	1.19256,	1.125,	1.441295,	1.24718,	0.47136,	2.047305,	0.2259,	1.603645,	-0.491955,	-0.158215,	-0.255995,	0.063115,	-0.46545,	0.491845,	-0.46545,	0.42873,	0.0,	0.77951,	-0.229285,	0.77951,	-0.509525,	0.0,	-0.294435,	-0.530065,	-0.37649,	-1.25565,	-0.19438,	-1.05816,	0.26558,	-1.20179,	0.174785,	-0.9132,	-0.577275,	0.26614,	-0.69354,	0.15492,	-0.820465,	-0.499045,	-0.569515,	-0.66811,	0.25638,	-0.60873,	0.0064,	0.288195,	-1.21317,	1.038665,	-1.412305,	1.142565,	-1.451545,	1.289365,	-0.486935,	0.198785,	1.30616,	0.220515,	1.310475,	11.937005,	2.370075,	5.27817,	0.47734,	9.49281,	1.035945,	9.365865,	1.241345,	-0.49381,	0.799005,	2.45318,	5.999395,	3.792155,	6.691805,	1.46385,	0.756985,	3.4091,	4.32889,	3.855455,	7.07946,	0.192535,	1.18647,	0.7341,	1.919955,	1.945175,	2.634505,	1.454705,	0.858295,	1.639415,	1.18494,	1.386145,	2.45129,	-0.167605,	0.838015,	-0.057515,	1.60609,	0.258165,	1.80119,	0.302705,	0.18708,	0.555375,	1.39562,	0.56149,	2.68564,	0.01255,	2.644465,	1.517405,	5.261435,	2.476225,	4.30615,	0.388195,	-0.386765,	0.254385,	-0.90414,	-0.473005,	-1.828865,	-0.99941,	-1.27054,	-1.44179,	-4.881795,	-0.59802,	-4.881795,	0.780385,	0.0,	3.6004,	3.958605,	3.905015,	5.481675,	0.167015,	0.83508,	0.612905,	1.518325,	0.990865,	1.518325,	0.446325,	0.0,	0.67976,	0.56959,	0.66597,	1.625,	-0.02995,	2.29424,	0.552245,	5.515205,	1.126245,	6.23065,	0.318245,	0.39667,	0.27825,	1.23487,	-0.11592,	2.42921,	-0.554395,	1.67983,	-0.46963,	2.095505,	1.075475,	5.273945,	0.922515,	1.89771,	2.016765,	3.558125,	2.431665,	3.68981,	0.4149,	0.131685,	0.77745,	0.748365,	0.80567,	1.370405,	0.145075,	3.19828,	0.8558,	5.775705,	2.191025,	7.94573,	1.85035,	3.0072,	2.30475,	4.72483,	1.504915,	5.68857,	-0.437105,	0.52668,	-0.51011,	1.714385,	-0.252965,	4.11557,	0.450515,	4.20685,	1.660875,	6.11466,	3.914765,	6.170585,	0.875025,	0.0217,	1.309705,	0.15296,	0.965955,	0.291665,	-0.988995,	0.39907,	-0.727105,	1.16886,	0.397655,	1.16886,	0.87854,	0.0,	0.98274,	-0.229005,	0.739405,	-1.625,	-0.15579,	-0.89375,	-0.06933,	-1.95014,	0.19213,	-2.347535,	0.380635,	-0.578525,	0.980665,	-0.19275,	3.010595,	1.935615,	1.39437,	1.46198,	2.535215,	2.96837,	2.535215,	3.34753,	0.0,	0.402015,	0.52107,	0.68939,	1.25,	0.68939,	0.95808,	0.0,	1.25,	0.25931,	1.25,	1.11036,	0.0,	0.6107,	0.28125,	2.337755,	0.625,	3.8379,	0.50748,	2.21468,	0.925755,	2.9055,	2.224515,	3.67399,	2.700915,	1.598165,	2.79095,	6.000115,	0.179025,	8.75275,	-0.587125,	0.61875,	-1.388245,	1.125,	-1.780275,	1.125,	-0.39203,	0.0,	-1.720315,	0.5625,	-2.951745,	1.25,	-1.23143,	0.6875,	-2.325195,	1.25,	-2.430585,	1.25,	-0.10539,	0.0,	-0.71824,	-0.56056,	-1.36188,	-1.245685	z",																																																																								
+BCN:																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																
+"m	65.31642	88.476	c	-4.612875,	-0.474495,	-8.49708,	-0.972745,	-8.63156,	-1.10723,	-0.134485,	-0.134485,	0.09602,	-1.05953,	0.51223,	-2.055665,	0.670735,	-1.605295,	0.67148,	-1.778425,	0.00655,	-1.523275,	-0.832395,	0.31942,	-1.039265,	-0.821315,	-0.289095,	-1.594115,	0.253605,	-0.26125,	0.609335,	-1.28247,	0.79052,	-2.269375,	0.287785,	-1.567545,	0.1365,	-1.976465,	-1.196785,	-3.23487,	-0.83942,	-0.79228,	-1.98234,	-2.5008,	-2.53983,	-3.796715,	-0.55749,	-1.29592,	-1.44512,	-2.49317,	-1.972515,	-2.660555,	-0.527395,	-0.16739,	-1.208405,	-0.9139,	-1.51336,	-1.658915,	-1.510325,	-3.68978,	-5.0732,	-8.10457,	-6.54064,	-8.10457,	-0.45344,	0.0,	-1.625065,	-0.84375,	-2.60361,	-1.875,	-0.97855,	-1.03125,	-2.70296,	-2.660575,	-3.832025,	-3.620725,	-1.710285,	-1.45442,	-2.052845,	-2.050395,	-2.052845,	-3.571505,	0.0,	-1.174745,	-0.27181,	-1.930084,	-0.76228,	-2.118294,	-0.48285,	-0.185285,	-0.67768,	-0.708935,	-0.531485,	-1.428494,	0.814075,	-4.0069145,	0.767795,	-5.225297,	-0.239565,	-6.30657,	-0.559725,	-0.6007955,	-0.890035,	-1.2988955,	-0.73402,	-1.5513335,	0.156015,	-0.2524375,	0.054995,	-0.6003035,	-0.22449,	-0.7730355,	-0.283115,	-0.174974,	-0.50816,	0.1549385,	-0.50816,	0.7449595,	0.0,	0.5824595,	-0.225,	0.9199595,	-0.5,	0.75,	-0.275,	-0.1699595,	-0.5,	-1.8631045,	-0.5,	-3.762545,	0.0,	-3.3066075,	-1.10234,	-6.987455,	-2.092605,	-6.987455,	-0.224065,	0.0,	-0.407395,	-1.1284085,	-0.407395,	-2.5075745,	0.0,	-1.879407,	-0.387715,	-3.1945695,	-1.54772,	-5.249984,	-0.851245,	-1.5083255,	-1.751245,	-2.868196,	-2.0,	-3.0219345,	-0.24875,	-0.153738,	-0.45228,	-1.008745,	-0.45228,	-1.9000155,	0.0,	-0.8912705,	-0.26625,	-1.8867415,	-0.591665,	-2.212158,	-0.325415,	-0.325417,	-0.434165,	-0.749167,	-0.241665,	-0.941667,	0.1925,	-0.1925,	0.61625,	-0.08375,	0.941665,	0.241667,	0.87354,	0.8735395,	1.391665,	0.7215145,	1.391665,	-0.4083335,	0.0,	-0.5555555,	-0.33333,	-1.0,	-0.75,	-1.0,	-0.4125,	0.0,	-0.75,	-0.234408,	-0.75,	-0.5209065,	0.0,	-0.286499,	-0.434595,	-0.987393,	-0.96577,	-1.5575425,	-0.531175,	-0.5701495,	-1.11248,	-1.966991,	-1.291785,	-3.104093,	-0.179305,	-1.137102,	-0.86971,	-3.1320667,	-1.53423,	-4.4332552,	-0.664515,	-1.3011885,	-1.208215,	-2.5949385,	-1.208215,	-2.875000025,	0.0,	-0.70312,	4.547385,	-0.6445615,	19.25,	0.247889025,	14.64761,	0.8891115,	17.75,	1.183362,	17.75,	1.683522,	0.0,	0.2027615,	-1.130345,	1.5413725,	-2.51188,	2.9746907,	-1.95246,	2.025639,	-2.413565,	2.79853,	-2.07043,	3.4703645,	1.407105,	2.7549825,	0.838695,	7.365386,	-0.831005,	6.74032,	-0.75511,	-0.282682,	-0.763565,	-0.2208925,	-0.086685,	0.633763,	0.4125,	0.5208405,	1.14375,	1.3504675,	1.625,	1.8436155,	0.93215,	0.9551945,	1.1412,	2.390515,	0.46194,	3.1716325,	-0.78839,	0.9066145,	-1.639395,	4.4883565,	-1.657225,	6.975,	-0.02695,	3.7587915,	0.066595,	4.2799685,	0.8201,	4.569116,	0.56321,	0.216124,	0.649325,	1.7925705,	0.46356,	8.486016,	-0.19494,	7.0239215,	-0.1179,	8.2628865,	0.529235,	8.5112165,	0.416565,	0.15985,	0.75739,	0.587994,	0.75739,	0.951429,	0.0,	0.363435,	0.359355,	1.020145,	0.798565,	1.459355,	0.43921,	0.43921,	0.674035,	1.123075,	0.521835,	1.5197,	-0.28495,	0.74257,	0.390515,	1.39359,	1.642155,	1.582715,	0.39191,	0.059215,	0.936545,	0.507905,	1.2103,	0.997085,	0.27376,	0.48918,	0.99394,	1.385615,	1.600405,	1.99208,	0.60646,	0.60646,	1.634515,	1.84958,	2.28456,	2.76249,	0.65005,	0.912905,	1.92434,	2.311695,	2.831765,	3.10842,	0.90742,	0.79673,	1.60522,	1.811245,	1.55066,	2.254485,	-0.054555,	0.44324,	0.07952,	1.44879,	0.297955,	2.234555,	0.262635,	0.94479,	0.198315,	1.55155,	-0.189905,	1.791485,	-0.433295,	0.26779,	-0.44689,	0.73147,	-0.05191,	1.770345,	0.510555,	1.342855,	0.566995,	1.363955,	1.228495,	0.4593,	0.792415,	-1.08369,	1.52512,	-0.617495,	1.52512,	0.970385,	0.0,	0.74643,	0.308745,	1.07987,	1.0,	1.079985,	0.83256,	0.000135,	1.01211,	0.357665,	1.07233,	2.135305,	0.085515,	2.524295,	0.723775,	3.435385,	2.71268,	3.87222,	1.24051,	0.27246,	1.51438,	0.62507,	1.781125,	2.29322,	0.17337,	1.08419,	0.510665,	2.092045,	0.74954,	2.23968,	0.23888,	0.147635,	0.434325,	1.15515,	0.434325,	2.23892,	0.0,	1.95541,	-0.01435,	1.969985,	-1.875,	1.90449,	-1.03125,	-0.0363,	-5.64917,	-0.454225,	-10.26205,	-0.928715	z",																																																																																																																																																																																																																																																																																																																								
+SON:  																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																
+"m	129.237195	123.572265	c	0.29899,	-2.253895,	0.228065,	-2.53042,	-0.72673,	-2.83346,	-1.45327,	-0.46125,	-2.340435,	-2.13804,	-1.24694,	-2.35678,	0.68856,	-0.13774,	0.64565,	-0.34394,	-0.29369,	-1.41131,	-0.772235,	-0.877485,	-1.016445,	-0.98579,	-0.81947,	-0.36343,	0.245165,	0.77462,	0.139965,	0.812785,	-0.83315,	0.302245,	-1.10707,	-0.580825,	-1.10804,	-0.577895,	-0.16125,	0.48843,	0.52387,	0.590015,	0.7059,	1.072755,	0.404505,	1.072755,	-0.30139,	0.0,	-0.69652,	-0.24034,	-0.878065,	-0.534085,	-0.18155,	-0.29375,	-0.60898,	-0.427065,	-0.94985,	-0.29626,	-0.340875,	0.130805,	-0.8715,	0.082245,	-1.179175,	-0.107905,	-0.802895,	-0.49622,	-3.184185,	-6.06175,	-2.593605,	-6.06175,	0.27153,	0.0,	0.493695,	-0.224355,	0.493695,	-0.498565,	0.0,	-0.638795,	-3.167655,	-1.967675,	-3.501185,	-1.4688,	-0.138155,	0.20664,	-1.600655,	-0.269495,	-3.25,	-1.058075,	-1.64935,	-0.788585,	-2.802515,	-1.442965,	-2.562595,	-1.454175,	0.239925,	-0.0112,	0.15217,	-0.362655,	-0.195015,	-0.78098,	-0.34718,	-0.418325,	-0.706345,	-1.597615,	-0.79814,	-2.62064,	-0.0918,	-1.023025,	-0.397795,	-1.93701,	-0.679985,	-2.03107,	-0.629175,	-0.209725,	-0.68852,	-2.087695,	-0.065975,	-2.087695,	0.24591,	0.0,	0.43463,	-0.50625,	0.419375,	-1.125,	-0.01525,	-0.61875,	0.115,	-1.4625,	0.28945,	-1.875,	0.201425,	-0.476275,	-0.166195,	-1.10206,	-1.007265,	-1.71464,	-1.14732,	-0.83563,	-1.281275,	-0.852125,	-1.00161,	-0.123335,	0.299795,	0.78126,	0.234705,	0.783555,	-0.91211,	0.03215,	-0.755675,	-0.495135,	-1.234945,	-1.28341,	-1.234945,	-2.03117,	0.0,	-0.73934,	-0.21095,	-1.091625,	-0.534085,	-0.89192,	-0.29375,	0.18155,	-0.427065,	0.60898,	-0.29626,	0.94985,	0.130805,	0.340875,	0.02905,	0.936865,	-0.226075,	1.324425,	-0.378895,	0.57555,	-0.64526,	0.48838,	-1.45374,	-0.47573,	-0.54441,	-0.64922,	-0.98984,	-1.500885,	-0.98984,	-1.892595,	0.0,	-0.54983,	-0.221065,	-0.59389,	-0.969655,	-0.193255,	-1.151025,	0.61601,	-1.20643,	0.537985,	-2.07669,	-2.92424,	-0.619715,	-2.465485,	-0.85512,	-2.767145,	-2.81496,	-3.60723,	-1.246955,	-0.534505,	-2.138695,	-1.25079,	-2.138695,	-1.71788,	0.0,	-0.440625,	-0.5625,	-1.538605,	-1.25,	-2.439965,	-1.43443,	-1.880635,	-1.588285,	-2.794445,	-0.47049,	-2.794445,	0.42873,	0.0,	0.63097,	-0.24034,	0.449425,	-0.534085,	-0.18155,	-0.29375,	-0.63203,	-0.41822,	-1.001075,	-0.276605,	-0.68636,	0.26338,	-3.66488,	-2.735165,	-3.80612,	-3.83171,	-0.04305,	-0.33418,	-0.121785,	-1.21075,	-0.17498,	-1.94793,	-0.165025,	-2.28691,	-1.26906,	-4.342175,	-2.42067,	-4.506305,	-0.91931,	-0.13102,	-1.07609,	-0.481175,	-1.07609,	-2.403365,	0.0,	-1.76498,	-0.368565,	-2.761965,	-1.70976,	-4.625,	-0.94037,	-1.30625,	-1.875395,	-2.375,	-2.077835,	-2.375,	-0.202445,	0.0,	-0.388535,	-1.8921,	-0.413535,	-4.204665,	-0.05141,	-4.755094,	-0.262045,	-5.6036955,	-1.469285,	-5.9193945,	-0.53366,	-0.1395555,	-1.091825,	-1.161336,	-1.496115,	-2.738792,	-0.354685,	-1.3839035,	-1.418565,	-3.7170665,	-2.364175,	-5.184806,	-1.219415,	-1.8927275,	-1.719295,	-3.2435655,	-1.719295,	-4.6461085,	0.0,	-1.1725945,	-0.351915,	-2.366352,	-0.864595,	-2.9328555,	-0.819455,	-0.9054905,	-0.819455,	-0.980624,	0.0,	-1.4392155,	1.135735,	-0.6355885,	1.090735,	-1.2397065,	-0.19218,	-2.580067,	l	-1.056775,	-1.1040935,	0.34047,	1.125	c	0.3811,	1.2592545,	-0.449465,	1.5692255,	-0.919895,	0.343309,	-0.16498,	-0.42993,	-0.481155,	-0.6697065,	-0.70262,	-0.532836,	-0.22146,	0.1368705,	-1.9668,	-0.130119,	-3.87853,	-0.593309,	-3.2574,	-0.78923,	-3.46652,	-0.922862,	-3.327035,	-2.1260435,	0.11268,	-0.9719365,	-0.16407,	-1.426452,	-1.13903,	-1.870674,	-0.70833,	-0.322737,	-1.42537,	-0.945107,	-1.593425,	-1.3830435,	-0.191765,	-0.4997315,	-0.428005,	-0.598107,	-0.63439,	-0.2641725,	-0.423295,	0.684902,	-4.031995,	-1.713712,	-4.031995,	-2.679966,	0.0,	-0.3826265,	-0.559845,	-1.136058,	-1.2441,	-1.6742925,	-1.094645,	-0.861049,	-1.182255,	-1.1560065,	-0.7293,	-2.455348,	0.5118,	-1.468153,	0.396765,	-4.1568005,	-0.24353,	-5.6919635,	-0.20715,	-0.4966635,	0.104335,	-1.297916,	0.815935,	-2.0988845,	l	1.150995,	-1.295545,	8.25,	4.2896045	c	4.5375,	2.3592825,	11.5125,	6.0320695,	15.5,	8.1617495,	31.093615,	16.606757,	30.553425,	16.3425145,	34.0,	16.631492,	13.788965,	1.156132,	28.024615,	2.4430635,	29.37997,	2.656009,	1.417385,	0.2226915,	1.56393,	0.379478,	1.123645,	1.2021585,	-0.278475,	0.520337,	-0.314335,	1.064719,	-0.07969,	1.209738,	0.234645,	0.145019,	0.710765,	2.689924,	1.058045,	5.6553445,	0.34728,	2.9654215,	0.97308,	6.4041705,	1.39067,	7.6416705,	0.60197,	1.78391,	0.69466,	3.64827,	0.44744,	9.0,	-0.373985,	8.095865,	-0.648555,	9.563925,	-1.75493,	9.383175,	-0.61259,	-0.10008,	-0.7997,	0.23957,	-0.752965,	1.366825,	0.054115,	1.30541,	0.10127,	7.643015,	0.10416,	14.0,	0.0005,	1.1,	0.075775,	2.45,	0.16728,	3.0,	0.15538,	0.9339,	-0.066865,	0.988945,	-3.36234,	0.83275,	-4.44935,	-0.210885,	-4.984675,	0.260845,	-4.21145,	3.71113,	0.29656,	1.32332,	1.271885,	3.6548,	2.167385,	5.181075,	2.897955,	4.93921,	3.58579,	7.26818,	2.775785,	9.398655,	-0.4936,	1.29827,	0.600915,	4.62639,	1.52148,	4.62639,	0.289035,	0.0,	0.525515,	0.64332,	0.525515,	1.429605,	0.0,	1.937725,	-3.247505,	5.553395,	-7.5103,	8.36174,	-1.84389,	1.21476,	-3.49589,	2.208655,	-3.671115,	2.208655,	-0.17522,	0.0,	-0.318585,	-0.58125,	-0.318585,	-1.291665,	0.0,	-1.594095,	-1.10558,	-1.379125,	-1.5,	0.291665,	-0.15267,	0.646725,	-0.563335,	1.27111,	-0.912595,	1.38753,	-0.485075,	0.161695,	-0.55678,	-0.378055,	-0.30368,	-2.28598	z"																																																																																																																																																																																																
+	
+		};
+				
+
+		function rescale_SVGPath(){
+		
+			//rescale SVG image of municipalities
+			var svgDoc = document.getElementById("Mx-mun-map").contentDocument;
+			svgDoc.getElementById("svgMain").setAttribute("width", svgWidth);
+			svgDoc.getElementById("svgMain").setAttribute("height", svgHeight);
+				
+			if(!Array.indexOf){
+				Array.prototype.indexOf = function(obj){
+					for(var i=0; i<this.length; i++){
+						if(this[i]==obj){
+							return i;
+						}
+					}
+				return -1;
+				}
+			}
+
+			//rescale SVG path so that map takes up full display			
+			for(var state in param_pathObj){
+
+				var arr_pathValues = param_pathObj[state].match(/\d+/g);
+				var path_pre ='';
+				var path_rep ='';
+				var path_end ='';
+				var idx = -1;
+
+				for(var i = 0; i < arr_pathValues.length - 1; i++){
+					
+						var myNum = arr_pathValues[i] + "." + arr_pathValues[i+1];
+
+						if(i==0){
+							idx = param_pathObj[state].indexOf(myNum);
+							path_pre = param_pathObj[state].substring(0,idx);
+							path_rep = param_pathObj[state].substring(idx,idx+myNum.length);
+							path_end = param_pathObj[state].substring(idx+myNum.length);
+						}
+						else{
+							idx = path_end.indexOf(myNum);
+							path_pre = path_rescaled + path_end.substring(0,idx);
+							path_rep = path_end.substring(idx,idx+myNum.length);
+							path_end = path_end.substring(idx+myNum.length);
+						}
+
+						var myNum_new = myNum*scale;
+						var path_rescaled = path_pre + path_rep.replace(myNum,myNum_new);
+						i+=1;
+				}
+				path_rescaled = path_rescaled + ' z';
+
+				obj_paths_rescaled[state]=path_rescaled;
+			}
+		}
+		
+		function makeBlankMap(){		
+			var parentEl = document.getElementById('canvas');
+			
+			if(document.getElementById('paper')){
+				cutEl = document.getElementById('paper');
+				parentEl.removeChild(cutEl);
+			}
+			var paperDiv = document.createElement('div');
+			paperDiv.setAttribute('id', 'paper');
+			parentEl.insertBefore(paperDiv, parentEl.firstChild);
+			
+			R = Raphael("paper", 500*scale, 340*scale);	
+			            
+			for(var state in obj_paths_rescaled){
+				objPath = obj_paths_rescaled[state];
+				
+				var attr = {
+				fill: "#FFFFFF",
+				stroke: "#D8D8D8",
+				"stroke-width": 0.25,
+				"stroke-linejoin": "round"
+				};				
+								
+				obj_svg[state]=R.path(objPath).attr(attr);
+				
+				var bbox=obj_svg[state].getBBox(true);
+				obj_xcentroid[state]=bbox.x + bbox.width/2;
+				obj_ycentroid[state]=bbox.y + bbox.height/2;				
+			}
+		}
+
+		function updateDateFromChart(){
+			//function called when new point selection is made in the chart
+			//dates in milliseconds
+			//selects chart points after change in mapDate or dataTime made	
+			var mapDateDD1 = document.getElementById("mapDateDD1");
+			var mapDateDD2 = document.getElementById("mapDateDD2");		
+						
+			var pointDT_0 = new Date(parseInt(arr_chartSelPts[0]));							//date of first selected point
+			var pointDT_n = new Date(parseInt(arr_chartSelPts[arr_chartSelPts.length-1]));	//date of last selected point - will be equal to first if only one point selected		
+
+			var myString_0 = getDateOptionString(pointDT_0);
+			var myString_n = getDateOptionString(pointDT_n);
+		
+			//select option equal to string
+			var mapDateDD1_opt = mapDateDD1.options;
+			var mapDateDD2_opt = mapDateDD2.options;
+			
+			var newIdx1 = findMatchingOpt(mapDateDD1_opt, myString_0);
+			var newIdx2 = findMatchingOpt(mapDateDD2_opt, myString_n);
+			
+			//updated selected index
+			mapDateDD1.selectedIndex = newIdx1;
+			mapDateDD2.selectedIndex = newIdx2;
+			
+			//update change form selection
+			updateChangeFormSel();
+			
+			//get data
+			pullData();
+		}
+		
+		function findMatchingOpt(elementOpt, myString){
+			for(var i=0; i<elementOpt.length; i++){
+				if(typeof(elementOpt[i].innerText) != 'undefined' ) {
+					elementOpt_i = elementOpt[i].innerText;
+				}else{
+					elementOpt_i = elementOpt[i].text;
+				}
+				if(elementOpt_i==myString){
+					return i;
+					break;
+				}
+			}		
+		}
+		
+		function getDateOptionString(dataDT){
+			var dataTimeDD_Idx = getDDSelect(document.getElementById("dataTimeDD"));	
+			
+			var yr = dataDT.getFullYear();
+			var mo = dataDT.getMonth() + 1;
+			var dt = dataDT.getDate();				
+			var dayOfWeek = dataDT.getDay();
+			var wk = getWeek(dataDT);
+			if(mo==1 && dt==1 && dayOfWeek !=6){wk=0;}
+			//var wk = i + 1;
+			//if(i!=0){wk = getWeek(dataDT) + 1;}
+			if(mo*1<10){mo=0 + mo.toString();}
+			if(dt*1<10){dt=0 + dt.toString();}
+			
+			var myString = "";
+				
+			if(dataTimeDD_Idx==0){
+				myString = yr +'-'+ mo +'-'+ dt + ' (week ' + wk + ' )' ;
+			}
+			else if(dataTimeDD_Idx==1){
+				myString = yr +'-'+ mo;
+			}
+			else if(dataTimeDD_Idx==2){
+				myString = yr;
+			}
+			return myString;
+		}
+		
+		function pullData(){
+			var dataTime_Idx = getDDSelect(document.getElementById("dataTimeDD"));			
+			
+			//get selected dates from drop down selection
+			var mapDateDD1 = document.getElementById("mapDateDD1");
+			var dateSel_0_Idx = getDDSelect(mapDateDD1);	
+
+			var mapDateDD2 = document.getElementById("mapDateDD2");
+			dateSel_1_Idx = getDDSelect(mapDateDD2);
+				
+			//get selected date as date
+			if(dateSel_0_Idx == 0){
+				//All dates has been selected
+				dateSel_0_Idx += 1;
+				
+				var mapDateDD2_len = mapDateDD2.options.length; 
+				dateSel_1_Idx = mapDateDD2_len - 1;
+				mapDateDD2.options[dateSel_1_Idx].selected=true;
+			}
+			var dateSel_0 = getSelectedDate(dateSel_0_Idx,mapDateDD1,dataTime_Idx,'t');
+			var dateSel_1 = getSelectedDate(dateSel_1_Idx,mapDateDD2,dataTime_Idx,'t');
+	
+			//extract data
+			obj_mapValues = new Object;				
+			obj_max_state = new Object;	
+			obj_max_state_r = new Object;
+			max_i = 0;
+			max_i_r = 0;
+			
+			//create object to hold data
+			for(state in obj_reformaWk){
+				obj_mapValues[state] = new Object; 
+			}
+			
+				//current period
+			getMapDataFields(dateSel_0, dateSel_1,dataTime_Idx, 't');
+				//previous period
+			getPrevPeriods();
+			
+			makeMap();
+		}
+		
+		function getSelectedDate(selectedIdx,mapDateElement,dataTime_Idx,str_period){
+			//pull data for selected dates	
+			if(mapDateElement.options.length>0){
+				if(typeof(mapDateElement.options[selectedIdx].innerText) != 'undefined'){
+					var txt_DD = mapDateElement.options[selectedIdx].innerText;
+				}
+				else{
+					var txt_DD = mapDateElement.options[selectedIdx].text;
+				}
+			}else{
+				var txt_DD = dateSelDD1_default;
+			}
+			
+			var mapDateElement_ID = mapDateElement.id;
+
+			//show date on map and or legend
+			if(str_period=='t_m1'){
+				var selDDSelect_Idx = getDDSelect(document.getElementById("sel_mapChange"));
+				var mapDD1_Idx = getDDSelect(document.getElementById("mapDateDD1"));
+				var mapDD2_Idx = getDDSelect(document.getElementById("mapDateDD2"));
+				
+				if(selectedIdx==selDDSelect_Idx && mapDD1_Idx==mapDD2_Idx){
+					document.getElementById("changeFormTxt0_span2").innerHTML = txt_DD;
+					document.getElementById("changeFormTxt0_span1").innerHTML = txt_DD;
+				}
+				else if(selectedIdx==selDDSelect_Idx){document.getElementById("changeFormTxt0_span1").innerHTML = txt_DD;}
+				else {document.getElementById("changeFormTxt0_span2").innerHTML = txt_DD;}
+			}else if(str_period=='t'){
+				if(mapDateElement_ID=='mapDateDD1'){
+					document.getElementById("mapDateTxt_span1").innerHTML = txt_DD;
+				}else if(mapDateElement_ID=='mapDateDD2'){					
+					document.getElementById("mapDateTxt_span2").innerHTML = txt_DD;
+				}
+			}
+			
+			var DD_yr = txt_DD.substring(0,4);
+			var dateSel = new Date(DD_yr.toString(),"11","31");
+			
+			if(dataTime_Idx == 0 || dataTime_Idx == 1){
+				var DD_mo = txt_DD.substring(5,7);
+				var days = getDaysInMonth(DD_mo-1,DD_yr);
+				dateSel = new Date(DD_yr.toString(), (DD_mo-1).toString(), days.toString());
+			}
+			if(dataTime_Idx == 0){
+				var DD_dt = txt_DD.substring(8,10);
+				dateSel = new Date(DD_yr.toString(), (DD_mo-1).toString(), DD_dt.toString());
+			}
+			return dateSel;
+		}
+		
+		function getMapDataFields(dateSel_0, dateSel_1,dataTime_Idx, str_period){		
+			//loop through JSON feed stored in object_data and pull data with date within user selection
+			var dataSource_Idx = getDDSelect(document.getElementById("dataSourceDD"));
+			
+			var loopData = obj_reformaWk;
+			if(dataTime_Idx==1){loopData = obj_reformaMo;}
+			else if(dataTime_Idx==2){
+				if(dataSource_Idx==1){loopData = obj_GOMYr}
+				else{loopData = obj_reformaYr;}
+			}
+	
+			//get year, month, day for selected date
+				//First date selected
+			var dateSel_0_yr = dateSel_0.getFullYear();	
+			var dateSel_0_mo = -9998;
+			var dateSel_0_dt = -9998;
+			
+			if(dataTime_Idx == 0 || dataTime_Idx == 1){
+				var dateSel_0_mo = dateSel_0.getMonth();
+			}
+			if(dataTime_Idx == 0){
+				var dateSel_0_dt = dateSel_0.getDate();
+			}
+
+				//Second date selected
+			var dateSel_1_yr = dateSel_1.getFullYear();
+			var dateSel_1_mo = -9998;
+			var dateSel_1_dt = -9998;
+			
+			lastYr = dateSel_1_yr;
+			
+			if(dataTime_Idx == 0 || dataTime_Idx == 1){dateSel_1_mo = dateSel_1.getMonth();}
+			if(dataTime_Idx == 0){var dateSel_1_dt = dateSel_1.getDate();}					
+			extractMapData(loopData, dateSel_0_yr, dateSel_0_mo, dateSel_0_dt, dateSel_1_yr, dateSel_1_mo, dateSel_1_dt, str_period);
+			
+		}
+		
+		function getPrevPeriods(){
+			if(bln_selChangeDisabled){
+				//no previous period to select, exit
+				return;
+			}
+			
+			var dataTime_Idx = getDDSelect(document.getElementById("dataTimeDD"));	
+			var mapDateDD2_Idx = getDDSelect(document.getElementById("mapDateDD2"));
+			var mapDateDD1_Idx = getDDSelect(document.getElementById("mapDateDD1"));
+			
+			//Selected previous period
+			var sel_changeForm1 = document.getElementById("sel_mapChange");		//start date. end date will be  = start date index + DD2 index - DD1 index
+			var changeForm1_Idx = getDDSelect(sel_changeForm1);		//start date. end date will be  = start date index + DD2 index - DD1 index
+			var changeForm2_Idx = changeForm1_Idx + mapDateDD2_Idx - mapDateDD1_Idx;
+							
+			var dateSel_1_m1 = getSelectedDate(changeForm1_Idx,sel_changeForm1,dataTime_Idx,'t_m1');
+			var dateSel_2_m1 = getSelectedDate(changeForm2_Idx,sel_changeForm1,dataTime_Idx,'t_m1');
+				
+			getMapDataFields(dateSel_1_m1, dateSel_2_m1,dataTime_Idx, 't_m1');			
+		}
+		
+		function extractMapData(loopData, dateSel_0_yr, dateSel_0_mo, dateSel_0_dt, dateSel_1_yr, dateSel_1_mo, dateSel_1_dt, str_period){
+			var dataTime_Idx = getDDSelect(document.getElementById("dataTimeDD"));	
+			var mapDateDD1_Idx = getDDSelect(document.getElementById("mapDateDD1"));
+			var mapDateDD2_Idx = getDDSelect(document.getElementById("mapDateDD2"));
+			
+			obj_max_state[str_period] = new Array;
+			obj_max_state_r[str_period] = new Array;
+			var bln_firstState = true;
+			
+			var max_state_i;
+			var max_state_i_r;
+			
+			for(state in loopData){
+				var map_valCum = 0;
+				obj_mapValues[state][str_period] = new Array;
+				
+				var bln_ptFound = false;
+				
+				for(var i=0; i< loopData[state].length; i++){
+					var bln_valAdd = false;
+					
+					var t = new Date(loopData[state][i][0]);						
+					var data_yr = t.getFullYear();
+					
+					var map_val = loopData[state][i][1];
+					
+					//single point in time pull
+					if(mapDateDD1_Idx == mapDateDD2_Idx || (dateSel_0_yr==dateSel_1_yr && dateSel_0_mo==dateSel_1_mo && dateSel_0_dt==dateSel_1_dt)){
+						if(dataTime_Idx == 2){
+							if(data_yr==dateSel_0_yr){
+								bln_valAdd = true;
+								bln_ptFound = true;
+							}
+						}
+						else if(dataTime_Idx == 1){
+							var data_mo = t.getMonth();
+							if(data_yr==dateSel_0_yr && data_mo==dateSel_0_mo){
+								bln_valAdd = true;
+								bln_ptFound = true;
+							}
+						}
+						else if(dataTime_Idx == 0){
+							var data_mo = t.getMonth();
+							var data_dt = t.getDate();
+							
+							if(data_yr==dateSel_0_yr && data_mo==dateSel_0_mo && data_dt==dateSel_0_dt){
+								bln_valAdd = true;
+								bln_ptFound = true;
+							}
+						}
+					}
+					
+					//interval pull							
+					else if(data_yr>=dateSel_0_yr && data_yr<=dateSel_1_yr){	
+						if(dataTime_Idx == 2){bln_valAdd = true;}
+						
+						else if(dataTime_Idx == 1){		
+							var data_mo = t.getMonth();
+							//if data date in same year as selected start date, then data month and date must be greater than or equal selected start month 
+							if(data_yr==dateSel_0_yr && data_mo>=dateSel_0_mo){
+								bln_valAdd = true;
+								if(data_yr==dateSel_1_yr && data_mo>dateSel_1_mo){bln_valAdd = false;}
+							}
+						
+							//if data date in same year as selected end date, then data month and date must be less than or equal sekected end month
+							else if(data_yr==dateSel_1_yr && data_mo<=dateSel_1_mo){
+								bln_valAdd = true;
+								if(data_yr==dateSel_0_yr && data_mo<dateSel_0_mo){bln_valAdd = false;}
+							}
+						
+							//if above not met, then data date is in year not equal to selected start or end year but between them so include the data value
+							else if(data_yr>dateSel_0_yr && data_yr<dateSel_1_yr){bln_valAdd = true;}						
+						}
+						else if(dataTime_Idx == 0){	
+							var data_mo = t.getMonth();
+							var data_dt = t.getDate();							
+							//if start and end date selected are same, data date must be equal to
+							if(dateSel_0_yr == dateSel_1_yr && dateSel_0_mo == dateSel_1_mo && dateSel_0_dt == dateSel_1_dt){
+								if(data_yr == dateSel_0_yr && data_mo == dateSel_0_mo && data_dt == dateSel_0_dt){
+									bln_valAdd = true;
+								}
+							}
+							
+							//if data date in same year as selected start date, then data month and date must be greater than or equal selected start month and date
+							else if(data_yr==dateSel_0_yr && (data_mo==dateSel_0_mo && data_dt>=dateSel_0_dt)){
+								bln_valAdd = true;
+								if(dateSel_0_yr == dateSel_0_yr && dateSel_0_mo==dateSel_1_mo && data_dt>dateSel_1_dt){bln_valAdd = false;}
+							}
+							
+						
+							//if data date in same year as selected end date, then data month and date must be less than or equal sekected end month and date
+							else if(data_yr==dateSel_1_yr && (data_mo==dateSel_1_mo && data_dt<=dateSel_1_dt)){
+								bln_valAdd = true;
+								if(dateSel_0_yr == dateSel_0_yr && dateSel_0_mo==dateSel_1_mo && data_dt<dateSel_0_dt){bln_valAdd = false;}
+							}
+							
+							else if(data_yr==dateSel_0_yr && data_mo>dateSel_0_mo){
+								if(data_yr<dateSel_1_yr){bln_valAdd = true;}
+								else if(data_yr==dateSel_1_yr && data_mo<dateSel_1_mo){bln_valAdd = true;}								
+								else if(data_yr==dateSel_1_yr && data_mo==dateSel_1_mo && data_dt<dateSel_1_dt){bln_valAdd = true;}
+							}
+							
+							else if(data_yr==dateSel_1_yr && data_mo<dateSel_1_mo){
+								if(data_yr>dateSel_0_yr){bln_valAdd = true;}
+								else if(data_yr==dateSel_0_yr && data_mo>dateSel_0_mo){bln_valAdd = true;}								
+								else if(data_yr==dateSel_0_yr && data_mo==dateSel_0_mo && data_dt>=dateSel_0_dt){bln_valAdd = true;}
+							}
+						
+							//if above not met, then data date is in year not equal to selected start or end year but between them so include the data value
+						else if(data_yr>dateSel_0_yr && data_yr<dateSel_1_yr){bln_valAdd = true;					
+							}
+						}
+					}	
+										
+					if(bln_valAdd){
+						map_valCum += map_val;					
+					}	
+					
+					if(bln_ptFound){break;}					
+				}
+				
+				var map_valCum_r = roundNumber(map_valCum/getStatePop(state,lastYr) * 100000,2);
+				obj_mapValues[state][str_period].push(map_valCum);
+				obj_mapValues[state][str_period].push(map_valCum_r);
+				
+				//maximum number
+				if(map_valCum>=max_i && state != 9999){
+					max_i = map_valCum;
+					max_state_i = state;
+				}		
+						
+				//maximum rate
+				if(map_valCum_r>=max_i_r && state != 9999){
+					max_i_r = map_valCum_r;
+					max_state_i_r = state;
+				}		
+				bln_firstState = false;		
+			}
+			
+			obj_max_state[str_period].push(max_state_i);
+			obj_max_state[str_period].push(max_i);
+			
+			obj_max_state_r[str_period].push(max_state_i_r);
+			obj_max_state_r[str_period].push(max_i_r);
+		}
+		
+		function getStatePop(state,dataYr){
+			var statePop = 1;
+			for(var i = dataYr; i >= arr_dataYears[0] ; i--){
+				if(obj_states[state]['Pop'][i]){
+					statePop = obj_states[state]['Pop'][i];
+					break;
+				}
+			}
+			return statePop;
+		}
+		
+		function getComparisonSymbology1x1(dataVal_1,uniformVal_1){
+			var arr_myColors = obj_clrScheme_divg[9];
+			var myColor = "#404040";
+			if(dataVal_1>uniformVal_1){
+				myColor = arr_myColors[3];
+			}else if(dataVal_1<uniformVal_1){
+				myColor = arr_myColors[1];
+			}else if(dataVal_1==uniformVal_1){
+				myColor = arr_myColors[2];
+			}
+			return myColor;
+		}
+		
+		function getComparisonSymbology2x2(dataVal_1,uniformVal_1,dataVal_2,uniformVal_2){
+			var arr_myColors = obj_clrScheme_divg[9];
+			var myColor = "#404040";
+			if(dataVal_1>uniformVal_1 && dataVal_2>uniformVal_2){
+				myColor = arr_myColors[8];
+			}else if(dataVal_1>uniformVal_1 && dataVal_2<uniformVal_2){
+				myColor = arr_myColors[5];
+			}else if(dataVal_1<uniformVal_1 && dataVal_2<uniformVal_2){
+				myColor = arr_myColors[0];
+			}else if(dataVal_1<uniformVal_1 && dataVal_2>uniformVal_2){
+				myColor = arr_myColors[4];
+			}else if(dataVal_1==uniformVal_1 && dataVal_2<uniformVal_2){
+				myColor = arr_myColors[6];
+			}else if(dataVal_1==uniformVal_1 && dataVal_2>uniformVal_2){
+				myColor = arr_myColors[7];
+			}else if(dataVal_1==uniformVal_1 && dataVal_2==uniformVal_2){
+				myColor = arr_myColors[1];
+			}else if(dataVal_1<uniformVal_1 && dataVal_2==uniformVal_2){
+				myColor = arr_myColors[3];
+			}else if(dataVal_1>uniformVal_1 && dataVal_2==uniformVal_2){
+				myColor = arr_myColors[2];
+			}
+			return myColor;
+		}
+		
+		function rgb2hex(rgb) {
+		//convert rgb to hex
+		//from http://stackoverflow.com/questions/1740700/get-hex-value-rather-than-rgb-value-using-jquery 
+			if (  rgb.search("rgb") == -1 ) {
+				return rgb;
+			} else {
+				rgb = rgb.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+))?\)$/);
+				function hex(x) {
+					return ("0" + parseInt(x).toString(16)).slice(-2);
+				}
+				return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]); 
+			}
+		}
+		
+		function showFeatures(elementId){
+			/*
+			receives id of table cell on click from legend and creates an object of states classified under table cell clicked
+			object uses state abbreviations as keys as state abbreviations used in highlightFeature function
+			*/
+			var elementRGB = document.getElementById(elementId).style.backgroundColor;
+			var elementColor = rgb2hex(elementRGB).toUpperCase();
+			
+			var bln_viewChange=false;
+			if(document.getElementById("radioMapSymbology_1").checked){
+				var bln_viewChange=true;
+			}
+			
+			var bln_viewCompare = document.getElementById("radioMapSymbology_0").checked;			
+			var viewCompare_Idx = getDDSelect(document.getElementById("sel_mapComparison"));		
+			
+			var typeIdx = getDDSelect(document.getElementById("dataTypeDD"));
+			var str_type = 'rate';
+			if(typeIdx==0){str_type = 'total';}
+			
+			var dateIdx = 0;
+			
+			var obj_loopData = new Object;
+			var objColor = "";
+			var featureCnt = 0;
+			
+			for(state in obj_symbol0){
+				//get symbolized color of state - symbolized color will depend on user options selected
+				if(bln_viewChange==true){
+					objColor = obj_symbol1[state][str_type]['color'][dateIdx];	
+				}
+				else if(bln_viewCompare==true){
+					objColor = obj_symbol0[state][viewCompare_Idx]['color'][dateIdx];
+				}	
+				
+				//if symbolized color for state is equal to color of table cell (element color), add to output object
+				if(objColor==elementColor){
+					obj_loopData[state] = objColor;
+					featureCnt += 1;
+				}
+			}
+			
+			//highlight states on map
+			clearHighlight();
+			if(featureCnt>0){highlightFeature(obj_loopData,true,true);}
+			else{alert('No states within the selected date range have the selected value.');}
+		}
+		
+		function setLegendColor(){
+			var arr_myColors = obj_clrScheme_divg[9];
+			document.getElementById("legend_0_td1").style.backgroundColor = arr_myColors[0];
+			document.getElementById("legend_0_td2").style.backgroundColor = arr_myColors[3];
+			document.getElementById("legend_0_td3").style.backgroundColor = arr_myColors[4];
+			document.getElementById("legend_0_td4").style.backgroundColor = arr_myColors[0];
+			document.getElementById("legend_0_td5").style.backgroundColor = arr_myColors[3];
+			document.getElementById("legend_0_td6").style.backgroundColor = arr_myColors[4];
+			document.getElementById("legend_0_td7").style.backgroundColor = arr_myColors[6];
+			document.getElementById("legend_0_td8").style.backgroundColor = arr_myColors[1];
+			document.getElementById("legend_0_td9").style.backgroundColor = arr_myColors[7];
+			document.getElementById("legend_0_td10").style.backgroundColor = arr_myColors[6];
+			document.getElementById("legend_0_td11").style.backgroundColor = arr_myColors[1];
+			document.getElementById("legend_0_td12").style.backgroundColor = arr_myColors[7];
+			document.getElementById("legend_0_td13").style.backgroundColor = arr_myColors[5];
+			document.getElementById("legend_0_td14").style.backgroundColor = arr_myColors[2];
+			document.getElementById("legend_0_td15").style.backgroundColor = arr_myColors[8];
+			document.getElementById("legend_0_td16").style.backgroundColor = arr_myColors[5];
+			document.getElementById("legend_0_td17").style.backgroundColor = arr_myColors[2];
+			document.getElementById("legend_0_td18").style.backgroundColor = arr_myColors[8];
+		}
+		
+		function setSymbology0(dataValue_i, total_i, r_dataValue_i, r_total_i, st_num){
+			/*Symbology0 is comparison symbology*/			
+			if(st_num!=9999){
+				var stAbb = obj_states[st_num]['Abb'];
+										
+				var uniform_t = roundNumber(total_i/32,2);
+				
+				//get hexidecimal color to be applied to state
+				var color_0 = getComparisonSymbology1x1(r_dataValue_i,r_total_i);
+				var color_1 = getComparisonSymbology1x1(dataValue_i,uniform_t);
+				var color_2 = getComparisonSymbology2x2(r_dataValue_i,r_total_i,dataValue_i,uniform_t);
+			
+				//add value and message to object that will be used for mapping
+				obj_symbol0[stAbb][0]['color'].push(color_0);				
+				obj_symbol0[stAbb][1]['color'].push(color_1);			
+				obj_symbol0[stAbb][2]['color'].push(color_2);
+				obj_symbol0[stAbb][0]['message'].push('<p>' + r_dataValue_i +' drug-related killings per 100,000 persons</p>');
+				obj_symbol0[stAbb][1]['message'].push('<p>' + dataValue_i + ' drug-related cartel killings' + '</p>');		
+				obj_symbol0[stAbb][2]['message'].push('<p>' + dataValue_i + ' drug-related cartel killings' + '<br/>' + r_dataValue_i +  ' per 100,0000 persons</p>');
+			
+				if(obj_legendMessage['compare_0'].length==0){
+					obj_legendMessage['compare_0'].push('<p>Across all states, there were an average of '+r_total_i+' drug-related killings per 100,000 persons</p>');
+				}else if(obj_legendMessage['compare_1'].length==0){
+					obj_legendMessage['compare_1'].push('<p>On average, ' + uniform_t + ' drug-related cartel killings occured in each state</p>');		
+				}else if(obj_legendMessage['compare_2'].length==0){
+					obj_legendMessage['compare_2'].push('<p>Across all states, there were an average of '+r_total_i+' drug-related killings per 100,000 persons<br/>' + 
+							'On average, ' + uniform_t + ' drug-related cartel killings occured in each state</p>');		
+				}
+			}
+		}
+		
+		function setSymbology1(dataValue_i, dataValue_iMinus, total_i, total_iMinus, st_num, str_type){
+			/*Symbology1 is change symbology*/
+			if(st_num!=9999){
+				var stAbb = obj_states[st_num]['Abb'];	
+				
+				//get color scheme to be used
+				var arr_colors = obj_clrScheme_divg[5];	
+			
+				//calculate percent change for total and rate value
+				var pctCh = -9999;
+				var expected_pctCh = -9999;
+				if(dataValue_iMinus !=0 && dataValue_iMinus != -9999){
+					pctCh = ((dataValue_i / dataValue_iMinus) - 1);
+					
+					if(str_type=='total'){
+						obj_symbol1[stAbb]['total']['message'].push("<p>" + dataValue_i + ' drug-related cartel killings' + "<br/>" + dataValue_iMinus + " in previous period<br/>"+roundNumber(pctCh*100,2)+"% change</p>");
+					}else if(str_type=='rate'){
+						obj_symbol1[stAbb]['rate']['message'].push("<p>" + dataValue_i + ' drug-related cartel killings' + " per 100,000 persons<br/>" + dataValue_iMinus + " in previous period<br/>"+roundNumber(pctCh*100,2)+"% change</p>");
+					}
+				}else{
+					if(str_type=='total'){
+						obj_symbol1[stAbb]['total']['message'].push("<p>" + dataValue_i + ' drug-related cartel killings' + "<br/>" + dataValue_iMinus + " in previous period</p>");
+					}else if(str_type=='rate'){
+						obj_symbol1[stAbb]['rate']['message'].push("<p>" + dataValue_i + ' drug-related cartel killings' + " per 100,0000 persons<br/>" + dataValue_iMinus + " in previous period</p>");
+					}
+				}
+
+				if(total_iMinus !=0 && total_iMinus != -9999){
+					expected_pctCh = ((total_i / total_iMinus) - 1);
+					
+					if(str_type=='total' && obj_legendMessage['change'][str_type].length==0){
+						obj_legendMessage['change'][str_type].push("<p>" + total_i + ' drug-related cartel killings' + "<br/>" + total_iMinus + 
+							" in previous period<br/>"+ "National change: " +roundNumber(expected_pctCh*100,2)+"%</p>");
+					}else if(str_type=='rate' && obj_legendMessage['change'][str_type].length==0){
+						obj_legendMessage['change'][str_type].push("<p>" + total_i + ' drug-related cartel killings' + " per 100,000 persons<br/>" + total_iMinus + 
+							" in previous period<br/>"+ "National change: " +roundNumber(expected_pctCh*100,2)+"%</p>");				
+					}
+				} else{
+					if(str_type=='total' && obj_legendMessage['change'][str_type].length==0){
+						obj_legendMessage['change'][str_type].push("<p>" + total_i + ' drug-related cartel killings' + "<br/>" + total_iMinus + " in previous period" + "</p>");
+					}else if(str_type=='rate' && obj_legendMessage['change'][str_type].length==0){
+						obj_legendMessage['change'][str_type].push("<p>" + total_i + ' drug-related cartel killings per 100,000 persons<br/>' + total_iMinus + " in previous period" + "</p>");				
+					}
+				}
+				
+				//populate obj_symbol1 with hexidecimal color to be applied to state when map created
+				if(dataValue_i == 0 && dataValue_iMinus == 0){obj_symbol1[stAbb][str_type]['color'].push("#FFFFFF");}											//zero in both periods
+				else if(expected_pctCh == -9999 || pctCh == -9999){obj_symbol1[stAbb][str_type]['color'].push("#404040");}										//not calculated
+				else if(pctCh==expected_pctCh){obj_symbol1[stAbb][str_type]['color'].push("#FFF7BC");}		//no change
+				else if(pctCh<0 && expected_pctCh<0 && pctCh<expected_pctCh){obj_symbol1[stAbb][str_type]['color'].push(arr_colors[0]);}
+				else if(pctCh<0){obj_symbol1[stAbb][str_type]['color'].push(arr_colors[1]);}
+				else if(pctCh>0 && expected_pctCh>0 && pctCh>expected_pctCh){obj_symbol1[stAbb][str_type]['color'].push(arr_colors[4]);}
+				else if(pctCh>0){obj_symbol1[stAbb][str_type]['color'].push(arr_colors[3]);}
+				else{obj_symbol1[stAbb][str_type]['color'].push("#404040");}
+			}
+		}
+	
+		function setSymbology2(dataValue_i, total_i, maxVal, st_num, str_type){
+			/*Symbology2 is proportional symbol of current data*/
+			if(st_num!=9999){
+				var stAbb = obj_states[st_num]['Abb'];
+
+				//calculate data for selected data type (default display as proportional symbol)			
+					//add value and message to object that will be used for mapping	
+				if(str_type=='total'){
+					var uniform_t = roundNumber(total_i/32,2);
+					obj_symbol2[stAbb]['total']['value'].push(dataValue_i/maxVal*50);
+					obj_symbol2[stAbb]['total']['message'].push("<p>" + dataValue_i + ' drug-related cartel killings');				
+				}else if(str_type=='rate'){
+					obj_symbol2[stAbb]['rate']['value'].push(dataValue_i/maxVal*50);										
+					obj_symbol2[stAbb]['rate']['message'].push("<p>" + dataValue_i+" per 100,000 persons</p>");
+				}
+			}
+		}
+		
+		function setMessage(stAbb,message){
+			var stName = getStateName(stAbb);
+			var map_state = document.getElementById(stAbb);				
+				
+			if(map_state != null){	
+				map_state.innerHTML =  "<p style='font-weight: bold;'>" + stName + "</p>" + message;
+			}
+		}
+		
+		function getStateName(stAbb){
+			var stName = stAbb;
+			for(st_num in obj_states){
+				if(obj_states[st_num]['Abb'].toUpperCase()==stAbb.toUpperCase()){
+					stName = obj_states[st_num]['Name'];
+					break;
+				}
+			}
+			return stName;
+		}
+
+		function makeMap(){
+			//find data fields to pull						
+			//var typeIdx = getDDSelect(document.getElementById("dataTypeDD"));
+			//var str_type = 'total';
+			//if(typeIdx==1){str_type='rate';}
+			var startIdx = 0;
+			
+			var message = "";
+			obj_symbol0 = new Object;			
+			obj_symbol1 = new Object;			
+			obj_symbol2 = new Object;
+			obj_legendMessage = new Object;
+			obj_legendMessage['change'] = new Object;
+			obj_legendMessage['change']['rate'] = new Array;			
+			obj_legendMessage['change']['total'] = new Array;
+			obj_legendMessage['compare_0'] = new Array;			
+			obj_legendMessage['compare_1'] = new Array;		
+			obj_legendMessage['compare_2'] = new Array;
+			var arr_maxVal = [obj_max_state, obj_max_state_r];			
+		
+			//With cumulative values, calculate the value for a proportional symbol. Proportion = value/maximum value observed in a state over selected time period
+			for(var st_num in obj_mapValues){			
+				var stAbb = obj_states[st_num]['Abb'];
+				
+				//comparison symbology
+				obj_symbol0[stAbb] = new Object;
+				obj_symbol0[stAbb][0] = new Object;
+				obj_symbol0[stAbb][1] = new Object;
+				obj_symbol0[stAbb][2] = new Object;
+				obj_symbol0[stAbb][0]['color'] = new Array;
+				obj_symbol0[stAbb][1]['color'] = new Array;
+				obj_symbol0[stAbb][2]['color'] = new Array;		
+				obj_symbol0[stAbb][0]['message'] = new Array;
+				obj_symbol0[stAbb][1]['message'] = new Array;
+				obj_symbol0[stAbb][2]['message'] = new Array;
+				 
+				
+				//change symbology
+				obj_symbol1[stAbb] = new Object;				
+				obj_symbol1[stAbb]['rate'] = new Object;				
+				obj_symbol1[stAbb]['total'] = new Object;
+				obj_symbol1[stAbb]['total']['color'] = new Array;
+				obj_symbol1[stAbb]['total']['message'] = new Array;
+				obj_symbol1[stAbb]['rate']['color'] = new Array;
+				obj_symbol1[stAbb]['rate']['message'] = new Array;
+				
+				//proportional symbology
+				obj_symbol2[stAbb] = new Object;
+				obj_symbol2[stAbb]['total'] = new Object;
+				obj_symbol2[stAbb]['total']['value'] = new Array;
+				obj_symbol2[stAbb]['total']['message'] = new Array;
+				
+				obj_symbol2[stAbb]['rate'] = new Object;
+				obj_symbol2[stAbb]['rate']['value'] = new Array;
+				obj_symbol2[stAbb]['rate']['message'] = new Array;
+				
+				//get data values
+				var dataValue_i = obj_mapValues[st_num]['t'][0];	
+				var total_i = obj_mapValues[9999]['t'][0];
+				
+				var r_dataValue_i = obj_mapValues[st_num]['t'][1];		
+				var r_total_i = obj_mapValues[9999]['t'][1];
+				
+				var bln_prevPeriod = false;
+				var dataValue_iMinus1 = -9999;
+				var total_iMinus1 = -9999;
+				var r_dataValue_iMinus1 = -9999;
+				var r_total_iMinus1 = -9999;
+								
+				for(key in obj_mapValues[st_num]){
+					if(key=='t_m1'){
+						bln_prevPeriod=true;
+						break;
+					}					
+				}
+				if(bln_prevPeriod){
+					if(document.getElementById("radioMapSymbology_1").hasAttribute("disabled")){
+						document.getElementById("radioMapSymbology_1").removeAttribute("disabled");
+					}
+					bln_displayChangeM1 = true;
+					dataValue_iMinus1 = obj_mapValues[st_num]['t_m1'][0];		
+					total_iMinus1 = obj_mapValues[9999]['t_m1'][0];
+					r_dataValue_iMinus1 = obj_mapValues[st_num]['t_m1'][1];		
+					r_total_iMinus1 = obj_mapValues[9999]['t_m1'][1];
+					
+					//set symbology
+					setSymbology1(dataValue_i, dataValue_iMinus1, total_i, total_iMinus1, st_num, 'total');	
+					setSymbology1(r_dataValue_i, r_dataValue_iMinus1, r_total_i, r_total_iMinus1, st_num, 'rate');	
+				
+				}else{
+					document.getElementById("radioMapSymbology_1").setAttribute("disabled","disabled");
+					bln_displayChangeM1 = false;					
+				}
+	
+				//set map symbology
+				setSymbology0(dataValue_i, total_i, r_dataValue_i, r_total_i, st_num); 
+				setSymbology2(dataValue_i, total_i, obj_max_state['t'][1], st_num, 'total');
+				
+				setSymbology2(r_dataValue_i, r_total_i, obj_max_state_r['t'][1], st_num, 'rate');
+			}
+	
+			displayMap(startIdx);
+		}
+		
+		function removeElementInObj(myObj){
+			var empty = true;
+
+			for(var key in myObj){
+				empty = false;
+				break;
+			}
+			
+			if(empty==false){
+				for(var state in myObj){
+					myObj[state].remove();
+				}
+			}
+		}
+		
+		function displayMap(dateIdx){
+			//check if view change has been selected
+			var bln_viewChange=false;
+			if(document.getElementById("radioMapSymbology_1").checked){
+				var bln_viewChange=true;
+			}
+			
+			//check if view comparison has been selected
+			var bln_viewCompare = document.getElementById("radioMapSymbology_0").checked;
+			var viewCompare_Idx = getDDSelect(document.getElementById("sel_mapComparison"));
+			
+			var typeIdx = getDDSelect(document.getElementById("dataTypeDD"));
+			var str_type = 'rate';
+			if(typeIdx==0){str_type = 'total';}
+			
+
+			//set text to appear in the legend
+			if(bln_viewChange){document.getElementById("div_legend_1").innerHTML = '<span style="text-decoration: underline; font-weight: bold"> National values</span><br/>' + obj_legendMessage['change'][str_type][dateIdx];}
+			else if(bln_viewCompare){	
+				if(viewCompare_Idx==0){
+					document.getElementById("div_legend_2").innerHTML = '<span style="text-decoration: underline; font-weight: bold"> National values</span><br/>' +obj_legendMessage['compare_0'];
+					document.getElementById("legend_2_var0").innerHTML = "";
+				}else if(viewCompare_Idx==1){
+					document.getElementById("div_legend_2").innerHTML = '<span style="text-decoration: underline; font-weight: bold"> National values</span><br/>' +obj_legendMessage['compare_1'];
+					document.getElementById("legend_2_var0").innerHTML = "";
+				}else if(viewCompare_Idx==2){
+					document.getElementById("div_legend_0").innerHTML = '<span style="text-decoration: underline; font-weight: bold"> National values</span><br/>' +obj_legendMessage['compare_2'];
+					document.getElementById("legend_0_var0").innerHTML = "1 = Rate; 2 = Total";
+				}
+			}
+								
+			removeElementInObj(obj_circles);		//remove svg element if already exists		
+			obj_circles = new Object;
+						
+			for(var state in obj_xcentroid){
+				var myData = obj_symbol2[state][str_type]['value'][dateIdx];				
+				var myMessage = obj_symbol2[state][str_type]['message'][dateIdx];
+				if(bln_viewChange==true){
+					myMessage = obj_symbol1[state][str_type]['message'][dateIdx];	
+				}
+				else if(bln_viewCompare==true){
+					myMessage = obj_symbol0[state][viewCompare_Idx]['message'][dateIdx];	
+				}
+							
+				setMessage(state,myMessage);
+				
+				var myFill = "none";
+				var myStroke = "none";
+				var	myStrokeWidth = 0;					
+				if(document.getElementById("cbMapSymbology").checked){
+					myFill = "#B30000";
+					myStrokeWidth = 1;
+					myStroke = "#000000";
+				}
+
+				var attr = {
+					fill: myFill,
+					stroke: myStroke,
+					"stroke-width": myStrokeWidth,
+					"stroke-linejoin": "round"
+				};
+				
+				obj_circles[state] = R.circle(obj_xcentroid[state],obj_ycentroid[state],myData).attr(attr);
+			}
+		
+			//set graduated color for states
+			for(var state in obj_paths_rescaled){
+				document.getElementById(state).style.display = "";
+				
+				var objPath = obj_paths_rescaled[state];	//state is three letter abbreviation
+				var objColor = "#D8D8D8";
+				if(bln_viewChange==true){
+					objColor = obj_symbol1[state][str_type]['color'][dateIdx];	
+				}
+				else if(bln_viewCompare==true){
+					objColor = obj_symbol0[state][viewCompare_Idx]['color'][dateIdx];
+				}
+				
+				var attr = {
+				fill: objColor,
+				stroke: "#252525",
+				"stroke-width": 0.25,
+				"stroke-linejoin": "round",
+				opacity: 0.5
+				};				
+			
+				obj_svg[state].attr(attr);
+				obj_svg[state].toFront();
+			}
+			
+			//set mouse events for map
+			animateMap(obj_svg);
+				
+		}
+		
+		function animateMap(myObject){
+			current = null;
+			var myElement = document.getElementById("highlightDD");
+			var selectIdx = getDDSelect(myElement);
+			var highlightST = myElement.options[selectIdx].value;
+			//var bln_showMunicipal = document.getElementById("cb_showMun").checked;
+			
+            for (var state in myObject) {					
+				(function (st, state) {					
+ 
+                    st[0].style.cursor = "pointer";
+                    st[0].onmouseover = function () {
+																		
+						//change color of last highlighted state to background color and hide last highlighted state's text                        
+                        current && myObject[current].attr({stroke: obj_stroke[current], "stroke-width": obj_strokeWidth[current]}) && (document.getElementById(current).style.display = ""); 
+						st.attr({stroke: "#000000", "stroke-width": 3});
+											
+                        st.toFront();
+                       // R.safari();
+                        document.getElementById(state).style.display = "block";
+                        current = state;
+						
+                    };
+                    st[0].onmouseout = function () {					
+                        st.attr({stroke: obj_stroke[state], "stroke-width": obj_strokeWidth[state]});
+                        st.toFront();
+                        //R.safari();
+                        document.getElementById(state).style.display = "none";
+                    };
+					
+					//if(bln_showMunicipal==false){
+					st[0].onmousedown = function(){
+						var st_num = 9999;
+						for(key in obj_states){
+							var stAbb = obj_states[key]['Abb'];
+							if(state == stAbb){
+								st_num = key;
+								break;
+							}
+						}
+						
+										
+						var dataType_Idx = getDDSelect(document.getElementById("dataTypeDD"));
+						var dataTimeDD_Idx = getDDSelect(document.getElementById("dataTimeDD"));
+						//show municipal data if annual data selected and cb_showMun is checked
+						if(dataTimeDD_Idx == 2 && document.getElementById('cb_showMun').checked){
+							showMunicipalities(st_num);
+						}
+						
+						//update chart
+						var bln_convertToRate = false;
+						//if(dataType_Idx==1){bln_convertToRate = true;}
+						
+						//series for all dates
+						if(document.getElementById("cb_addSeries").checked==false){
+							chart_currentState1 = st_num;
+							var arr_data0 = setChartData(st_num,false);
+							updateChartSeries(0,arr_data0,bln_convertToRate,parseInt(st_num));
+							
+							if(dataTimeDD_Idx==2){
+								var arr_data2 = setChartData(st_num,true);
+								updateChartSeries(2,arr_data2,bln_convertToRate,parseInt(st_num));
+							}
+
+						}else{
+							chart_currentState2 = st_num;
+							createSecondSeries(st_num,false);
+							if(dataTimeDD_Idx==2){
+								createSecondSeries(st_num,true);
+							}
+						}
+						
+						//select chart points
+						selectChartPoints();
+						
+						//hide 
+						if(dataTimeDD_Idx == 2 && document.getElementById('cb_showMun').checked){
+							hide_DIV('cb_resetAxisDIV');
+						}
+						
+					};
+					
+					
+                    if (state == highlightST) {
+                        st[0].onmouseover();
+						current = state;
+                    }
+					//}
+					
+                })(myObject[state], state);
+            }
+			
+		}
+		
+		function showMunicipalities(st_num){			
+			//show legend
+			show_DIV("legend");
+			display_DIV("legend_3");
+			
+			current_state = st_num;
+			
+			var mapDateDD1_El = document.getElementById("mapDateDD1");
+			var mapDateDD2_El = document.getElementById("mapDateDD2");
+			var mapDateDD1_Idx = getDDSelect(mapDateDD1_El);
+			var mapDateDD2_Idx = getDDSelect(mapDateDD2_El);
+			var mapDateDD1 = getSelectedDate(mapDateDD1_Idx,mapDateDD1_El,2,"");
+			var mapDateDD2 = getSelectedDate(mapDateDD2_Idx,mapDateDD2_El,2,"");
+			var mapDateDD1_Yr = mapDateDD1.getFullYear();
+			var mapDateDD2_Yr = mapDateDD2.getFullYear();	
+						
+			var dataTypeDD = getDDSelect(document.getElementById("dataTypeDD"));
+			var dataType = 't';
+			if(dataTypeDD == 1){dataType = 'r';}
+			
+			//remove all previous div added to text container
+			var removeNodes = document.getElementById("txt_canvas2").childNodes;
+			for(var i=1; i<removeNodes.length; i++){			
+				if(removeNodes[i].nodeName=='div'){					
+					removeNodes[i].parentNode.removeChild(removeNodes[i]); 
+				}
+			}
+			
+			//pull data. will return [obj_mapData_mun, stateAvg, stdDev]
+			var arr_data = pull_munData(mapDateDD1_Yr, mapDateDD2_Yr, st_num, dataType);
+			var obj_mapData_mun = arr_data[0];
+			var stateAvg = arr_data[1];
+			var stdDev = arr_data[2];
+			
+			//show municipalities for selected state			
+			str_st_num = st_num.toString();
+			if(st_num<10){
+				str_st_num = '0' + st_num.toString();
+			}
+			
+			var svgDoc = document.getElementById("Mx-mun-map").contentDocument;
+			var str_prefixState = "mun__"+str_st_num;	//paths for municipalities grouped by state with id = mun__(two digit string)
+			
+			//hide municipalities not part of selected state
+			var arr_g = svgDoc.getElementsByTagName("g");
+			for(var i=0; i<arr_g.length; i++){
+				var g_id = arr_g[i].id;
+				if(g_id.substring(0,3) == 'mun' && g_id != str_prefixState){
+					svgDoc.getElementById(g_id).style.visibility = 'hidden';	
+				}else{
+					svgDoc.getElementById(g_id).style.visibility = 'visible';
+				}
+			}
+
+			//apply symbology
+			//obj_mapData_mun[st_num][mun_id][str_dataType] = number
+			obj_svg_mun = new Object;
+			
+			var nodes = svgDoc.getElementById(str_prefixState).childNodes;
+  			var txtContainer = document.getElementById("txt_canvas2");
+			
+			for(var i=1; i<nodes.length; i++){			
+			if(nodes[i].nodeName=='path'){
+				//get municipality
+				var node_id = nodes[i].getAttribute("id");
+				if(node_id.substring(4,5)=="0"){
+					var mun_id = node_id.substring(5);
+				}else{
+					var mun_id = node_id.substring(4);
+				}
+				
+				//add container to hold roll-over text
+				var txtDiv = document.createElement('div');
+				txtDiv.setAttribute('id',node_id);
+				txtContainer.appendChild(txtDiv);
+				document.getElementById(node_id).style.display = 'none';
+				
+				//get data for municipality
+				var munPath = nodes[i];				
+				var munVal = -9998;
+				for(mun in obj_mapData_mun[st_num]){
+					if(parseInt(mun)==parseInt(mun_id)){
+						munVal = obj_mapData_mun[st_num][mun_id][dataType];
+						break;
+					}
+				}	
+
+				//apply fill
+				var zVal = (munVal - stateAvg)/ stdDev;
+				
+				var myFill = "#404040";					
+				if(munVal==-9998){
+					myFill = "#404040";
+				}else if(munVal==0){
+					myFill = "#F5F5F5";
+				}else if(zVal>=0 & zVal<0.5){
+					myFill = "#C7EAE5";
+				}else if(zVal>0 & zVal<1.0){
+					myFill = "#80CDC1";
+				}else if(zVal>0 & zVal<2.0){
+					myFill = "#35978F";
+				}else if(zVal>0 & zVal>=2.0){
+					myFill = "#01665E";
+				}else if(zVal<0 & zVal>-0.5){
+					myFill = "#F6E8C3";
+				}else if(zVal<0 & zVal>-1.0){
+					myFill = "#DFC27D";
+				}else if(zVal<0 & zVal>-2.0){
+					myFill = "#BF812D";
+				}else if(zVal<0 & zVal<=-2.0){
+					myFill = "#8C510A";
+				}
+					
+				munPath.style.fill = myFill;
+				munPath.style.stroke = "#252525";
+				munPath.title = obj_mun[st_num][mun_id]['Name'];
+				
+				var preString = "";
+				var endString = "";
+				if(dataType=='r'){endString = " per 100,000 persons";}
+				if(mapDateDD1_Idx != mapDateDD2_Idx && dataType=='r'){preString = "Average of ";}
+				var message = "<span style='font-weight: bold'>" + obj_states[st_num]['Name'] + "<br/>" + 
+						munPath.title + "</span><p>" + preString + munVal + " drug-related killings" + endString + "</p>";
+				document.getElementById(node_id).innerHTML = message;
+				
+				munPath.addEventListener('mouseover', function(e){
+					if(current_mun != null){document.getElementById(current_mun).style.display = "none";}
+					
+						current_mun = e.target.getAttribute("id");
+						document.getElementById(current_mun).style.display = "block";
+				}, false);
+				
+				munPath.addEventListener('mouseout', function(e){
+					if(current_mun != null){document.getElementById(current_mun).style.display = "none";}
+				}, false);
+
+				obj_svg_mun[node_id] = munPath;
+			}
+			}
+			
+			//update display			
+			noDisplay_DIV('canvas');
+			display_DIV('canvas2');
+			
+			//zoom to state - map must be rendered before this can be called
+			var b = svgDoc.getElementById(str_prefixState).getBBox();	
+			var svgMain = svgDoc.getElementById("svgMain");
+			svgMain.setAttribute("viewBox", b.x+" "+b.y+" "+b.width+" "+b.height);
+			
+			//update legend
+			document.getElementById("div_legend_3").innerHTML = "<p>Average number of drug-related killings" + endString + " in " + obj_states[st_num]['Name'] + " was " + roundNumber(stateAvg,2) + "<br/>" +
+				"Standard deviation = " + roundNumber(stdDev,3) + "</p>";
+			
+		}
+				
+		
+		function createOption(elementId,optionTxt,optionVal,bln_selected){
+			var x=document.getElementById(elementId);
+			var option=document.createElement("option");
+			option.text=optionTxt;
+			option.value=optionVal;
+			if(elementId=="mapDateDD2" && optionVal ==0){option.disabled="disabled";}
+			
+			if(bln_selected){
+				option.selected="selected";
+			}
+			try{
+				// for IE earlier than version 8
+				x.add(option,x.options[null]);
+			}catch (e){
+				x.add(option,null);
+			}
+		}
+		
+		function removeAllOptions(elementId){
+			//removes all options in select element with elementId
+			var x=document.getElementById(elementId);
+
+			for(var i=x.options.length; i>=0; i--){
+				x.remove(i);
+			}
+		}
+		
+		function setMapDateDD(selectName){
+			var dataTimeDD_Idx = getDDSelect(document.getElementById("dataTimeDD"));
+			//var sel_mapOptElem = document.getElementById(selectName);
+			var sel_mapChange = "sel_mapChange";
+			
+			//select index is the time period for which the data is to be shown: 0=weekly,1=monthly, 2=annual
+			var dataArr = new Array;
+			if(dataTimeDD_Idx==0){
+				dataArr = obj_reformaWk[9999];
+			}
+			else if(dataTimeDD_Idx==1){
+				dataArr = obj_reformaMo[9999];
+			}
+			else if(dataTimeDD_Idx==2){
+				dataArr = obj_reformaYr[9999];
+			}
+
+			//var myHTML = '<option value="0">All dates</option>';
+			
+			//remove any existing options
+			removeAllOptions(selectName);
+			removeAllOptions(sel_mapChange);
+			
+			//add first option(position 0) and then add dates from sequentially as other options
+			createOption(selectName,"All dates",0,false);
+			
+			for(var i=0; i<dataArr.length; i++){
+				//date contained in first position of array
+				var dataDT = new Date(dataArr[i][0]);
+/*				
+				var yr = dataDT.getFullYear();
+				var mo = dataDT.getMonth() + 1;
+				var dt = dataDT.getDate();				
+				var dayOfWeek = dataDT.getDay();
+				var wk = getWeek(dataDT);
+				if(mo==1 && dt==1 && dayOfWeek !=6){wk=0;}
+				//var wk = i + 1;
+				//if(i!=0){wk = getWeek(dataDT) + 1;}
+				if(mo*1<10){mo=0 + mo.toString();}
+				if(dt*1<10){dt=0 + dt.toString();}
+				
+				var myString = "";
+				
+				if(dataTimeDD_Idx==0){
+					myString = yr +'-'+ mo +'-'+ dt + ' (week ' + wk + ' )' ;
+				}
+				else if(dataTimeDD_Idx==1){
+					myString = yr +'-'+ mo;
+				}
+				else if(dataTimeDD_Idx==2){
+					myString = yr;
+				}
+*/		
+				var myString = getDateOptionString(dataDT);
+				
+				var bln_selected1 = false;
+				var bln_selected2 = false;
+				if(i+1==dataArr.length){bln_selected1 = true;}
+				else if(i-1==dataArr.length){bln_selected2 = true;}
+				//if(selectName=="mapDateDD2" && i+1==dataArr.length){bln_selected = true;}
+				//else if(selectName=="mapDateDD1"){
+				//	if(dataArr.length>12 && i==dataArr.length-12-1){bln_selected = true;}
+				//	else if(dataArr.length<12 && i==dataArr.length-1-1){bln_selected = true;}
+				//}
+				createOption(selectName,myString,i+1,bln_selected1);		//creates option in map option div
+				createOption(sel_mapChange,myString,i,bln_selected2);	//creates option in view change form				
+				
+				/*
+				//Does not work in IE 8
+				if(i+1==dataArr.length){myHTML += '<option value="'+(i+1)+'" class="w_mapDate" selected="selected">' + myString + '</option>';	}
+				else{
+					if(i==dataArr.length-1){
+						myHTML += '<option value="'+(i+1)+'" class="w_mapDate" selected="selected">' + myString + '</option>';	
+					}else{
+						myHTML += '<option value="'+(i+1)+'" class="w_mapDate">' + myString + '</option>';					
+					}
+				}
+				*/
+			}			
+			
+			//selectElem.innerHTML = myHTML;
+			
+			//update default date selection to reflect selected option; default used as back up when browser cannot populate select option
+			var mapDD1_Idx = getDDSelect(document.getElementById(selectName));
+			var mapDD2_Idx = getDDSelect(document.getElementById(selectName));
+			
+			if(selectName=="mapDateDD1"){dateSelDD1_default = myString;}
+			else if(selectName=="mapDateDD2"){dateSelDD2_default = myString;}
+			
+		}
+		
+		function periodChange(elementId){
+			getPrevPeriods();
+			makeMap();
+		}
+				
+		function comparisonChange(elementId){
+			setRadioSelection("radioMapSymbology_0");
+				
+			//displayMap(0);
+		}
+				
+		function set_formDefaults(){
+			//default settings for form inputs when page loads
+			document.getElementById("cb_addSeries").checked=false;			
+			document.getElementById("cb_resetAxis").checked=false;
+			document.getElementById("cbMapSymbology").checked=true; 
+			if(chart_currentState1==9999){
+				hide_DIV("cb_resetAxisDIV");
+			}else{
+				show_DIV("cb_resetAxisDIV");
+			}
+			document.getElementById("radioMapSymbology_2").checked=true;
+			document.getElementById("cb_showMun").checked=false;
+			if(!document.getElementById("cb_showMun").hasAttribute("disabled")){
+				document.getElementById("cb_showMun").setAttribute("disabled", "disabled");				
+			}
+			show_DIV('radioMapSymbologyDIV_1');
+			document.getElementById("dataTimeDD").selectedIndex = 0;
+			document.getElementById("dataTypeDD").selectedIndex = 0;	
+			document.getElementById("sel_mapComparison").selectedIndex = 0;
+			noDisplay_DIV('dataSource_div');
+			document.getElementById('dataSourceDD').selectedIndex = 0;
+			document.getElementById("mapDateTxt2").innerHTML = "";
+		}
+		
+		function dataTimeChange(elementId){			
+			var dataType_Idx = getDDSelect(document.getElementById("dataTypeDD"));		
+			var dataTime_Idx = getDDSelect(document.getElementById(elementId));
+			var dataSource_Idx = getDDSelect(document.getElementById("dataSourceDD"));
+			
+			//year over is same as previous period so disable as option
+			if(dataTime_Idx==2){
+				document.getElementById('dataSourceDD').selectedIndex = 0;
+				if(document.getElementById("cb_showMun").hasAttribute("disabled")){
+						document.getElementById("cb_showMun").removeAttribute("disabled");				
+				}
+				display_DIV('dataSource_div');
+				
+				if(dataSource_Idx==1){
+					document.getElementById("mapDateTxt2").innerHTML = "(GOM data)";
+					updateDataDateRange('GOM');
+				}else{
+					document.getElementById("mapDateTxt2").innerHTML = "(Reforma data)";
+					updateDataDateRange('reforma');
+				}
+			}else{	
+				updateDataDateRange('reforma');
+				document.getElementById("cb_showMun").checked=false;
+				document.getElementById("cb_showMun").setAttribute("disabled","disabled");	
+				noDisplay_DIV('dataSource_div');
+				document.getElementById("mapDateTxt2").innerHTML = "";
+			}
+			
+			document.getElementById("cb_addSeries").checked = false;
+			document.getElementById("cb_resetAxis").checked = false;
+			hide_DIV("cb_resetAxisDIV");
+			displayCanvas2(false);
+			
+						
+			getDataTime(elementId);		
+			
+			pullData();			
+			
+			//create new chart
+			createChart(chart_currentState1);
+			
+			//add GOM data to chart
+			if(dataTime_Idx==2){addChartSeries();}
+			
+			//select chart points
+			selectChartPoints();
+		}
+		
+		function selectChartPoints(){
+			//selects chart points after change in mapDate or dataTime made	
+			var dataTime_Idx = getDDSelect(document.getElementById("dataTimeDD"));	
+			var mapDateDD1 = document.getElementById("mapDateDD1");
+			var mapDateDD2 = document.getElementById("mapDateDD2");
+			var DD1_sIdx = getDDSelect(mapDateDD1);
+			var DD2_sIdx = getDDSelect(mapDateDD2);			
+			
+			//chart points are in milliseconds: arr_chartSelPts
+			var dateSel_0 = getSelectedDate(DD1_sIdx,mapDateDD1,dataTime_Idx,'t');
+			var dateSel_1 = getSelectedDate(DD2_sIdx,mapDateDD2,dataTime_Idx,'t');
+			
+			var dateSel_0_milli = Date.parse(dateSel_0);
+			var dateSel_1_milli = Date.parse(dateSel_1);
+			
+			for (var i = 0; i < chart.series[0].data.length; i++) {                   
+				var point = chart.series[0].data[i];
+
+				if (point.x >= dateSel_0_milli && point.x <= dateSel_1_milli) {
+					point.select(true, true);
+				}else{point.select(false,true);}                        
+			}
+			
+			for (var i = 0; i < chart.series[1].data.length; i++) {                   
+				var point = chart.series[1].data[i];
+
+				if (point.x >= dateSel_0_milli && point.x <= dateSel_1_milli) {
+					point.select(true, true);
+				}else{point.select(false,true);}                        
+			}
+		}
+		
+		function mapDateChange(elementId){	
+			var dataTimeDD_Idx = getDDSelect(document.getElementById("dataTimeDD"));
+			var dataType_Idx = getDDSelect(document.getElementById("dataTypeDD"));
+			var this_Idx = getDDSelect(document.getElementById(elementId));
+			var DD1_sIdx = getDDSelect(document.getElementById("mapDateDD1"));
+			var DD2_sIdx = getDDSelect(document.getElementById("mapDateDD2"));
+			
+			//force date in mapDateDD1 to always be less than or equal to mapDateDD2
+			if(elementId == "mapDateDD1"){
+				if(DD2_sIdx < this_Idx){document.getElementById("mapDateDD2").selectedIndex = this_Idx;}
+			}
+			else if(elementId == "mapDateDD2"){
+				if(DD1_sIdx > this_Idx){document.getElementById("mapDateDD1").selectedIndex = this_Idx;}
+			}
+			
+			//update default date selection
+			if(typeof(document.getElementById("mapDateDD1").options[DD1_sIdx].innerText) != 'undefined' ) {
+				dateSelDD1_default = document.getElementById("mapDateDD1").options[DD1_sIdx].innerText;
+				dateSelDD2_default = document.getElementById("mapDateDD2").options[DD2_sIdx].innerText;
+			}else{
+				dateSelDD1_default = document.getElementById("mapDateDD1").options[DD1_sIdx].text;
+				dateSelDD2_default = document.getElementById("mapDateDD2").options[DD2_sIdx].text;
+			}
+			
+			//select chart points
+			selectChartPoints();
+			
+			//update compareForm selection
+			updateChangeFormSel();
+						
+			//pull data for map corresponding to selection
+			var bln_showMun = document.getElementById("cb_showMun").checked;			
+			if(bln_showMun && document.getElementById("canvas2").style.display != "none"){
+				showMunicipalities(current_state);
+			}
+			pullData();	
+		}
+		
+		function setRadioSelection(elementId){
+			//displayCanvas2(false);
+			
+			//set selected state in highlight state drop down to Distrito Federal
+			document.getElementById("highlightDD").selectedIndex = 0;
+			current = "DF";
+			
+			if(elementId=="radioMapSymbology_0"){
+				//viewComparison
+				display_DIV('compareForm');				
+				var compareDD_Idx = getDDSelect(document.getElementById("sel_mapComparison"));			
+				noDisplay_DIV('legend_1');
+				
+				if(compareDD_Idx==2){
+					display_DIV('legend_0'); 
+					noDisplay_DIV('legend_2'); 
+				} 
+				else{
+					display_DIV('legend_2')
+					noDisplay_DIV('legend_0'); 
+				};
+						
+				
+				noDisplay_DIV('changeForm');
+				show_DIV('legend');	
+				displayMap(0);
+			}
+			else if(elementId=="radioMapSymbology_1"){
+				//viewChange
+				noDisplay_DIV('legend_0');
+				noDisplay_DIV('legend_2');				
+				display_DIV('legend_1');
+				
+				noDisplay_DIV('compareForm');
+				if(bln_displayChangeM1){display_DIV('changeForm');}
+				else{
+					alert("Data not available for previous period of equal interval size. \r\n Reduce the interval between the two and from dates or select another date to view change.");
+				}
+				
+				show_DIV('legend');	
+				displayMap(0);
+			}
+			else if(elementId=="radioMapSymbology_2"){
+				//viewDefault
+				noDisplay_DIV('legend_1');
+				noDisplay_DIV('legend_2');
+				noDisplay_DIV('legend_0');
+				
+				noDisplay_DIV('compareForm');
+				noDisplay_DIV('changeForm');
+				
+				show_DIV('legend');	
+				displayMap(0);
+			}
+		}
+		
+		function getDataTime(elementId){			
+			setMapDateDD('mapDateDD1');
+			setMapDateDD('mapDateDD2');
+			
+			updateChangeFormSel();
+		}
+		
+		function updateChangeFormSel(){			
+			var DD1_sIdx = getDDSelect(document.getElementById("mapDateDD1"));
+			var DD2_sIdx = getDDSelect(document.getElementById("mapDateDD2"));
+			
+			//disable all options in view change form equal to or greater than date selected in map options div
+			var sel_mapChangeElem = document.getElementById("sel_mapChange");
+			var sel_mapChangeOpt = sel_mapChangeElem.options;
+			var greaterThanVal = DD1_sIdx - (DD2_sIdx - DD1_sIdx + 1);
+			var countDisable = 0;
+			
+			for(var i=0; i<sel_mapChangeOpt.length; i++){
+				if(i < greaterThanVal){
+					if(sel_mapChangeOpt[i].hasAttribute("disabled")){
+						sel_mapChangeOpt[i].removeAttribute("disabled");
+					}
+				}else{
+					sel_mapChangeOpt[i].setAttribute("disabled","disabled");
+					countDisable += 1;
+				}
+				if(i==greaterThanVal- 1){sel_mapChangeOpt[i].selected = true;}
+			}
+
+			//if all options disabled
+			if(countDisable == sel_mapChangeOpt.length){bln_selChangeDisabled = true;}
+		}
+		
+		function dataSourceChange(){
+			var dataSource_Idx = getDDSelect(document.getElementById('dataSourceDD'));
+			
+			if(dataSource_Idx==1){
+				updateDataDateRange('GOM');
+				document.getElementById("mapDateTxt2").innerHTML = "(GOM data)";
+			}else{
+				updateDataDateRange('reforma');
+				document.getElementById("mapDateTxt2").innerHTML = "(Reforma data)";
+			}
+						
+			//pull data for map corresponding to selection
+			var bln_showMun = document.getElementById("cb_showMun").checked;			
+			if(bln_showMun && document.getElementById("canvas2").style.display != "none"){
+				showMunicipalities(current_state);
+			}
+			pullData();
+		}
+		
+		function dataTypeChange(){
+			var dataType_Idx = getDDSelect(document.getElementById("dataTypeDD"));
+			var dataTimeDD_Idx = getDDSelect(document.getElementById("dataTimeDD"));
+			var bln_showMun = document.getElementById("cb_showMun").checked;
+			
+			if(bln_showMun){
+				showMunicipalities(current_state);
+				return;
+			}
+			
+			//make map to show new data	
+			//makeMap();
+			displayMap(0);
+			
+			//update chart
+			var bln_convertToRate = false;
+			//if(dataType_Idx==1){bln_convertToRate = true;}
+			
+			//series for all dates and second state
+			chart_currentState2 = 1;		
+			var arr_data1 = setChartData(chart_currentState2,false);
+			updateChartSeries(1,arr_data1,bln_convertToRate,chart_currentState2);
+			
+			chart_currentState1 = 9999;			
+			var arr_data0 = setChartData(9999,false);
+			updateChartSeries(0,arr_data0,bln_convertToRate,9999); 
+					
+			chart.series[1].hide();	
+			
+			if(dataTimeDD_Idx==2){
+				//update GOM data series
+				var arr_data3 = setChartData(chart_currentState2,true);
+				updateChartSeries(3,arr_data1,bln_convertToRate,chart_currentState2);
+				var arr_data2 = setChartData(9999,true);
+				updateChartSeries(2,arr_data0,bln_convertToRate,9999);
+				chart.series[3].hide();
+			}
+
+			//select chart points
+			selectChartPoints();
+		}
+		
+		function updateDataDateRange(dataSource){
+			var mapDateDD1 = document.getElementById("mapDateDD1");
+			var mapDateDD2 = document.getElementById("mapDateDD2");
+			var mapDateDD1_Idx = getDDSelect(mapDateDD1);
+			var mapDateDD2_Idx = getDDSelect(mapDateDD2);
+			
+			var last_Idx = obj_GOMYr[9999].length - 1;
+			var last_dt = new Date(obj_GOMYr[9999][last_Idx][0]).getFullYear();
+			var opt_Idx = findMatchingOpt(mapDateDD1.options, last_dt);
+			
+			if(dataSource=='GOM'){
+				//force date to be in range of data			
+				if(mapDateDD1_Idx > opt_Idx){
+					mapDateDD1.selectedIndex = opt_Idx;
+					for(var i=opt_Idx + 1; i<mapDateDD1.options.length; i++){
+						mapDateDD1.options[i].setAttribute("disabled","disabled");
+					}
+				}
+				if(mapDateDD2_Idx > opt_Idx){
+					mapDateDD2.selectedIndex = opt_Idx;
+					for(var i=opt_Idx + 1; i<mapDateDD2.options.length; i++){
+						mapDateDD2.options[i].setAttribute("disabled","disabled");
+					}
+				}
+			}else{
+				//re-enable disabled years
+				for(var i=opt_Idx + 1; i<mapDateDD1.options.length; i++){
+					if(mapDateDD1.options[i].hasAttribute("disabled")){
+						mapDateDD1.options[i].removeAttribute("disabled");
+					} 
+				}
+				for(var i=opt_Idx + 1; i<mapDateDD2.options.length; i++){
+					if(mapDateDD2.options[i].hasAttribute("disabled")){
+						mapDateDD2.options[i].removeAttribute("disabled");
+					} 
+				}
+			}
+			updateChangeFormSel();
+		}
+		
+		function displayCanvas2(bln_checked){	
+			if(bln_checked){
+				//force date to be in range of data			
+				updateDataDateRange('GOM');
+				document.getElementById("mapDateTxt2").innerHTML = "(GOM data)";
+				document.getElementById("dataSourceDD").selectedIndex = 1;
+				
+				document.getElementById('cb_addSeries').checked = false;
+				//disable map options
+				disable('radioMapSymbology_0',true);
+				disable('radioMapSymbology_1',true);
+				disable('radioMapSymbology_2',true);
+				disable('cbMapSymbology',true);
+				hide_DIV('cb_resetAxisDIV');
+				
+				alert('Click on a state to view municipal level data');
+			}else{
+				updateDataDateRange('reforma');
+			
+				if(document.getElementById('canvas').style.display=='none'){
+					display_DIV('canvas');
+					noDisplay_DIV('canvas2');
+				}
+				noDisplay_DIV('legend_3');
+				
+				disable('radioMapSymbology_0',false);
+				disable('radioMapSymbology_1',false);
+				disable('radioMapSymbology_2',false);
+				disable('cbMapSymbology',false);
+			}
+		}
+		
+		function disable(myElementId, bln_disable){
+			var myElement = document.getElementById(myElementId);
+			if(myElement.hasAttribute("disabled") && bln_disable==false){
+				myElement.removeAttribute("disabled");
+			}else if(!(myElement.hasAttribute("disabled")) && bln_disable){
+				myElement.setAttribute("disabled", "disabled");
+			}
+		}
+		
+		function getDDSelect(myElement){
+			var selectOpt = myElement.options;
+			
+			var selectIdx = 0;
+			if(selectOpt.length>0){selectIdx = myElement.selectedIndex;}			
+			return selectIdx;
+		}
+				
+		function highlightST(){
+			var myElement = document.getElementById("highlightDD");
+			var selectIdx = getDDSelect(myElement);
+			
+			if(selectIdx==0){return;}
+			else{	
+				myElement.options[selectIdx].selected=true;
+				var val = myElement.options[selectIdx].value;	//this is a state abbreviation			
+				var myObject = val;		//string or object with state abbreviations for all states to be highlighted
+			
+				//clear last highlight and highlight current state
+				clearHighlight();
+				highlightFeature(myObject,false,true);
+			}
+		}
+		
+		function highlightFeature(input,bln_showLast,bln_highlight){
+			//input is to contain state abbreviation as string or as key of object
+			var myObject = new Object;
+			if(typeof input == "object"){
+				for(stAbb in input){												
+					myObject[stAbb] = obj_svg[stAbb];
+				}
+			}			
+			else if(typeof input == "string"){myObject[input] = obj_svg[input];}			//get svg path for selected state
+			
+			obj_myStrokeColor = new Object;
+			
+			var i = 0;
+			for (var state in myObject) {
+				i += 1;
+				(function (st, state, i) {					
+                
+                    st[0].style.cursor = "pointer";
+                    //change color of last highlighted state to background color and hide last highlighted state's text                        
+                    if(bln_highlight){
+						if(i==1 || (i>1 && bln_showLast==false)){current && obj_svg[current].attr({stroke: "#252525", "stroke-width": 0.25}) && (document.getElementById(current).style.display = "");} 
+					
+						st.attr({stroke: "#00FFFF", "stroke-width": 3});
+						obj_myStrokeColor[state] = "#00FFFF";
+						
+						st.toFront();
+						
+					// R.safari();
+                    if(bln_showLast==false){document.getElementById(state).style.display = "block";}
+                    current = state;
+					}else{
+						st.attr({stroke: "#252525", "stroke-width": 0.25});
+					}
+					
+                })(myObject[state], state, i);
+            }
+			
+			for(state in obj_svg){
+			if(state in obj_myStrokeColor){
+						obj_stroke[state] = obj_myStrokeColor[state];
+						obj_strokeWidth[state] = 3;
+			}else{
+						obj_stroke[state] = "#252525";
+						obj_strokeWidth[state] = 0.25;
+			}
+			}
+		}
+		
+		function clearHighlight(){
+			document.getElementById("highlightDD").selectedIndex = 0;
+			
+			obj_myStrokeColor = new Object;
+			for(state in obj_svg){
+				obj_stroke[state] = "#252525";
+				obj_strokeWidth[state] = 0.25
+			}
+			highlightFeature(obj_svg,false,false);
+		}
+		
+		function highlightMax(){
+			document.getElementById("highlightDD").selectedIndex = 0;
+			
+			var dataTypeDD_Idx = getDDSelect(document.getElementById("dataTypeDD"));
+			var arr_input = obj_max_state['t'];
+			if(dataTypeDD_Idx == 1){
+				arr_input = obj_max_state_r['t'];	//current period: state id_num followed by value, will have length of two if only one maximum
+			} 
+			
+			//create object with state abbreviations for states with maximum value
+			var obj_maxMapVal_states = new Object;
+			var arrIdx = 0;
+			for(var i=0; i<arr_input.length/2; i++){
+				var st_abb = obj_states[arr_input[arrIdx]]['Abb'];
+				obj_maxMapVal_states[st_abb] = arr_input[arrIdx+1];
+				arrIdx += 2;
+			}
+	
+			highlightFeature(obj_maxMapVal_states,true,true);
+		}
+				
+		function show_DIV(divID_str){
+			var divElem = document.getElementById(divID_str);
+			
+			divElem.style.visibility="visible";
+		}
+		
+		function hide_DIV(divID_str){
+			var divElem = document.getElementById(divID_str);
+			
+			divElem.style.visibility="hidden";
+		}
+		
+		function display_DIV(divID_str){
+			var divElem = document.getElementById(divID_str);
+			
+			divElem.style.display="block";
+		}
+		
+		function noDisplay_DIV(divID_str){
+			var divElem = document.getElementById(divID_str);
+			
+			divElem.style.display="none";
+		}
+	
+		function getWeek(date) {
+			var onejan = new Date(date.getFullYear(),0,1);
+			return Math.ceil((((date - onejan) / 86400000) + onejan.getDay()+1)/7);
+		} 
+				
+		function roundNumber(num, dec){
+			var result = Math.round(num*Math.pow(10,dec))/Math.pow(10,dec);
+			return result;
+		}
+		
+        </script>
+    </head>
+    <body>
+
+       <div id="canvas">
+            <div id="paper"></div>
+			<div id="PUE"></div>            
+			<div id="COL"></div>            
+			<div id="JAL"></div>            
+			<div id="GTO"></div>            
+			<div id="QUE"></div>            
+			<div id="YUC"></div>            
+			<div id="SLP"></div>            
+			<div id="AGS"></div>            
+			<div id="TAM"></div>            
+			<div id="DUR"></div>            
+			<div id="NLE"></div>            
+			<div id="COA"></div>            
+			<div id="SIN"></div>            
+			<div id="CHH"></div>            
+			<div id="CHP"></div>            
+			<div id="OAX"></div>            
+			<div id="GRO"></div>            
+			<div id="TAB"></div>            
+			<div id="MIC"></div>            
+			<div id="MOR"></div>            
+			<div id="MEX"></div>            
+			<div id="CAM"></div>            
+			<div id="DF"></div>            
+			<div id="TLA"></div>            
+			<div id="HGO"></div>            
+			<div id="ZAC"></div>            
+			<div id="VER"></div>            
+			<div id="ROO"></div>            
+			<div id="NAY"></div>                   
+			<div id="BCS"></div>            
+			<div id="BCN"></div>            
+			<div id="SON"></div>
+		</div>
+		<div id="canvas2">
+			<div id="results-map" style="float: left; width: 75%; height: 60%">			
+				<!--[if !IE]>-->
+				<object data="mun.svg" type="image/svg+xml" 
+					id="Mx-mun-map" alt="Interactive map graphic showing ejecuciones and narco-ejecuciones in Mexico by municipality"> 
+				<!--<![endif]-->
+				<!--[if lt IE 9]>
+					<object src="mun.svg" classid="image/svg+xml"
+					id="Mx-mun-map" alt="Interactive map graphic showing ejecuciones and narco-ejecuciones in Mexico by municipality"> <![endif]-->
+				<!--[if gte IE 9]>
+					<object data="mun.svg" type="image/svg+xml"
+					id="Mx-mun-map" alt="Interactive map graphic showing ejecuciones and narco-ejecuciones in Mexico by municipality"> <![endif]--> 
+				</object>
+			</div>
+			<div style="float: left">
+				<div><input type="button" onclick="displayCanvas2(false)" value="Go back to state map"/></div>
+				<div id="txt_canvas2" ></div>				
+			</div>
+		</div>
+		<div id="outerChartDIV">
+			<div id="chart_txt">
+				<div id="mapDateTxt" style="font-weight: bold; ">Map shows data from <span id="mapDateTxt_span1"></span> through <span id="mapDateTxt_span2"></span></div>
+				<div id="mapDateTxt2" style="font-weight: bold; "></div>
+				<div style="float: left;"><span style="font-size: 0.87em">Click on a state to show data for the state on the chart. Click on a point on the chart to view data for date clicked.</span></div>
+				<div id="cb_resetAxisDIV" style="float: left">
+					<label><input type="checkbox" id="cb_resetAxis" onclick="resetAxisRange(this.checked);"/>Keep same y(vertical)-axis range for all states</label>
+					<label><input type="checkbox" id="cb_addSeries" onclick="addSecondSeries(this.checked);"/>Add second state to chart</label>
+				</div>			
+			</div>
+			<div id="container">			
+			</div>
+		</div>
+		<div id="optionsContainer">
+			<div id="mapControls"><form id="controls1" name="controls1" style="margin: 5px">
+				<div style="float: right"><span style="font-size: 0.87em"><a href="MX_Map_Help.html" target="_blank">Help</a></span></div>
+				<div style="float: left; clear: both;"><h3>Map options:</h3>
+					<div id="dataTimeDD_div" style="text-align: left; margin-bottom: 15px; float: left; clear: both">
+						Show:
+						<select name="dataTime" id="dataTimeDD" onchange="dataTimeChange(this.id)">
+							<option value="wk" selected="selected">Weekly</option>					
+							<option value="mo">Monthly</option>
+							<option value="yr">Annual</option>	
+						</select>
+						data
+					</div>	
+					<div id="dataFlip_div" style="text-align: left; float: left; clear: both; margin: left: 20px;">
+						<div style="float: left; margin-left: 5px"><label id="lbl_mapDateDD1" for="mapDateDD1">From: </label><select name="mapDateDD1" id="mapDateDD1" onchange="mapDateChange(this.id)">
+						</select></div>
+						<div id="mapDateDD2_DIV" style="float: left; margin-left: 5px; "><label id="lbl_mapDateDD2" for="mapDateDD2">Through: </label><select name="mapDateDD2" id="mapDateDD2" onchange="mapDateChange(this.id)">
+						</select></div>
+					</div>
+					<div id="dataTypeDD_div" style="text-align: left; margin-top: 15px; margin-bottom: 15px; float: left; clear: both">
+						Show the data as a
+						<select name="dataType" id="dataTypeDD" onchange="dataTypeChange()">
+							<option value="total" selected="selected">Total</option>
+							<option value="rate">Rate</option>
+						</select>
+						for the selected time interval or point in time.
+					</div>	
+					<div style="text-align: left; float: left; clear: both"><label><input type="checkbox" id="cb_showMun" onclick="displayCanvas2(this.checked);"/>Show municipal data (must select annual data)</label></div>
+					<div id="dataSource_div" style="text-align: left; margin-top: 15px; float: left; clear: both">
+						Select a data source
+						<select name="dataSource" id="dataSourceDD" onchange="dataSourceChange()">
+							<option value="reforma" selected="selected">Reforma</option>
+							<option value="gom">Government of Mexico</option>
+						</select>
+					</div>	
+				</div>
+				<div style="float: left; clear: both;"><h3>Map Tools:</h3>
+					<div id="highlightDD_div" style="float: left; clear: both">
+					Highlight state on the map: 
+					<select name="highlightDD" id="highlightDD" onchange="highlightST();">
+						<option value="none" selected="selected">Select a state</option>
+						<option value="AGS">Aguascalientes</option>             
+						<option value="BCN">Baja California</option>             
+						<option value="BCS">Baja California Sur</option> 
+						<option value="CAM">Campeche</option>    
+						<option value="CHP">Chiapas</option>            
+						<option value="CHH">Chihuahua</option>           
+						<option value="COA">Coahuila</option>
+						<option value="COL">Colima</option>   
+						<option value="DF" >Distrito Federal</option>          
+						<option value="DUR">Durango</option>             
+						<option value="GTO">Guanajuato</option>             
+						<option value="GRO">Guererro</option>                         
+						<option value="HGO">Hidalgo</option>  						           
+						<option value="JAL">Jalisco</option>
+						<option value="MEX">Mexico</option>          
+						<option value="MIC">Michoacan</option>            
+						<option value="MOR">Morelos</option>  
+						<option value="NAY">Nayarit</option>          
+						<option value="NLE">Nuevo Leon</option>            
+						<option value="OAX">Oaxaca</option>                    
+						<option value="PUE">Puebla</option>  
+						<option value="QUE">Queretaro</option>  
+						<option value="ROO">Quintana Roo</option>      
+						<option value="SLP">San Luis Potosi</option>            
+						<option value="SIN">Sinaloa</option> 
+						<option value="SON">Sonora</option>            
+						<option value="TAB">Tabasco</option>
+						<option value="TAM">Tamaulipas</option>  
+						<option value="TLA">Tlaxcala</option>           
+						<option value="VER">Veracruz</option> 
+						<option value="YUC">Yucatan</option>           
+						<option value="ZAC">Zacatecas</option>            
+						
+					</select>
+					</div>
+					<input value="Clear highlight" type="button" onclick="clearHighlight();"/>
+					<input value="Highlight maximum" type="button" onclick="highlightMax();"/>
+				</div>				
+			
+				<div id="symbologyDIV" style="float: left; clear: both; margin-top: 10px;">
+					<div id="radioMapSymbologyDIV_0" style="float: left; "><input type="radio" name="radioMapSymbology" id="radioMapSymbology_0" onchange="setRadioSelection(this.id);"/>View Comparison</div>
+					<div id="radioMapSymbologyDIV_1" style="float: left; "><input type="radio" name="radioMapSymbology" id="radioMapSymbology_1" disabled="disabled" onchange="setRadioSelection(this.id);"/>View Change</div>
+					<div id="radioMapSymbologyDIV_2" style="float: left; "><input type="radio" name="radioMapSymbology" id="radioMapSymbology_2" checked="checked" onchange="setRadioSelection(this.id);"/>Return to Default view</div>
+					<div id="cbMapSymbologyDIV" style="float: left;"><input type="checkbox" name="cbMapSymbology" id="cbMapSymbology" checked="checked" onclick="displayMap(0);"/>View Proportional Symbol</div>
+				</div>
+			</form></div>
+			
+			<div id="legendContainer">
+			<div id="legend">								
+				<form id="changeForm" name="changeForm" style="margin-bottom: 10px">
+				<div><p><span style="text-decoration: underline; font-weight: bold">View change</span></p>Compare data in current period to data in period of equal length starting in </p></div>
+				<div id="radioMapChangeDIV_0" style="float: left; clear: both;">
+					<div>
+						<select id="sel_mapChange" onchange="periodChange(this.id);">
+						</select>				
+					</div>
+					<div id="changeFormTxt0">From <span id="changeFormTxt0_span1"></span> through <span id="changeFormTxt0_span2"></span>.</div>
+				</div>
+				</form>	
+			
+				<div id="legend_1" style="clear: both;  margin-top: 15px; ">
+				<table id="table_legend_1" style="margin-top: 10px">
+					<tr><td id="legend_1_td1" style="width: 20px; height:5px; background-color:#7B3294; opacity: 0.5" onclick="showFeatures(this.id);"  class="clickable"></td>
+						<td id="td_1">Decline &gt; national decline<td>
+					</tr>
+					<tr><td id="legend_1_td2" rowspan="2" style="width: 20px; height:5px; background-color:#C2A5CF; opacity: 0.5" onclick="showFeatures(this.id);"  class="clickable">
+						</td><td id="td_2a">Decline &lt; national decline</td>
+					</tr>
+					<tr><td id="td_2b">or decline in presence of a national increase<td></tr>
+					<tr><td id="legend_1_td4" style="width: 20px; height:5px; background-color:#FFF7BC; opacity: 0.5" onclick="showFeatures(this.id);"  class="clickable"></td>
+						<td id="td_4">No change or change equal to national change<td>
+					</tr>
+					<tr><td id="legend_1_td5" rowspan="2" style="width: 20px; height:5px; background-color:#A6DBA0; opacity: 0.5" onclick="showFeatures(this.id);"  class="clickable"></td>
+						<td id="td_5a">Increase &lt; national increase<td>
+					</tr>
+					<tr><td id="td_5b"> or increase in presence of a national decline<td></tr>
+					<tr><td id="legend_1_td6" style="width: 20px; height:5px; background-color:#008837; opacity: 0.5" onclick="showFeatures(this.id);"  class="clickable"></td>
+						<td id="td_6">Increase &gt; national increase<td>
+					</tr>
+					<tr><td style="width: 20px; height:5px; opacity: 0.5">&nbsp;</td>
+						<td >&nbsp;<td>
+					</tr>
+					<tr><td id="legend_1_td3" style="width: 20px; height:5px; background-color:#FFFFFF; opacity: 0.5" onclick="showFeatures(this.id);"  class="clickable"></td>
+						<td id="td_3">No reported killings <td>
+					</tr>			
+					<tr><td id="legend_1_td7" style="width: 20px; height:5px; background-color:#404040; opacity: 0.5" onclick="showFeatures(this.id);"  class="clickable"></td>
+						<td id="td_7">Not calculated (no reported killings in previous period)<td>
+					</tr>					
+				</table>
+				<span style="font-size: 0.87em">Click on a color in the legend to highlight features on map.</span>
+				<div id="div_legend_1" style="clear: both; margin-top: 10px; border: 1px solid black; padding: 2px; background-color: #FFFFFF;"></div>				
+				</div>
+				
+				<form id="compareForm" name="compareForm" style="margin-bottom: 10px">
+				<div><p><span style="text-decoration: underline; font-weight: bold">Create a comparison</span></p><p>Compare state value as a </div>
+				<div id="radioMapComparisonDIV_0" style="float: left; ">
+					<select name="sel_mapComparison" id="sel_mapComparison" onchange="comparisonChange(this.id);">
+						<option>Rate</option>
+						<option>Total</option>
+						<option>Rate and Total</option>
+					</select>
+					to the national value.</p>
+				</div>
+				</form>	
+				
+				<div id="legend_0" style="clear: both; margin-top: 15px;">
+				<table id="table_legend_0" style="border: 0; border-spacing: 0px; margin-top: 10px">					
+					<tr>
+						<td id="legend_0_tr1" style="text-align: center">1</td>
+						<td id="legend_0_td1" style="opacity: 0.5" onclick="showFeatures(this.id);" class="clickable">Below national</td>
+						<td id="legend_0_td2" style="opacity: 0.5" onclick="showFeatures(this.id);" class="clickable">Below national</td>
+						<td id="legend_0_td3" style="opacity: 0.5" onclick="showFeatures(this.id);" class="clickable">Below national</td>
+					</tr>
+					<tr>
+						<td id="legend_0_tr2" style="text-align: center">2</td>
+						<td id="legend_0_td4" style="opacity: 0.5" onclick="showFeatures(this.id);" class="clickable">Below national</td>
+						<td id="legend_0_td5" style="opacity: 0.5" onclick="showFeatures(this.id);" class="clickable">Equal to national</td>
+						<td id="legend_0_td6" style="opacity: 0.5" onclick="showFeatures(this.id);" class="clickable">Above national</td>
+					</tr>
+					<tr>
+						<td id="legend_0_tr3" style="text-align: center">1</td>
+						<td id="legend_0_td7" style="opacity: 0.5" onclick="showFeatures(this.id);" class="clickable">Equal to national</td>
+						<td id="legend_0_td8" style="opacity: 0.5" onclick="showFeatures(this.id);" class="clickable">Equal to national</td>
+						<td id="legend_0_td9" style="opacity: 0.5" onclick="showFeatures(this.id);" class="clickable">Equal to national</td>
+					</tr>
+					<tr>
+						<td id="legend_0_tr4" style="text-align: center">2</td>
+						<td id="legend_0_td10" style="opacity: 0.5" onclick="showFeatures(this.id);" class="clickable">Below national</td>
+						<td id="legend_0_td11" style="opacity: 0.5" onclick="showFeatures(this.id);" class="clickable">Equal to national</td>
+						<td id="legend_0_td12" style="opacity: 0.5" onclick="showFeatures(this.id);" class="clickable">Above national</td>
+					</tr>
+					<tr>
+						<td id="legend_0_tr5" style="text-align: center">1</td>
+						<td id="legend_0_td13" style="opacity: 0.5" onclick="showFeatures(this.id);" class="clickable">Above national</td>
+						<td id="legend_0_td14" style="opacity: 0.5" onclick="showFeatures(this.id);" class="clickable">Above national</td>
+						<td id="legend_0_td15" style="opacity: 0.5" onclick="showFeatures(this.id);" class="clickable">Above national</td>
+					</tr>
+					<tr>
+						<td id="legend_0_tr6" style="text-align: center">2</td>
+						<td id="legend_0_td16" style="opacity: 0.5" onclick="showFeatures(this.id);" class="clickable">Below national</td>
+						<td id="legend_0_td17" style="opacity: 0.5" onclick="showFeatures(this.id);" class="clickable">Equal to national</td>
+						<td id="legend_0_td18" style="opacity: 0.5" onclick="showFeatures(this.id);" class="clickable">Above national</td>
+					</tr>
+					<tr>
+						<td id="legend_0_var0" colspan="4" style="text-align: center;">Variables</td>
+					</tr>
+				</table>
+				<span style="font-size: 0.87em">Click on a color in the legend to highlight features on map.</span>
+				<div id="div_legend_0" style="clear: both; margin-top: 10px; border: 1px solid black; padding: 2px; background-color: #FFFFFF;"></div>				
+				</div>
+			
+				<div id="legend_2" style="clear: both; margin-top: 15px; ">
+				<table id="table_legend_2" style="border: 0; border-spacing: 0px; margin-top: 10px">	
+					<tr>
+						<td id="legend_2_var0" colspan="3" style="text-align: left;">Variables</td>
+					</tr>				
+					<tr>
+						<td id="legend_2_td1" style="opacity: 0.5; background-color: #98B1C8" onclick="showFeatures(this.id);" class="clickable">Below national</td>
+						<td id="legend_2_td2" style="opacity: 0.5; background-color: #D2ABA4" onclick="showFeatures(this.id);" class="clickable">Equal to national</td>
+						<td id="legend_2_td3" style="opacity: 0.5; background-color: #DE8284" onclick="showFeatures(this.id);" class="clickable">Above national</td>
+					</tr>
+				</table>
+				<span style="font-size: 0.87em">Click on a color in the legend to highlight features on map.</span>
+				<div id="div_legend_2" style="clear: both; margin-top: 10px; border: 1px solid black; padding: 2px; background-color: #FFFFFF;"></div>				
+				</div>
+				
+				<div id="legend_3" style="clear: both; margin-top: 15px; ">
+				<table id="table_legend_3" style="border: 0; border-spacing: 0px; margin-top: 10px">	
+					<tr>
+						<td id="legend_3_var0" colspan="2" style="text-align: left;">Standard deviations from State average</td>
+					</tr>				
+					
+					<tr><td id="legend_3_td1" style=" background-color: #8C510A; width: 15%" onclick="showFeatures(this.id);" class="clickable">&nbsp;</td><td>-2.0 or below</td></tr>
+					<tr><td id="legend_3_td2" style=" background-color: #BF812D; width: 15%" onclick="showFeatures(this.id);" class="clickable">&nbsp;</td><td>-1.0 to -2.0</td></tr>
+					<tr><td id="legend_3_td3" style=" background-color: #DFC27D; width: 15%" onclick="showFeatures(this.id);" class="clickable">&nbsp;</td><td>-0.5 to -1.0</td></tr>
+					<tr><td id="legend_3_td4" style=" background-color: #F6E8C3; width: 15%" onclick="showFeatures(this.id);" class="clickable">&nbsp;</td><td>0 to -0.5</td></tr>
+					<tr><td id="legend_3_td5" style=" background-color: #F5F5F5; width: 15%" onclick="showFeatures(this.id);" class="clickable">&nbsp;</td><td>No drug-related killings</td></tr>
+					<tr><td id="legend_3_td6" style=" background-color: #C7EAE5; width: 15%" onclick="showFeatures(this.id);" class="clickable">&nbsp;</td><td>0 to 0.5</td></tr>
+					<tr><td id="legend_3_td7" style=" background-color: #80CDC1; width: 15%" onclick="showFeatures(this.id);" class="clickable">&nbsp;</td><td>0.5 to 1.0</td></tr>
+					<tr><td id="legend_3_td8" style=" background-color: #35978F; width: 15%" onclick="showFeatures(this.id);" class="clickable">&nbsp;</td><td>1.0 to 2.0</td></tr>
+					<tr><td id="legend_3_td9" style=" background-color: #01665E; width: 15%" onclick="showFeatures(this.id);" class="clickable">&nbsp;</td><td>2.0 or more</td></tr>
+				</table>
+				<span style="font-size: 0.87em">Click on a color in the legend to highlight features on map.</span>
+				<div id="div_legend_3" style="clear: both; margin-top: 10px; border: 1px solid black; padding: 2px; background-color: #FFFFFF;"></div>				
+				</div>
+			</div>		
+        </div>
+			
+			<div id="div_notes" style="float: left; clear: both; margin: 5px">
+			<p style="font-size:0.87em"><span style="font-weight: bold">Notes:</span>  
+				<br/>GOM = Government of Mexico<br/>
+				Reforma = <span style="text-decoration: underline">Reforma</span> newspaper<br/>
+				Municipal data obtained from Government of Mexico (GOM) and shown only as an annual value. The municipal data in 2011 includes only January through September.
+				Data for October through December 2011 were estimated by the Trans-Border Institute and included in the GOM national total.</p>
+			<p style="font-size:0.87em"><span style="font-weight: bold">Source:</span>  
+				<span style="text-decoration: underline">Reforma</span> newspaper (data collected by the University of San Diego Trans-Border Institute on a weekly basis); 
+				Government of Mexico.</p>
+			<p style="font-size:0.87em">For information on and definitions of drug-related killings, see: 
+				<a href="http://justiceinmexico.files.wordpress.com/2010/07/2012-tbi-drugviolence.pdf" style="text-decoration: underline">Drug Violence in Mexico</a></p>
+			</div>	
+		</div>		
+	
+		
+    </body>
+
+```

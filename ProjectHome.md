@@ -1,0 +1,2 @@
+Space Time Visualization for Trans-Border Institute of drug killings in Mexico, using SVG for mapping.
+![http://tbi-viz.googlecode.com/files/tbi-viz_28_6_2012.png](http://tbi-viz.googlecode.com/files/tbi-viz_28_6_2012.png)
